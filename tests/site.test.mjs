@@ -93,7 +93,6 @@ test('7702 and every historical archive have direct sidebar destinations', () =>
     'history-stakeholders', 'history-proposals', 'history-debates',
     'history-matrix', 'history-consensus', 'history-questions',
   ]) assert.ok(sidebar.includes(`href="#/${route}"`), `${route} is directly discoverable`);
-  assert.match(sidebar, /href="\.\/aa_mafia_chronicle\.html"/);
 });
 
 test('dark-mode links use the accessible accent with at least 4.5:1 panel contrast', () => {
@@ -118,13 +117,6 @@ test('publication metadata and a JavaScript-disabled explanation are retained', 
   const config = readFileSync(new URL('../netlify.toml', import.meta.url), 'utf8');
   assert.match(config, /connect-src 'none'/);
   assert.match(config, /publish = "\."/);
-});
-
-test('the original deployed chronicle is preserved without content changes', () => {
-  const archive = readFileSync(new URL('../aa_mafia_chronicle.html', import.meta.url), 'utf8');
-  const hash = createHash('sha256').update(archive.replace(/\r\n/g, '\n')).digest('hex');
-  // index.html from the original main commit, 493e4e1, with normalized line endings.
-  assert.equal(hash, '263f6d9ab55aa485d2b8e847ae0a0e9a1d2eae096b8f10d18ac5d0771275012b');
 });
 
 test('the UI iteration preserves all analytical data and citation metadata', () => {

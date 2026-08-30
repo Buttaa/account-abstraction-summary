@@ -21,7 +21,7 @@ Serve the repository locally and open `index.html`. These browser checks complem
 - All 21 routes rendered at 320px without page-level horizontal overflow after correcting long-label sizing in the stakeholder directory.
 - The key current views, archive and profile layouts were also checked at 768, 1024 and 1440px; desktop and mobile screenshots were inspected.
 - Native disclosures, archive and matrix search, empty states, question filtering, mobile-menu dismissal and route retention were exercised in the local browser.
-- The analytical fingerprint matches content revision `019c270`; the original chronicle checksum is unchanged.
+- The analytical fingerprint matches content revision `019c270`.
 - The rendered current-matrix stance colors measured at least 4.67:1 in light mode and 6.19:1 in dark mode. Link colors remain covered by the regression tests.
 - No application warnings or errors were observed in the browser console.
 - Reduced-motion rules were inspected in source. OS-level motion emulation and a full screen-reader audit were not performed; do not treat this checklist as a WCAG certification.

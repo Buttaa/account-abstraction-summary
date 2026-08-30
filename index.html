@@ -785,7 +785,6 @@ a.claim-card:after{content:"→";position:absolute;top:1rem;right:0;color:var(--
     <symbol id="i-layers" viewBox="0 0 16 16"><path d="M8 2.25L14 5.5 8 8.75 2 5.5z"/><path d="M2 8.75l6 3.25 6-3.25"/></symbol>
     <symbol id="i-timeline" viewBox="0 0 16 16"><path d="M4 2.5v11"/><circle cx="4" cy="5.25" r="1.5"/><circle cx="4" cy="11" r="1.5"/><path d="M7 5.25h6.5M7 11h4.25"/></symbol>
     <symbol id="i-turning" viewBox="0 0 16 16"><path d="M2.5 12.5L6 9l2.5 2.5L13.5 5"/><path d="M10.25 5h3.25v3.25"/></symbol>
-    <symbol id="i-external" viewBox="0 0 16 16"><path d="M12.5 9.25v3.25A1.5 1.5 0 0111 14H3.5A1.5 1.5 0 012 12.5V5a1.5 1.5 0 011.5-1.5h3.25"/><path d="M10 2.5h4v4M13.75 2.75L7.75 8.75"/></symbol>
     <symbol id="i-info" viewBox="0 0 16 16"><circle cx="8" cy="8" r="5.75"/><path d="M8 7.5v3.5"/><circle cx="8" cy="5.15" r=".7" fill="currentColor" stroke="none"/></symbol>
   </defs>
 </svg>
@@ -816,7 +815,6 @@ a.claim-card:after{content:"→";position:absolute;top:1rem;right:0;color:var(--
     <a class="navlink" href="#/history-matrix"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-grid"/></svg>Position matrix archive</a>
     <a class="navlink" href="#/history-consensus"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-venn"/></svg>Consensus archive</a>
     <a class="navlink" href="#/history-questions"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-question"/></svg>Earlier open questions</a>
-    <a class="navlink" href="./aa_mafia_chronicle.html"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-external"/></svg>Original chronicle (unrevised)</a>
     <div class="navsec">Method</div>
     <a class="navlink" href="#/about"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-info"/></svg>Method &amp; caveats</a>
     <div class="sidefoot">Current positions use explicit, dated chat evidence. Official EIP drafts are used for proposal mechanics. Unknown beats guesswork.
@@ -2134,7 +2132,7 @@ function vAboutCurrent(){
     <h4>Known limitations</h4>
     <ul><li>This chat is one coordination venue. ACD calls, GitHub, forums and conferences appear only when reflected in the local export; official EIPs supplement mechanics, not stakeholder intent.</li><li>Draft EIPs can change after ${CURRENT.specChecked}. This standalone file has no live data pipeline.</li><li>Some important authors and implementers were quiet in the latest chat window. Official authorship is visible on the EIP page, but a missing chat stance remains missing in the position matrix.</li><li>Telegram display names and organization labels can be anachronistic. Profiles retain the original caveats.</li><li>Evidence quality is intentionally uneven: a well-supported unknown is preferable to a filled but speculative cell.</li></ul>
     <h4>Reading citations</h4><p>Chips such as ${cite([32351,32544])} show sender and date on hover and open the local source message in Telegram for group members. Official proposal links open the Ethereum EIP pages.</p>
-    <h4>Distribution and original reference</h4><p>This is a standalone report with embedded data and no live synchronization. The <a href="./aa_mafia_chronicle.html">original chronicle</a> remains available as an unrevised historical reference; use this edition for the current EIP-8141 / EIP-8130 analysis. The raw Telegram export and intermediate analysis are not part of the repository.</p>
+    <h4>Distribution</h4><p>This is a standalone report with embedded data and no live synchronization. The raw Telegram export and intermediate analysis are not part of the repository.</p>
     <div class="footer-note">Current analysis is a coordination aid, not a protocol recommendation. It distinguishes shared goals, implementation convergence, proposal-specific motion and unresolved disagreement.</div>
   </div>`;
 }
