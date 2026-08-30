@@ -449,8 +449,10 @@ table.mtx tr:hover td:first-child{background:var(--panel2)}
 .brand h1{font-family:var(--sans);font-size:1.0625rem;line-height:1.3;letter-spacing:-.025em}
 .brand .sub{font-size:.6875rem;line-height:1.6;margin-top:.625rem}
 .navsec{padding:1.125rem .625rem .375rem;font-size:.625rem;letter-spacing:.09em}
-a.navlink{min-height:34px;padding:.375rem .625rem;font-size:.78125rem;border-radius:6px;line-height:1.5;transition:none}
-a.navlink .ic{display:none}
+a.navlink{min-height:34px;gap:.5625rem;padding:.375rem .625rem;font-size:.78125rem;border-radius:6px;line-height:1.5;transition:none}
+/* Icons carry the link color and stay quieter than the label until the row is active. */
+a.navlink .ic{display:block;width:15px;height:15px;flex-shrink:0;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;opacity:.55}
+a.navlink.active .ic{opacity:1}
 a.navlink.active{box-shadow:inset 2px 0 var(--accent)}
 .sidefoot{margin-top:1.5rem;padding:.75rem .625rem 0;font-size:.6875rem;border-top:1px solid var(--line)}
 .theme-control{display:flex;align-items:center;justify-content:space-between;gap:.5rem;margin-top:.875rem}
@@ -639,6 +641,7 @@ h3.sect,.section-intro h3,.consensus-group h3{font-family:var(--sans);font-size:
 .btn,.filter-chip,.navlink,summary{touch-action:manipulation}
 @media(hover:hover) and (pointer:fine){
   .directory-row>summary:hover .directory-title,.reading-section>summary:hover h3,.consensus-item>summary:hover h4{color:var(--accent-ink)}
+  a.navlink:hover .ic{opacity:.85}
   .stakeholder-row:hover .nm{text-decoration:underline;text-underline-offset:3px}
   .btn:not(.primary):hover,.filter-chip:not([aria-pressed="true"]):hover{background:var(--accent-soft)}
 }
@@ -710,6 +713,26 @@ h3.sect,.section-intro h3,.consensus-group h3{font-family:var(--sans);font-size:
   <a class="mobile-brand" href="#/current">AA Coordination Map</a>
   <button class="btn" id="menu-toggle" type="button" aria-expanded="false" aria-controls="sidebar">Menu</button>
 </header>
+<!-- Navigation icon set. One 16px grid, 1.5 stroke, currentColor: the icons inherit
+     link color and theme, and archive rows reuse their current-page counterpart. -->
+<svg aria-hidden="true" focusable="false" style="position:absolute;width:0;height:0;overflow:hidden">
+  <defs>
+    <symbol id="i-now" viewBox="0 0 16 16"><circle cx="8" cy="8" r="5.5"/><circle cx="8" cy="8" r="1.75" fill="currentColor" stroke="none"/></symbol>
+    <symbol id="i-compare" viewBox="0 0 16 16"><path d="M2.5 5.5h11M11 3l2.5 2.5L11 8M13.5 10.5h-11M5 8l-2.5 2.5L5 13"/></symbol>
+    <symbol id="i-book" viewBox="0 0 16 16"><path d="M2.5 3h3.75A1.75 1.75 0 018 4.75v8.5a1.5 1.5 0 00-1.5-1.25H2.5zM13.5 3H9.75A1.75 1.75 0 008 4.75v8.5a1.5 1.5 0 011.5-1.25h4z"/></symbol>
+    <symbol id="i-grid" viewBox="0 0 16 16"><rect x="2.5" y="2.5" width="11" height="11" rx="1.5"/><path d="M2.5 6.25h11M6.5 6.25v7.25"/></symbol>
+    <symbol id="i-venn" viewBox="0 0 16 16"><circle cx="5.9" cy="8" r="3.9"/><circle cx="10.1" cy="8" r="3.9"/></symbol>
+    <symbol id="i-question" viewBox="0 0 16 16"><circle cx="8" cy="8" r="5.75"/><path d="M6.45 6.4A1.6 1.6 0 019.6 6.9c0 1.1-1.6 1.4-1.6 2.4"/><circle cx="8" cy="11.3" r=".65" fill="currentColor" stroke="none"/></symbol>
+    <symbol id="i-people" viewBox="0 0 16 16"><circle cx="6.25" cy="6" r="2.5"/><path d="M2 13.25c0-2.1 1.9-3.5 4.25-3.5s4.25 1.4 4.25 3.5"/><path d="M11.25 4a2.5 2.5 0 010 4.1M12.4 10c1 .45 1.6 1.3 1.6 2.4"/></symbol>
+    <symbol id="i-doc" viewBox="0 0 16 16"><path d="M4 2.5h5L12.5 6v7.5H4z"/><path d="M9 2.5V6h3.5M6 9.25h4M6 11.25h3"/></symbol>
+    <symbol id="i-debate" viewBox="0 0 16 16"><path d="M2 4a1.5 1.5 0 011.5-1.5h9A1.5 1.5 0 0114 4v5.5a1.5 1.5 0 01-1.5 1.5H6.25L3.5 13.5V11A1.5 1.5 0 012 9.5Z"/><path d="M5.25 6.5h5.5"/></symbol>
+    <symbol id="i-layers" viewBox="0 0 16 16"><path d="M8 2.25L14 5.5 8 8.75 2 5.5z"/><path d="M2 8.75l6 3.25 6-3.25"/></symbol>
+    <symbol id="i-timeline" viewBox="0 0 16 16"><path d="M4 2.5v11"/><circle cx="4" cy="5.25" r="1.5"/><circle cx="4" cy="11" r="1.5"/><path d="M7 5.25h6.5M7 11h4.25"/></symbol>
+    <symbol id="i-turning" viewBox="0 0 16 16"><path d="M2.5 12.5L6 9l2.5 2.5L13.5 5"/><path d="M10.25 5h3.25v3.25"/></symbol>
+    <symbol id="i-external" viewBox="0 0 16 16"><path d="M12.5 9.25v3.25A1.5 1.5 0 0111 14H3.5A1.5 1.5 0 012 12.5V5a1.5 1.5 0 011.5-1.5h3.25"/><path d="M10 2.5h4v4M13.75 2.75L7.75 8.75"/></symbol>
+    <symbol id="i-info" viewBox="0 0 16 16"><circle cx="8" cy="8" r="5.75"/><path d="M8 7.5v3.5"/><circle cx="8" cy="5.15" r=".7" fill="currentColor" stroke="none"/></symbol>
+  </defs>
+</svg>
 <div class="app">
   <nav class="sidebar" id="sidebar" aria-label="Primary navigation">
     <div class="brand">
@@ -717,29 +740,29 @@ h3.sect,.section-intro h3,.consensus-group h3{font-family:var(--sans);font-size:
       <div class="sub">The current EIP-8141 / EIP-8130 decision space, grounded in 27,336 Telegram messages</div>
     </div>
     <div class="navsec">Current decision space</div>
-    <a class="navlink" href="#/current"><span class="ic">➤</span>Current state</a>
-    <a class="navlink" href="#/comparison"><span class="ic">⇄</span>8141 vs 8130</a>
-    <a class="navlink" href="#/7702"><span class="ic">↗</span>Why 7702 was not full AA</a>
-    <a class="navlink" href="#/matrix"><span class="ic">▦</span>Position matrix</a>
-    <a class="navlink" href="#/consensus"><span class="ic">◎</span>Consensus</a>
-    <a class="navlink" href="#/questions"><span class="ic">?</span>Open questions</a>
+    <a class="navlink" href="#/current"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-now"/></svg>Current state</a>
+    <a class="navlink" href="#/comparison"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-compare"/></svg>8141 vs 8130</a>
+    <a class="navlink" href="#/7702"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-book"/></svg>Why 7702 was not full AA</a>
+    <a class="navlink" href="#/matrix"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-grid"/></svg>Position matrix</a>
+    <a class="navlink" href="#/consensus"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-venn"/></svg>Consensus</a>
+    <a class="navlink" href="#/questions"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-question"/></svg>Open questions</a>
     <div class="navsec">People &amp; proposals</div>
-    <a class="navlink" href="#/stakeholders"><span class="ic">◉</span>Stakeholders</a>
-    <a class="navlink" href="#/proposals"><span class="ic">⬒</span>Proposals</a>
-    <a class="navlink" href="#/debate-map"><span class="ic">⇋</span>Debate map</a>
+    <a class="navlink" href="#/stakeholders"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-people"/></svg>Stakeholders</a>
+    <a class="navlink" href="#/proposals"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-doc"/></svg>Proposals</a>
+    <a class="navlink" href="#/debate-map"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-debate"/></svg>Debate map</a>
     <div class="navsec">Historical context</div>
-    <a class="navlink" href="#/overview"><span class="ic">◈</span>Historical overview</a>
-    <a class="navlink" href="#/history-timeline"><span class="ic">≡</span>Full timeline</a>
-    <a class="navlink" href="#/history-turning-points"><span class="ic">⚡</span>All turning points</a>
-    <a class="navlink" href="#/history-stakeholders"><span class="ic">◌</span>Stakeholder archive</a>
-    <a class="navlink" href="#/history-proposals"><span class="ic">◇</span>Proposal archive</a>
-    <a class="navlink" href="#/history-debates"><span class="ic">↔</span>Debate archive</a>
-    <a class="navlink" href="#/history-matrix"><span class="ic">▤</span>Position matrix archive</a>
-    <a class="navlink" href="#/history-consensus"><span class="ic">○</span>Consensus archive</a>
-    <a class="navlink" href="#/history-questions"><span class="ic">¿</span>Earlier open questions</a>
-    <a class="navlink" href="./aa_mafia_chronicle.html"><span class="ic">↗</span>Original chronicle (unrevised)</a>
+    <a class="navlink" href="#/overview"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-layers"/></svg>Historical overview</a>
+    <a class="navlink" href="#/history-timeline"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-timeline"/></svg>Full timeline</a>
+    <a class="navlink" href="#/history-turning-points"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-turning"/></svg>All turning points</a>
+    <a class="navlink" href="#/history-stakeholders"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-people"/></svg>Stakeholder archive</a>
+    <a class="navlink" href="#/history-proposals"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-doc"/></svg>Proposal archive</a>
+    <a class="navlink" href="#/history-debates"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-debate"/></svg>Debate archive</a>
+    <a class="navlink" href="#/history-matrix"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-grid"/></svg>Position matrix archive</a>
+    <a class="navlink" href="#/history-consensus"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-venn"/></svg>Consensus archive</a>
+    <a class="navlink" href="#/history-questions"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-question"/></svg>Earlier open questions</a>
+    <a class="navlink" href="./aa_mafia_chronicle.html"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-external"/></svg>Original chronicle (unrevised)</a>
     <div class="navsec">Method</div>
-    <a class="navlink" href="#/about"><span class="ic">ℹ</span>Method &amp; caveats</a>
+    <a class="navlink" href="#/about"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-info"/></svg>Method &amp; caveats</a>
     <div class="sidefoot">Current positions use explicit, dated chat evidence. Official EIP drafts are used for proposal mechanics. Unknown beats guesswork.
       <label class="theme-control" for="theme-select">Appearance <select id="theme-select"><option value="">System</option><option value="light">Light</option><option value="dark">Dark</option></select></label>
     </div>
