@@ -3,34 +3,25 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>AA Mafia Chronicle</title>
-<meta name="description" content="How Ethereum argued its way from ERC-4337 to native account abstraction — a longitudinal research report reconstructed from 27,336 messages of the AA Mafia Telegram group, December 2022 to August 2026.">
+<meta name="description" content="An evidence-linked map of Ethereum's current account abstraction decision space, centered on EIP-8141 and EIP-8130.">
+<title>AA Coordination Map — EIP-8141 &amp; EIP-8130</title>
 <meta name="color-scheme" content="light dark">
 <meta name="theme-color" content="#f7f6f3" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#131318" media="(prefers-color-scheme: dark)">
 <meta name="robots" content="index, follow">
 <meta property="og:type" content="website">
-<meta property="og:title" content="AA Mafia Chronicle">
-<meta property="og:description" content="How Ethereum argued its way from ERC-4337 to native account abstraction — a longitudinal research report reconstructed from 27,336 messages of the AA Mafia Telegram group, December 2022 to August 2026.">
+<meta property="og:title" content="AA Coordination Map — EIP-8141 &amp; EIP-8130">
+<meta property="og:description" content="Current proposals, evidence-linked stakeholder positions, shared goals and unresolved questions, with an EIP-7702 explainer and historical context.">
+<meta property="og:url" content="https://aabstraction.netlify.app/">
 <meta property="og:locale" content="en">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="AA Mafia Chronicle">
-<meta name="twitter:description" content="How Ethereum argued its way from ERC-4337 to native account abstraction — a longitudinal research report reconstructed from 27,336 messages of the AA Mafia Telegram group, December 2022 to August 2026.">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="AA Coordination Map — EIP-8141 &amp; EIP-8130">
+<meta name="twitter:description" content="An evidence-linked map of Ethereum's current account abstraction decision space.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%234f46b8'/%3E%3Cg fill='none' stroke='%23fff' stroke-width='8' stroke-linecap='round'%3E%3Cpath d='M26 72 L50 28 L74 72'/%3E%3Cpath d='M36 56 H64'/%3E%3C/g%3E%3C/svg%3E">
 <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%234f46b8'/%3E%3Cg fill='none' stroke='%23fff' stroke-width='8' stroke-linecap='round'%3E%3Cpath d='M26 72 L50 28 L74 72'/%3E%3Cpath d='M36 56 H64'/%3E%3C/g%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600;8..60,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-</head>
-<body>
-<noscript>
-  <div style="max-width:640px;margin:14vh auto;padding:0 24px;font:16px/1.6 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#191a21">
-    <h1 style="font:700 26px/1.2 Georgia,serif;margin-bottom:12px">AA Mafia Chronicle</h1>
-    <p>This report renders its timeline, stakeholder and proposal directories from embedded data, so it
-    needs JavaScript enabled. No network requests are made for the content itself — everything is inside
-    this single file.</p>
-  </div>
-</noscript>
 <style>
 :root{
   --bg:#f7f6f3; --bg2:#efede8; --panel:#ffffff; --panel2:#fbfaf8;
@@ -70,7 +61,11 @@
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased}
+a,a:visited{color:var(--accent-ink)}
 ::selection{background:var(--accent);color:#fff}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible,[tabindex]:focus-visible{outline:3px solid color-mix(in srgb,var(--accent) 70%,white);outline-offset:3px}
+.skiplink{position:fixed;left:12px;top:8px;z-index:1000;padding:9px 13px;border-radius:8px;background:var(--ink);color:var(--panel);font-weight:700;transform:translateY(-160%);transition:transform .15s;text-decoration:none}
+.skiplink:focus{transform:translateY(0)}
 
 /* ---------- layout ---------- */
 .app{display:flex;min-height:100vh}
@@ -81,7 +76,7 @@ body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:15p
   .sidebar{position:relative;width:100%;height:auto;flex-direction:row;flex-wrap:wrap;gap:4px;padding:10px 12px;border-right:none;border-bottom:1px solid var(--line)}
   .main{padding:22px 16px 70px}
   .brand{width:100%;margin-bottom:6px}
-  .navsec{display:none}
+  .navsec{display:block;width:100%;padding:10px 8px 3px}
 }
 .brand{padding:2px 10px 14px}
 .brand h1{font-family:var(--serif);font-size:21px;font-weight:700;letter-spacing:-.01em;line-height:1.15}
@@ -151,6 +146,7 @@ h3.sect:first-of-type{margin-top:24px}
 .erahead .n{font-family:var(--mono);font-size:11px;color:var(--accent-ink);font-weight:600;letter-spacing:.08em}
 .erahead h3{font-family:var(--serif);font-size:23px;font-weight:700;letter-spacing:-.01em}
 .erahead .dates{font-size:12px;color:var(--ink3);font-family:var(--mono)}
+.erahead .badge{white-space:normal;max-width:100%;line-height:1.4}
 .eraq{font-size:14px;color:var(--ink2);font-style:italic;max-width:780px;margin-bottom:6px}
 .eranarr{max-width:800px;color:var(--ink2);font-size:14px;margin:8px 0 18px}
 .mcard{border-left:3px solid var(--line2);padding:2px 0 6px 20px;margin:0 0 22px 6px;position:relative}
@@ -301,31 +297,188 @@ table.mtx tr:hover td:first-child{background:var(--panel2)}
 .about h4{font-family:var(--serif);font-size:17px;font-weight:700;margin:20px 0 8px}
 .about ul{margin:0 0 12px 20px;color:var(--ink2);font-size:14px;display:grid;gap:5px}
 .footer-note{margin-top:50px;padding-top:18px;border-top:1px solid var(--line);font-size:12px;color:var(--ink3);max-width:800px}
-</style>
 
+/* ---------- current coordination layer ---------- */
+.current-hero{position:relative;overflow:hidden;border:1px solid var(--line);background:var(--panel);border-radius:18px;padding:clamp(24px,5vw,54px);box-shadow:var(--shadow);margin-bottom:24px}
+.current-hero:before{content:"";position:absolute;inset:0 auto 0 0;width:5px;background:var(--accent)}
+.current-hero h2{font-family:var(--serif);font-size:clamp(34px,5.4vw,65px);line-height:1.02;letter-spacing:-.035em;max-width:880px;margin:7px 0 18px}
+.current-hero .dek{font-size:clamp(16px,2vw,20px);line-height:1.55;color:var(--ink2);max-width:860px}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent-ink);font-weight:700}
+.statusline{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+.decision-strip{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--panel);margin:22px 0 30px}
+.decision-strip>div{padding:16px 18px;border-right:1px solid var(--line)}
+.decision-strip>div:last-child{border-right:0}
+.decision-strip .n{font:700 11px/1.4 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ink3)}
+.decision-strip .v{font-family:var(--serif);font-weight:700;font-size:18px;line-height:1.25;margin-top:4px}
+.proposal-duo{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:14px 0 28px}
+.proposal-now{border:1px solid var(--line);border-top:4px solid var(--accent);border-radius:14px;background:var(--panel);padding:22px;box-shadow:var(--shadow)}
+.proposal-now.p8130{border-top-color:var(--gold)}
+.proposal-now h3{font-family:var(--serif);font-size:25px;line-height:1.2;margin:4px 0 8px}
+.proposal-now .thesis{font-size:15px;color:var(--ink2);margin-bottom:14px}
+.proposal-now ul{display:grid;gap:7px;margin:10px 0 0 18px;color:var(--ink2);font-size:13.5px}
+.proposal-now .actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:38px;padding:7px 12px;border:1px solid var(--line2);border-radius:9px;background:var(--panel2);color:var(--ink);font-weight:650;font-size:12.5px;text-decoration:none;cursor:pointer}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+.btn:hover{border-color:var(--accent);color:var(--accent-ink)}
+.btn.primary:hover{color:#fff;filter:brightness(1.06)}
+.section-intro{display:flex;align-items:end;justify-content:space-between;gap:16px;margin:34px 0 12px}
+.section-intro h3{font-family:var(--serif);font-size:25px;line-height:1.2}
+.section-intro p{max-width:560px;color:var(--ink2);font-size:13px}
+.claim-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.claim-card{border:1px solid var(--line);border-radius:12px;padding:16px;background:var(--panel)}
+.claim-card h4{font-family:var(--serif);font-size:16px;line-height:1.3;margin-bottom:6px}
+.claim-card p{font-size:13px;color:var(--ink2)}
+.evidence-line{margin-top:9px;font-size:11.5px;color:var(--ink3)}
+.freshness{display:flex;align-items:flex-start;gap:10px;padding:13px 15px;border-radius:10px;background:var(--accent-soft);color:var(--ink2);font-size:12.5px;margin:16px 0}
+.freshness b{color:var(--ink)}
+.now-list{display:grid;gap:1px;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--line)}
+.now-row{display:grid;grid-template-columns:120px 1fr auto;gap:14px;align-items:start;background:var(--panel);padding:13px 15px}
+.now-row .when{font:600 11px/1.5 var(--mono);color:var(--ink3)}
+.now-row .signal{font-size:13.5px;color:var(--ink2)}
+.source-kind{display:inline-flex;align-items:center;min-height:23px;padding:2px 7px;border-radius:5px;font:700 9.5px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;background:var(--bg2);color:var(--ink3)}
+.source-kind.explicit{background:var(--pos1-bg);color:var(--pos2)}
+.source-kind.unknown{background:var(--neu-bg);color:var(--ink3)}
+.source-kind.inference{background:var(--accent-soft);color:var(--accent-ink)}
+.source-kind.interpretation{background:var(--gold-soft);color:var(--gold)}
+.compare-wrap{overflow:auto;border:1px solid var(--line);border-radius:12px;background:var(--panel)}
+.compare{width:100%;min-width:780px;border-collapse:collapse;font-size:13.5px}
+.compare th,.compare td{padding:14px 16px;border-bottom:1px solid var(--line);vertical-align:top;text-align:left}
+.compare th{position:sticky;top:0;background:var(--panel2);font:700 11px/1.4 var(--mono);letter-spacing:.05em;text-transform:uppercase;color:var(--ink3)}
+.compare th:first-child,.compare td:first-child{width:175px;color:var(--ink);font-weight:650}
+.compare tr:last-child td{border-bottom:0}
+.compare td:not(:first-child){color:var(--ink2)}
+.deep-section{border:1px solid var(--line);border-radius:14px;background:var(--panel);padding:22px;margin:16px 0}
+.deep-section h3{font-family:var(--serif);font-size:25px;margin-bottom:6px}
+.deep-section h4{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink3);margin:18px 0 6px}
+.deep-section p,.deep-section li{font-size:13.5px;color:var(--ink2)}
+.deep-section ul{margin-left:18px;display:grid;gap:6px}
+.matrix-current{width:100%;min-width:900px;border-collapse:collapse;font-size:12.5px}
+.matrix-current th,.matrix-current td{padding:12px 13px;border-bottom:1px solid var(--line);vertical-align:top;text-align:left}
+.matrix-current th{background:var(--panel2);font:700 10.5px/1.35 var(--mono);letter-spacing:.05em;text-transform:uppercase;color:var(--ink3)}
+.matrix-current td:first-child{font-weight:700;min-width:160px}
+.position-cell{display:grid;gap:5px;min-width:250px}
+.position-cell .note{color:var(--ink2);font-size:12px;line-height:1.45}
+.stance-now{display:inline-flex;width:max-content;max-width:100%;padding:3px 8px;border-radius:6px;font-size:10px;font-weight:750;letter-spacing:.03em;background:var(--neu-bg);color:var(--ink2)}
+.stance-now.support{background:var(--pos1-bg);color:var(--pos2)}
+.stance-now.lean{background:var(--pos0-bg);color:var(--pos1)}
+.stance-now.component{background:var(--accent-soft);color:var(--accent-ink)}
+.stance-now.concern{background:var(--gold-soft);color:var(--gold)}
+.stance-now.oppose{background:var(--neg1-bg);color:var(--neg1)}
+.stance-now.unknown{background:var(--neu-bg);color:var(--ink3)}
+.historical-box{margin-top:28px;border:1px solid var(--line);border-radius:12px;background:var(--panel2)}
+.historical-box>summary{padding:14px 17px;cursor:pointer;font-weight:700;color:var(--ink2)}
+.historical-box>.archive-inner{padding:0 17px 18px}
+.consensus-group{margin:22px 0}
+.consensus-group>.group-head{display:flex;gap:9px;align-items:baseline;margin-bottom:10px}
+.consensus-group h3{font-family:var(--serif);font-size:22px}
+.consensus-group .definition{font-size:12px;color:var(--ink3)}
+.consensus-now{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.consensus-item{border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:0 10px 10px 0;background:var(--panel);padding:14px 16px}
+.consensus-item.goal{border-left-color:var(--pos1)}
+.consensus-item.constraint{border-left-color:var(--gold)}
+.consensus-item.emerging{border-left-color:var(--accent)}
+.consensus-item.specific{border-left-color:var(--ink3)}
+.consensus-item h4{font-family:var(--serif);font-size:16px;line-height:1.35;margin-bottom:5px}
+.consensus-item p{font-size:12.5px;color:var(--ink2)}
+.question-toolbar{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0}
+.filter-chip{min-height:36px;padding:7px 11px;border:1px solid var(--line2);border-radius:999px;background:var(--panel);color:var(--ink2);font-weight:650;font-size:12px;cursor:pointer}
+.filter-chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
+.question-list{display:grid;gap:10px}
+.question-now{border:1px solid var(--line);border-radius:12px;background:var(--panel);overflow:hidden}
+.question-now>summary{list-style:none;display:grid;grid-template-columns:1fr auto;gap:14px;align-items:start;padding:16px 18px;cursor:pointer}
+.question-now>summary::-webkit-details-marker{display:none}
+.question-now>summary:after{content:"+";font:500 22px/1 var(--mono);color:var(--ink3)}
+.question-now[open]>summary:after{content:"−"}
+.question-now .qtitle{font-family:var(--serif);font-size:18px;line-height:1.35}
+.question-now .qmeta{display:flex;flex-wrap:wrap;gap:5px;margin-top:6px}
+.question-now .qbody{padding:0 18px 18px;border-top:1px solid var(--line)}
+.question-now .qcols{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0}
+.question-now .qside{background:var(--panel2);border:1px solid var(--line);border-radius:9px;padding:12px;font-size:12.5px;color:var(--ink2)}
+.question-now .qside b{display:block;color:var(--ink);margin-bottom:4px}
+.question-now dl{display:grid;grid-template-columns:150px 1fr;gap:8px 14px;font-size:12.5px}
+.question-now dt{font-weight:700;color:var(--ink)}
+.question-now dd{color:var(--ink2)}
+.proposal-stack{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.proposal-stack .card{min-height:100%}
+.current-profile{border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:0 12px 12px 0;background:var(--panel);padding:16px 18px;margin:14px 0 24px}
+.current-profile h3{font-family:var(--serif);font-size:19px;margin-bottom:9px}
+.current-profile .pgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.archive-banner{border:1px solid var(--line);border-radius:12px;background:var(--panel2);padding:14px 16px;margin-bottom:20px;color:var(--ink2);font-size:13px}
+.archive-banner strong{color:var(--ink)}
+.bridge-callout{display:flex;align-items:center;justify-content:space-between;gap:18px;border:1px solid var(--line);border-left:4px solid var(--gold);border-radius:0 12px 12px 0;background:var(--panel);padding:15px 17px;margin:18px 0}
+.bridge-callout h3{font-family:var(--serif);font-size:18px;line-height:1.3;margin-bottom:3px}
+.bridge-callout p{max-width:700px;color:var(--ink2);font-size:12.5px}
+.bridge-verdict{border:1px solid var(--line);border-left:5px solid var(--accent);border-radius:0 16px 16px 0;background:var(--panel);padding:22px 24px;margin:20px 0 30px}
+.bridge-verdict .answer{font-family:var(--serif);font-size:25px;font-weight:700;line-height:1.32;letter-spacing:-.01em;max-width:850px}
+.bridge-verdict p{color:var(--ink2);margin-top:9px;max-width:820px}
+.bridge-path{list-style:none;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;counter-reset:bridge;margin:14px 0 24px}
+.bridge-step{counter-increment:bridge;position:relative;border:1px solid var(--line);border-radius:13px;background:var(--panel);padding:18px;min-height:190px}
+.bridge-step:before{content:counter(bridge);display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--accent-soft);color:var(--accent-ink);font:700 12px/1 var(--mono);margin-bottom:13px}
+.bridge-step h4{font-family:var(--serif);font-size:18px;line-height:1.25;margin-bottom:7px}
+.bridge-step p{font-size:13px;color:var(--ink2)}
+.bridge-step .anchor{display:block;margin-top:11px;font:700 10px/1.4 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--accent-ink)}
+.scope-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0 26px}
+.scope-card{border:1px solid var(--line);border-radius:13px;background:var(--panel);padding:18px 20px}
+.scope-card.solved{border-top:4px solid var(--pos1)}
+.scope-card.limit{border-top:4px solid var(--gold)}
+.scope-card h3{font-family:var(--serif);font-size:20px;margin-bottom:9px}
+.plain-list{list-style:none;display:grid;gap:9px}
+.plain-list li{position:relative;padding-left:25px;color:var(--ink2);font-size:13.5px}
+.plain-list li:before{position:absolute;left:0;top:0;font-weight:800;color:var(--pos2)}
+.solved .plain-list li:before{content:"\2713"}
+.limit .plain-list li:before{content:"\2014";color:var(--gold)}
+.bridge-table{min-width:940px}
+.bridge-table th:first-child,.bridge-table td:first-child{width:160px}
+.status-note{font-size:12.5px;color:var(--ink3);margin-top:10px}
+@media(max-width:980px){.decision-strip{grid-template-columns:1fr 1fr}.decision-strip>div:nth-child(2){border-right:0}.decision-strip>div:nth-child(-n+2){border-bottom:1px solid var(--line)}.claim-grid,.proposal-stack{grid-template-columns:1fr 1fr}}
+@media(max-width:700px){.proposal-duo,.claim-grid,.consensus-now,.question-now .qcols,.current-profile .pgrid,.proposal-stack,.bridge-path,.scope-grid{grid-template-columns:1fr}.decision-strip{grid-template-columns:1fr}.decision-strip>div{border-right:0;border-bottom:1px solid var(--line)}.decision-strip>div:last-child{border-bottom:0}.section-intro{align-items:start;flex-direction:column}.now-row{grid-template-columns:1fr}.question-now dl{grid-template-columns:1fr;gap:2px}.current-hero{border-radius:12px}.current-hero h2{font-size:36px}.proposal-now{padding:18px}.bridge-callout{align-items:flex-start;flex-direction:column}.bridge-step{min-height:0}}
+@media(max-width:390px){body{font-size:14px}.current-hero{padding:22px 17px}.current-hero h2{font-size:31px}.proposal-now,.deep-section{padding:16px}.statusline{gap:5px}.question-now>summary{padding:14px}.main{padding-left:14px;padding-right:14px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{transition-duration:.001ms!important;animation-duration:.001ms!important}}
+</style>
+</head>
+<body>
+<noscript>
+  <div style="max-width:640px;margin:14vh auto;padding:0 24px;font:16px/1.6 var(--sans);color:var(--ink)">
+    <h1 style="font:700 26px/1.2 var(--serif);margin-bottom:12px">AA Coordination Map</h1>
+    <p>This report needs JavaScript to render its proposals, stakeholder positions and historical views.
+    All report data is embedded in this file; no sign-in or content download is required.</p>
+  </div>
+</noscript>
+
+<a class="skiplink" href="#main">Skip to current analysis</a>
 <div class="app">
-  <nav class="sidebar" id="sidebar">
+  <nav class="sidebar" id="sidebar" aria-label="Primary navigation">
     <div class="brand">
-      <h1>AA Mafia Chronicle</h1>
-      <div class="sub">The Account Abstraction debate, reconstructed from 27,336 Telegram messages · Dec 2022 – Aug 2026</div>
+      <h1>AA Coordination Map</h1>
+      <div class="sub">The current EIP-8141 / EIP-8130 decision space, grounded in 27,336 Telegram messages</div>
     </div>
-    <div class="navsec">Report</div>
-    <a class="navlink" href="#/overview"><span class="ic">◈</span>Overview</a>
-    <a class="navlink" href="#/timeline"><span class="ic">≡</span>Timeline</a>
-    <a class="navlink" href="#/turning-points"><span class="ic">⚡</span>Turning points</a>
-    <div class="navsec">Directories</div>
+    <div class="navsec">Current decision space</div>
+    <a class="navlink" href="#/current"><span class="ic">➤</span>Current state</a>
+    <a class="navlink" href="#/comparison"><span class="ic">⇄</span>8141 vs 8130</a>
+    <a class="navlink" href="#/7702"><span class="ic">↗</span>Why 7702 was not full AA</a>
+    <a class="navlink" href="#/matrix"><span class="ic">▦</span>Position matrix</a>
+    <a class="navlink" href="#/consensus"><span class="ic">◎</span>Consensus</a>
+    <a class="navlink" href="#/questions"><span class="ic">?</span>Open questions</a>
+    <div class="navsec">People &amp; proposals</div>
     <a class="navlink" href="#/stakeholders"><span class="ic">◉</span>Stakeholders</a>
     <a class="navlink" href="#/proposals"><span class="ic">⬒</span>Proposals</a>
-    <div class="navsec">Analysis</div>
     <a class="navlink" href="#/debate-map"><span class="ic">⇋</span>Debate map</a>
-    <a class="navlink" href="#/matrix"><span class="ic">▦</span>Position matrix</a>
-    <a class="navlink" href="#/consensus"><span class="ic">◎</span>Consensus &amp; open questions</a>
-    <a class="navlink" href="#/current"><span class="ic">➤</span>Where things stand</a>
-    <div class="navsec">Reference</div>
+    <div class="navsec">Historical context</div>
+    <a class="navlink" href="#/overview"><span class="ic">◈</span>Historical overview</a>
+    <a class="navlink" href="#/history-timeline"><span class="ic">≡</span>Full timeline</a>
+    <a class="navlink" href="#/history-turning-points"><span class="ic">⚡</span>All turning points</a>
+    <a class="navlink" href="#/history-stakeholders"><span class="ic">◌</span>Stakeholder archive</a>
+    <a class="navlink" href="#/history-proposals"><span class="ic">◇</span>Proposal archive</a>
+    <a class="navlink" href="#/history-debates"><span class="ic">↔</span>Debate archive</a>
+    <a class="navlink" href="#/history-matrix"><span class="ic">▤</span>Position matrix archive</a>
+    <a class="navlink" href="#/history-consensus"><span class="ic">○</span>Consensus archive</a>
+    <a class="navlink" href="#/history-questions"><span class="ic">¿</span>Earlier open questions</a>
+    <a class="navlink" href="./aa_mafia_chronicle.html"><span class="ic">↗</span>Original chronicle (unrevised)</a>
+    <div class="navsec">Method</div>
     <a class="navlink" href="#/about"><span class="ic">ℹ</span>Method &amp; caveats</a>
-    <div class="sidefoot">Every claim traces to Telegram message IDs — hover any <span class="chip">#id</span> chip for sender &amp; date; click to open in Telegram (members only).</div>
+    <div class="sidefoot">Current positions use explicit, dated chat evidence. Official EIP drafts are used for proposal mechanics. Unknown beats guesswork.</div>
   </nav>
-  <main class="main" id="main"></main>
+  <main class="main" id="main" tabindex="-1" aria-live="polite"></main>
 </div>
 <div id="tip"></div>
 <div id="cellpop"></div>
@@ -370,6 +523,152 @@ const EVO = {unchanged:"dim",softened:"warn",strengthened:"ok",["partially chang
 const ERA_COLORS = ["#7c6ff0","#4f9ed9","#3aa981","#c9a227","#d97757","#b05d8e","#6f7fd9","#5aa0a8"];
 const TIER = {1:"Core voice",2:"Regular voice",3:"Notable voice"};
 
+/* Current-state layer. Proposal mechanics come from the official draft EIPs;
+   stakeholder positions below come only from the local Telegram dataset. */
+const CURRENT = {
+  evidenceCutoff:"2026-08-27",
+  specChecked:"2026-08-28",
+  headline:"Ethereum has broad momentum toward native account abstraction, but no shared implementation path. EIP-8141 and EIP-8130 put the coordination boundary in different places.",
+  proposals:{
+    "eip-8141":{
+      short:"EIP-8141",title:"Frame Transaction",status:"Draft · Core",created:"2026-01-29",url:"https://eips.ethereum.org/EIPS/eip-8141",
+      thesis:"Make a transaction an ordered program of protocol-recognized frames while leaving authentication and account policy in account code.",
+      problem:"Give ordinary Ethereum transactions custom authentication, batching and third-party fee payment without requiring applications to understand ERC-4337 bundlers, EntryPoint routing or private relay conventions.",
+      philosophy:"Enshrine a general transaction primitive and a bounded public-mempool validation model; keep wallet-specific policy programmable rather than standardizing a rich account system in consensus.",
+      mechanism:[
+        "Adds transaction type 0x06 with sender, ordered frames, a signature list and fee fields.",
+        "Uses DEFAULT, VERIFY and SENDER frame modes. VERIFY frames form the validation path; APPROVE authorizes the transaction from account code.",
+        "Supports a protocol default account behavior for codeless EOAs, while coded accounts can define their own verification logic.",
+        "Defines restrictive validation prefixes for the public mempool, a 100,000-gas verification ceiling and a payer/post-op path for sponsorship.",
+        "Current draft does not include an unskippable final assertion in the core transaction. That idea is tracked separately by companion EIP-7906."
+      ],
+      benefits:["Maximum authentication and policy flexibility in account code.","Native batching and sponsorship with a conventional transaction submission path.","A restrictive starter mempool can support common schemes first and expand later.","Signature agility can support passkeys and post-quantum schemes without a new hard fork for each scheme."],
+      tradeoffs:["Builders must reason about bounded EVM execution during validation rather than only a declared authenticator.","Validation rules, state-access constraints and alternate mempool policy remain a large engineering surface.","Common session semantics and consent rendering still need wallet/app conventions above the protocol.","Interactions with statelessness, FOCIL and privacy depend on the eventual mempool policy."],
+      unresolved:["Which public-mempool policy is safe and useful enough for launch?","How much account code or verifier canonicalization is needed in practice?","Can client teams benchmark and implement the design within fork scope?","Which shared wallet interfaces are needed so flexibility does not become fragmentation?"],
+      previous:"Builds on the goals of ERC-4337 / RIP-7560 and the EOA-transition work around EIP-7702, but moves framing, signature hashing and fee semantics into the transaction protocol.",
+      relation4337:"Aims to make the native transaction path cover much of ERC-4337's user-facing job. ERC-4337 remains a coexistence and migration route, especially before L1 adoption and on chains that do not activate 8141.",
+      latest:"Multi-client prototyping and wallet tooling were visible by the cutoff, including Nethermind work and public frame-transaction demos. Inclusion in a fork was still a decision, not an observed outcome.",
+      latestIds:[32050,32175,32565]
+    },
+    "eip-8130":{
+      short:"EIP-8130",title:"Account Abstraction by Account Configuration",status:"Draft · Core",created:"2025-10-14",url:"https://eips.ethereum.org/EIPS/eip-8130",
+      thesis:"Standardize account authority through an onchain configuration/keystore, declared authenticators and scoped actors so the network and applications share one authorization model.",
+      problem:"Make session permissions, key rotation, account recovery and cross-application authority portable instead of asking every account implementation and wallet interface to recreate them independently.",
+      philosophy:"Enshrine a more opinionated authority seam. Nodes can cheaply identify the authenticator before arbitrary account execution; accounts retain application logic, while authorization vocabulary becomes common infrastructure.",
+      mechanism:[
+        "Introduces a transaction type whose validation names an authenticator and resolves authority through an onchain Account Configuration/Keystore.",
+        "Accounts authorize actors; an authenticator recovers the actor identity and its scope determines what that actor may do.",
+        "Canonical authenticators can be recognized at fixed cost, while the design can add other schemes through contracts.",
+        "Defines scoped policy commitments, actor authorization/revocation, account changes, phased calls and two-dimensional nonce handling.",
+        "Provides paths for codeless EOAs through default delegation, existing smart contracts through import, and new CREATE2 accounts."
+      ],
+      benefits:["A shared authority model can make portable sessions and key rotation substantially more likely across wallets.","Declared authenticators let nodes filter many transactions without first running arbitrary wallet validation code.","Standard scopes can align wallet consent UI with onchain enforcement.","The proposal explicitly accommodates EOAs, existing smart accounts and new accounts."],
+      tradeoffs:["A richer protocol-owned account surface carries long-term specification, audit and maintenance cost.","Canonical authenticators and policy semantics create an enshrinement boundary that some core developers reject.","A common keystore only produces interoperability if wallets, apps and chains implement the same policies and rendering.","The design still requires consensus/client changes and supporting contracts/precompiles even though it adds no new EVM opcode."],
+      unresolved:["How small can the L1 authority layer be while preserving the coordination benefit?","Which authenticators and scope language should be canonical?","How are policy commitments rendered safely across browser and wallet boundaries?","Can adoption evidence from Base translate into an Ethereum L1 decision?"],
+      previous:"Draws on keystore/account-configuration work, session-key systems and the convention-first transaction designs explored by Tempo. It is distinct from EIPs 8202/8221/8223/8224 and should not be treated as one proposal bundle.",
+      relation4337:"Explicitly allows ERC-4337 and standard transactions to continue. It offers another native validation path rather than requiring existing smart accounts to migrate immediately.",
+      latest:"Base reported a live vibenet and planned Sepolia/mainnet rollout after the dataset cutoff, with OP Stack support expected later. These were announced targets, not deployments observed by the cutoff.",
+      latestIds:[32186,32410,32557]
+    }
+  },
+  comparison:[
+    ["Protocol boundary","A general frame/transaction grammar; account code owns authentication policy.","A shared account-configuration and keystore authority model; actors, authenticators and scopes are standardized."],
+    ["Validation question","Can bounded account code approve this frame transaction under public-mempool rules?","Does the declared authenticator recover an authorized actor whose configured scope permits the transaction?"],
+    ["Where complexity moves","Into frame semantics, validation prefixes, account code and mempool policy.","Into the keystore/configuration lifecycle, canonical authenticators, scopes and policy commitments."],
+    ["Flexibility vs convention","More flexible by default; interoperability requires conventions above the primitive.","More opinionated by default; flexibility is shaped by the shared authority vocabulary."],
+    ["Public mempool posture","Supports restrictive and potentially expansive policies; safe unpaid EVM work is the central debate.","Declared/canonical authenticators aim to make initial filtering predictable and fixed-cost."],
+    ["Sessions and permissions","Possible in VERIFY/account logic, but scope formats and UI remain app/wallet-layer coordination.","Actors and scopes make interoperable sessions a direct design objective, subject to common implementation."],
+    ["EOAs and smart accounts","Default code covers codeless EOAs; coded accounts customize verification.","Default delegation covers codeless EOAs; existing contracts can import configuration; new accounts can use CREATE2."],
+    ["ERC-4337 relationship","Native alternative for many 4337 flows; 4337 remains usable during coexistence/migration.","Explicit coexistence; 4337 transactions and existing smart accounts can continue."],
+    ["Main risk named in debate","DoS/mempool complexity, implementation breadth, statelessness/FOCIL tension and convention fragmentation.","Over-enshrinement, permanent maintenance, canonical-policy risk and insufficient wallet adoption."],
+    ["Current evidence of motion","Client prototypes, account demos and development tooling; L1 fork selection unresolved.","Base vibenet live; Base testnet/mainnet and OP Stack rollout announced, not yet observed in the dataset."]
+  ],
+  positions:[
+    {id:"vitalik-buterin",name:"Vitalik Buterin",p8141:{tone:"support",label:"Strongly supports",date:"2026-04-11",basis:"explicit",note:"Explains the design, mempool strategy and goal of hiding bundler/paymaster machinery from developers.",ids:[30694,30862,31598,31621]},p8130:{tone:"unknown",label:"Insufficient evidence",date:"—",basis:"unknown",note:"No explicit EIP-8130 preference was found in the dataset.",ids:[]}},
+    {id:"matt",name:"matt / lightclient",p8141:{tone:"support",label:"Supports (strong inference)",date:"2026-03-10",basis:"inference",note:"Official co-author who organized the breakout and solicited wallet support ahead of the fork decision; no standalone endorsement sentence was found in chat.",ids:[30847,30907]},p8130:{tone:"concern",label:"Concerns; open to a smaller layer",date:"2026-08-25",basis:"explicit",note:"Rejects a rich enshrined account system as complex and permanent, while allowing discussion of a barebones keystore.",ids:[32544,32550,32551]}},
+    {id:"chris-base",name:"Chris | Base",p8141:{tone:"concern",label:"Concerns / prefers 8130",date:"2026-02-26",basis:"explicit",note:"Argues arbitrary validation makes unpaid computation and DoS filtering harder.",ids:[30739,30787]},p8130:{tone:"support",label:"Strongly supports",date:"2026-08-26",basis:"explicit",note:"Champions the proposal and calls a shared keystore foundational; Base announced an implementation path.",ids:[32186,32400,32410,32557]}},
+    {id:"pedro",name:"Pedro | WalletConnect",p8141:{tone:"component",label:"Supports key components",date:"2026-04-13",basis:"explicit",note:"Backs canonical sponsorship, native batching/gas primitives and helped consolidate mempool strategy.",ids:[31254,31524,31824]},p8130:{tone:"support",label:"Explicitly prefers",date:"2026-08-20",basis:"explicit",note:"Calls EIP-8130 the most mature and reasonable native-AA option. No later explicit reversal was found.",ids:[32351]}},
+    {id:"derek-chiang",name:"Derek Chiang",p8141:{tone:"support",label:"Supports (strong inference)",date:"2026-03-11",basis:"inference",note:"Official co-author who worked on EOA and mempool changes and repeatedly defended the verifier model; the classification rests on that sustained authorship activity.",ids:[30880,30887,31000]},p8130:{tone:"unknown",label:"Evaluating",date:"2026-08-25",basis:"explicit",note:"Published a comparison he described as impartial; that alone is not a preference.",ids:[32523]}},
+    {id:"mislav",name:"Mislav",p8141:{tone:"support",label:"Supports",date:"2026-04-10",basis:"explicit",note:"Describes frames plus a starter mempool as the most ambitious native step and a strong product primitive.",ids:[31528,31533,31552,31554]},p8130:{tone:"lean",label:"Open to layered convergence",date:"2026-08-25",basis:"explicit",note:"Says the perspectives can align around a default experience on whichever EIP the protocol embraces.",ids:[32556]}},
+    {id:"ivo",name:"Ivo | Ambire",p8141:{tone:"component",label:"Supports primitive; flags limits",date:"2026-03-25",basis:"explicit",note:"Calls frame transactions a native-AA successor while warning they do not create default smart accounts by themselves.",ids:[31096,31109,31150]},p8130:{tone:"lean",label:"Conditionally supports",date:"2026-08-25",basis:"explicit",note:"Would use a built-in 8130 implementation if it matches Ambire's capabilities and improves UX.",ids:[32468,32492]}},
+    {id:"accountless",name:"accountless",p8141:{tone:"support",label:"Supports (strong implementation inference)",date:"2026-05-03",basis:"inference",note:"Built and demonstrated a frame-transaction reference wallet and shared compiler tooling; implementation is strong evidence but is labeled as inference rather than a quoted whole-proposal endorsement.",ids:[31928,32050,32066]},p8130:{tone:"unknown",label:"Evaluating / insufficient",date:"2026-08-26",basis:"explicit",note:"Shared keystore-layer ideas and 8130 mechanics, but did not state a clear proposal preference.",ids:[32300,32563]}},
+    {id:"joe-pegler",name:"Joe Pegler",p8141:{tone:"component",label:"Supports enabling primitive",date:"2026-08-25",basis:"explicit",note:"Says 8141 makes interoperable sessions possible.",ids:[32501]},p8130:{tone:"lean",label:"Leans toward for coordination",date:"2026-08-25",basis:"explicit",note:"Says 8130 makes interoperable sessions probable and presses the case for a shared authority layer.",ids:[32501,32537,32549]}},
+    {id:"partha",name:"Partha",p8141:{tone:"component",label:"Leaning support; adoption concerns",date:"2026-08-15",basis:"interpretation",note:"Seeks common ground and says frames complement other AA paths, but warns that wallet migration may repeat EIP-7702's adoption gap. This is a cautious interpretation, not a direct endorsement.",ids:[31523,31556,31865,32241]},p8130:{tone:"unknown",label:"Insufficient evidence",date:"—",basis:"unknown",note:"No explicit EIP-8130 position was found.",ids:[]}},
+    {id:"lukasz-rozmej",name:"Łukasz Rozmej",p8141:{tone:"component",label:"Prototyping; material concerns",date:"2026-07-13",basis:"explicit",note:"Moved from exploratory concern about complexity/statelessness/FOCIL to Nethermind prototyping; this is implementation support, not unconditional endorsement.",ids:[31473,31567,32175]},p8130:{tone:"unknown",label:"Insufficient evidence",date:"—",basis:"unknown",note:"No explicit EIP-8130 position was found.",ids:[]}},
+    {id:"taek",name:"taek | ZeroDev",p8141:{tone:"component",label:"Supports implementation tooling",date:"2026-08-27",basis:"explicit",note:"Published a Solidity/Foundry frame-transaction toolkit while noting it may differ from the final spec.",ids:[32565]},p8130:{tone:"unknown",label:"Insufficient evidence",date:"—",basis:"unknown",note:"No explicit EIP-8130 position was found.",ids:[]}},
+    {id:"frangio",name:"frangio",p8141:{tone:"unknown",label:"Neutral / evaluating",date:"2026-03-25",basis:"explicit",note:"Asked about static validation and design constraints, then framed the dispute as two definitions of AA.",ids:[30567,30918,31065]},p8130:{tone:"unknown",label:"Neutral / evaluating",date:"2026-03-11",basis:"explicit",note:"Questioned whether 8130 also needs a whitelist. Discussion is not support.",ids:[30953]}},
+    {id:"jxom",name:"jxom",p8141:{tone:"concern",label:"Concerns about defaults",date:"2026-04-13",basis:"explicit",note:"Says frame flexibility will not solve interface and wallet-standard fragmentation without stronger conventions.",ids:[31791,31806,31813]},p8130:{tone:"unknown",label:"Evaluating components",date:"2026-04-13",basis:"explicit",note:"Identifies common permission and fee-payer properties, but does not endorse the full proposal.",ids:[31812,31813]}},
+    {id:"tim-daubenschutz-tdubb",name:"tdubb",p8141:{tone:"concern",label:"Prefers opinionated authority primitives",date:"2026-08-21",basis:"explicit",note:"Rejects arbitrary smart-contract wrappers as the key-management seam; this expresses a design concern more than blanket opposition.",ids:[32401,32407]},p8130:{tone:"support",label:"Strongly supports",date:"2026-08-22",basis:"explicit",note:"Calls the approach unusually compelling and favors native, portable key-management primitives.",ids:[32394,32401,32460]}},
+    {id:"0xfirekeeper",name:"0xFirekeeper",p8141:{tone:"support",label:"Supports",date:"2026-08-25",basis:"explicit",note:"Argues frames separate application, account verification and wallet key-provisioning roles.",ids:[32532]},p8130:{tone:"unknown",label:"Insufficient evidence",date:"—",basis:"unknown",note:"No explicit EIP-8130 preference was found.",ids:[]}},
+    {id:"toni-wahrstatter",name:"Toni Wahrstätter",p8141:{tone:"component",label:"Supports potential; flags tradeoffs",date:"2026-04-16",basis:"explicit",note:"Highlights flexibility and privacy/PQ benefits alongside public-mempool, complexity, statelessness and FOCIL costs.",ids:[31842]},p8130:{tone:"unknown",label:"Insufficient evidence",date:"—",basis:"unknown",note:"No explicit EIP-8130 position was found.",ids:[]}},
+    {id:"nicolas-consigny",name:"Nicolas Consigny",p8141:{tone:"support",label:"Strongly supports for PQ agility",date:"2026-06-13",basis:"explicit",note:"Presents frames as the best route to signature agility for smart accounts, while separating the EOA migration problem.",ids:[31973,32134]},p8130:{tone:"unknown",label:"Insufficient evidence",date:"—",basis:"unknown",note:"No explicit EIP-8130 position was found.",ids:[]}},
+    {id:"georgios-konstantopoulos",name:"Georgios Konstantopoulos",p8141:{tone:"concern",label:"Leans to a simpler transaction model",date:"2026-04-10",basis:"interpretation",note:"Points to Tempo's simpler fee-payer signature and user-batching model. The frame concern is context-supported inference, and it is not evidence about EIP-8130.",ids:[31582,31584]},p8130:{tone:"unknown",label:"Insufficient evidence",date:"—",basis:"unknown",note:"Tempo discussion is not treated as endorsement of EIP-8130.",ids:[]}},
+    {id:"kyle-den-hartog",name:"Kyle Den Hartog",p8141:{tone:"concern",label:"Security-boundary concerns",date:"2026-08-25",basis:"explicit",note:"Questions how consent UI and VERIFY-frame enforcement remain coupled across browser and contract boundaries.",ids:[32488,32533]},p8130:{tone:"concern",label:"Security model still evaluating",date:"2026-08-25",basis:"explicit",note:"Raises requirements for origin and authority boundaries that apply to any portable session model; no preference stated.",ids:[32488,32533]}},
+    {id:"dror-tirosh",name:"Dror Tirosh",p8141:{tone:"unknown",label:"No recent in-dataset statement",date:"—",basis:"unknown",note:"The official draft lists Dror as a co-author, but the local chat export contains no recent explicit stance suitable for this evidence matrix.",ids:[]},p8130:{tone:"unknown",label:"Insufficient evidence",date:"—",basis:"unknown",note:"No explicit EIP-8130 position was found.",ids:[]}},
+    {id:"yoav-weiss",name:"Yoav Weiss",p8141:{tone:"unknown",label:"No recent in-dataset statement",date:"—",basis:"unknown",note:"The official draft lists Yoav as a co-author, but the local chat export contains no recent explicit stance suitable for this evidence matrix.",ids:[]},p8130:{tone:"unknown",label:"Insufficient evidence",date:"—",basis:"unknown",note:"No explicit EIP-8130 position was found.",ids:[]}}
+  ],
+  consensus:{
+    goals:[
+      {title:"Accounts need signature agility and recoverable authority",text:"The shared goal is to move beyond one permanent ECDSA root: rotation, recovery, passkeys and post-quantum paths matter regardless of which transaction design wins.",ids:[21814,26178,27073,29613,30334,31973]},
+      {title:"Batching and sponsorship should feel native",text:"Participants repeatedly want wallets and applications to use batching and sponsored fees without exposing users or application developers to relay plumbing.",ids:[31254,31524,31554,31621]},
+      {title:"Authority should work across wallets and applications",text:"Portable sessions and permissions are a coordination target. The disagreement is whether the protocol should standardize that authority model or merely enable it.",ids:[32350,32443,32460,32549]}
+    ],
+    constraints:[
+      {title:"The public mempool cannot accept unbounded unpaid work",text:"Both approaches need predictable anti-DoS behavior. The dispute is whether restricted frame execution is sufficient or declared authenticators are the safer boundary.",ids:[30787,30939,31567,31598]},
+      {title:"Migration and coexistence must be credible",text:"Codeless EOAs, EIP-7702 delegates, existing smart accounts and ERC-4337 infrastructure cannot be wished away; adoption must be incremental.",ids:[31150,31865,32241,32436,32468]},
+      {title:"Consent UI must match onchain authority",text:"A permission displayed by a wallet or browser cannot diverge from what account or policy code actually enforces.",ids:[32488,32533]}
+    ],
+    emerging:[
+      {title:"Some native protocol support is increasingly favored",text:"The center of gravity moved beyond treating ERC-4337 alone as the final roadmap. This is convergence on direction, not on EIP-8141 or EIP-8130.",ids:[31243,31526,32186,32228]},
+      {title:"A restrictive launch profile may precede richer validation",text:"For 8141, a narrow starter mempool covering high-value schemes has support as a deployment strategy while broader policies mature.",ids:[30887,31528,31598]},
+      {title:"A default experience will still be needed above the protocol",text:"Even supporters of flexible primitives expect shared wallet/app conventions. Layering a keystore-like experience over a selected primitive is a live convergence path, not a settled architecture.",ids:[31813,32300,32501,32556]}
+    ],
+    specific:[
+      {title:"EIP-8141 has real implementation momentum",text:"Client prototyping, account demos and developer tooling are observed. Momentum does not equal fork inclusion or consensus on its mempool policy.",ids:[32050,32175,32565]},
+      {title:"EIP-8130 has an opinionated deployment champion",text:"Base publicly committed to an implementation path and reported a live vibenet. Planned September deployments were not yet observed at the dataset cutoff.",ids:[32186,32410]}
+    ]
+  },
+  questions:[
+    {id:"boundary",category:"Protocol boundary",proposals:["8141","8130"],title:"What belongs in consensus: a general transaction primitive or a shared authority system?",status:"Core disagreement",a:"Enshrine frames and keep account policy programmable; common wallet behavior can be built above it.",b:"Enshrine actors, authenticators and scopes so the ecosystem does not reproduce incompatible authority systems.",raised:"matt, Chris | Base, tdubb, Joe Pegler, frangio",ids:[31065,32407,32537,32544,32549,32550],state:"No convergence on the boundary. A barebones keystore or layered default is the main compromise being explored.",settle:"Specify the smallest authority layer each side could accept, then compare security surface, client cost and interoperability outcomes."},
+    {id:"validation",category:"Validation & DoS",proposals:["8141","8130"],title:"Which validation model safely serves a permissionless public mempool?",status:"Blocking technical question",a:"Bound VERIFY execution with validation prefixes, gas limits and restrictive/expansive mempool policies.",b:"Require a declared authenticator so initial worth-processing checks are predictable and can be fixed-cost.",raised:"Chris | Base, Vitalik Buterin, Derek Chiang, Łukasz Rozmej, frangio",ids:[30567,30787,30887,30953,31000,31567,31598],state:"Both sides acknowledge filtering is necessary; they disagree over whether EVM validation flexibility is essential or accidental complexity.",settle:"Publish comparable adversarial benchmarks: invalid-transaction cost, state-access bounds, builder behavior and censorship properties."},
+    {id:"layering",category:"Convergence",proposals:["8141","8130"],title:"Are the proposals competing end states, or can an 8130-like authority layer sit above 8141?",status:"Promising but unspecified",a:"Choose one protocol path to avoid duplicate transaction and client surfaces.",b:"Use frames as the execution primitive and a shared keystore/default experience as a higher layer.",raised:"accountless, Joe Pegler, Mislav",ids:[32300,32501,32537,32556],state:"Several participants see complementarity, but there is no concrete shared specification or agreed layer boundary.",settle:"Draft a minimal layered architecture and test whether it preserves 8141 flexibility while delivering 8130 portability without duplicating consensus machinery."},
+    {id:"sessions",category:"Wallets & sessions",proposals:["8141","8130"],title:"How do sessions become interoperable rather than merely possible?",status:"Coordination blocker",a:"Let account code define sessions; standardize only app/wallet interfaces as needs become clear.",b:"Standardize actor scopes and policy commitments so wallets can safely render and reuse permissions.",raised:"Pedro, jxom, Ivo, Joe Pegler, Chris | Base",ids:[31812,31813,32350,32400,32443,32468,32501],state:"There is goal-level agreement on portable sessions, but no proven common scope language or wallet rollout.",settle:"Demonstrate the same session request, consent display, revocation and execution across multiple independent wallets and applications."},
+    {id:"migration",category:"Migration",proposals:["8141","8130"],title:"What is the migration path for EOAs, 7702 delegates, smart accounts and ERC-4337?",status:"Shared constraint",a:"Keep existing account code and use frame default behavior; migrate voluntarily as wallet support grows.",b:"Use default delegation/import into account configuration while allowing standard and ERC-4337 transactions to coexist.",raised:"Ivo, Partha, Joe Pegler",ids:[31150,31865,32241,32436,32468],state:"Both drafts describe compatibility mechanisms. The unresolved problem is adoption incentives and operational sequencing, not just transaction validity.",settle:"Publish wallet-by-wallet migration tests, address/authority invariants and a staged coexistence plan with rollback assumptions."},
+    {id:"sponsorship",category:"Fees & sponsorship",proposals:["8141","8130"],title:"Can sponsorship and ERC-20 fees be safe, general and usable in the public mempool?",status:"Design still moving",a:"Use payer frames, validation prefixes and post-op handling, potentially with canonical paymaster behavior.",b:"Use configured authority and declared transaction roles to make payer validation predictable.",raised:"Pedro, Vitalik Buterin, Derek Chiang",ids:[31254,31524,31598,32022,32023],state:"Sponsorship is a shared goal; edge cases around payer guarantees, token payment and mempool eligibility remain.",settle:"Specify and test failure semantics, payer griefing, post-op accounting and ERC-20 conversion under adversarial conditions."},
+    {id:"consent",category:"Security & consent",proposals:["8141","8130"],title:"How can displayed consent and enforced authority remain the same object?",status:"Under-specified",a:"Wallet interfaces render a request while account verification enforces it; flexibility stays in code.",b:"A canonical scope/policy model gives the UI and onchain checks shared semantics.",raised:"Kyle Den Hartog, tdubb, Chris | Base",ids:[32400,32460,32488,32533],state:"8130 targets this gap more directly, but neither discussion has demonstrated a complete multi-origin consent and revocation model.",settle:"Threat-model origin binding, phishing, scope downgrade and UI/backend mismatch with browser and wallet implementers."},
+    {id:"client",category:"Client engineering",proposals:["8141"],title:"Can 8141 fit client, statelessness and FOCIL constraints without closing future doors?",status:"Active implementation question",a:"A restrictive mempool and bounded VERIFY frames make the design implementable now; richer ingress can evolve.",b:"The combined frame, public-mempool and partial-statelessness surface is too broad or creates incompatible constraints.",raised:"Łukasz Rozmej, Toni Wahrstätter, Vitalik Buterin",ids:[31567,31598,31842,32175],state:"Nethermind prototyping supplies useful evidence, but multi-client cost and fork-readiness were unresolved at cutoff.",settle:"Complete multi-client prototypes and publish performance, state-access, block-building and FOCIL interaction results."},
+    {id:"adoption",category:"Deployment & adoption",proposals:["8141","8130"],title:"Which path has enough wallet, client and chain commitment to coordinate the ecosystem?",status:"Evidence accumulating",a:"8141's multi-client and tooling work can become an L1 coordination point if the fork decision lands and wallets adopt it.",b:"8130 can prove its model through Base/OP deployment and then use measured adoption to argue for wider standardization.",raised:"matt, Chris | Base, Partha, Joe Pegler",ids:[30907,32175,32186,32241,32410,32431],state:"8141 has L1/client momentum; 8130 has a chain champion. Neither had completed the claimed adoption path by 2026-08-27.",settle:"Track deployed chain state, independent wallet integrations, application usage and operational incidents rather than announcements alone."},
+    {id:"draft-drift",category:"Specification scope",proposals:["8141","8130"],title:"Which companion features belong to each proposal, and which claims have become draft-stale?",status:"Traceability risk",a:"Evaluate the current EIP-8141 core: frame modes, approval, validation prefixes and payer path; treat post-assertions as companion EIP-7906.",b:"Evaluate EIP-8130 independently from Tempo and EIPs 8202/8221/8223/8224, even when discussion compares or combines them.",raised:"Report verification pass",ids:[32205,32523,32563],state:"The historical dataset bundled adjacent ideas and repeated an older 8141 post-assertion description. The current layer now separates them.",settle:"Version proposal summaries against official draft revisions and date every external-spec check."}
+  ],
+  signals:[
+    {date:"2026-08-27",text:"taek published a frame-transaction Solidity/Foundry toolkit, explicitly warning it may drift from the final spec.",ids:[32565]},
+    {date:"2026-08-26",text:"Chris argued that a keystore should be foundational for the EVM; accountless shared the cross-chain authority mechanism without stating a preference.",ids:[32557,32563]},
+    {date:"2026-08-25",text:"The debate sharpened around enshrinement: matt rejected a rich L1 account system, while Mislav proposed aligning around a default layer over whichever EIP is selected.",ids:[32544,32550,32551,32556]},
+    {date:"2026-08-25",text:"Joe Pegler framed the difference as 8141 making interoperable sessions possible and 8130 making them probable.",ids:[32501]},
+    {date:"2026-08-21",text:"Base reported its EIP-8130 vibenet live and announced September testnet/mainnet targets; the latter were not yet observed outcomes.",ids:[32410]},
+    {date:"2026-08-20",text:"Pedro's latest explicit preference was strongly for EIP-8130. Later link sharing was not treated as a reversal.",ids:[32351]}
+  ]
+};
+
+/* Additional source metadata verified against the local Telegram export. */
+Object.assign(D.citations,{
+  22001:['2024-05-07','Dror Tirosh'],
+  30694:['2026-02-03','Vitalik Buterin'],30787:['2026-02-26','Chris | Base'],
+  30880:['2026-03-09','Derek Chiang | Ethlabs'],30887:['2026-03-09','Derek Chiang | Ethlabs'],
+  30907:['2026-03-10','matt'],30918:['2026-03-10','frangio'],30953:['2026-03-11','frangio'],
+  31096:['2026-03-25','Ivo'],31109:['2026-03-25','Ivo'],
+  31528:['2026-04-10','Mislav | Ethlabs'],31533:['2026-04-10','Mislav | Ethlabs'],
+  31552:['2026-04-10','Mislav | Ethlabs'],31554:['2026-04-10','Mislav | Ethlabs'],31556:['2026-04-10','Partha 🐞'],
+  31806:['2026-04-13','jxom'],31812:['2026-04-13','jxom'],31813:['2026-04-13','jxom'],
+  31928:['2026-04-20','accountless'],32300:['2026-08-18','accountless'],
+  32401:['2026-08-21','tdubb'],32407:['2026-08-21','tdubb'],32460:['2026-08-22','tdubb'],
+  32532:['2026-08-25','0xFirekeeper'],32557:['2026-08-26','Chris | Base'],
+  25265:['2024-11-08','Rahul | EF'],25269:['2024-11-08','Rahul | EF'],25270:['2024-11-08','matt'],
+  25704:['2024-12-06','Konrad | rhinestone'],25705:['2024-12-06','Konrad | rhinestone'],25715:['2024-12-06','Ivo'],
+  25790:['2024-12-12','Filip'],26292:['2025-01-15','Filip'],31150:['2026-03-25','Ivo'],
+  31865:['2026-04-20','Partha 🐞'],32256:['2026-08-15','Ivo'],32258:['2026-08-15','Ivo']
+});
+
 /* ---------- citation chips ---------- */
 function cite(ids){
   if(!ids || !ids.length) return "";
@@ -406,13 +705,16 @@ document.addEventListener("mousemove",e=>{
 
 /* ---------- routing ---------- */
 const main = document.getElementById("main");
-const routes = {overview:vOverview,timeline:vTimeline,"turning-points":vTurning,stakeholders:vStakeholders,proposals:vProposals,"debate-map":vDebate,matrix:vMatrix,consensus:vConsensus,current:vCurrent,about:vAbout};
+const routes = {overview:vHistoricalOverview,timeline:vTimelineCurrent,"turning-points":vTurningCurrent,"history-timeline":vHistoricalTimeline,"history-turning-points":vHistoricalTurningPoints,"history-stakeholders":vHistoricalStakeholders,"history-proposals":vHistoricalProposals,"history-debates":vHistoricalDebates,"history-matrix":vHistoricalMatrix,"history-consensus":vHistoricalConsensus,"history-questions":vHistoricalQuestions,stakeholders:vStakeholdersCurrent,proposals:vProposalsCurrent,"debate-map":vDebateCurrent,matrix:vMatrixCurrent,consensus:vConsensusCurrent,questions:vQuestions,comparison:vComparison,7702:v7702Explainer,current:vCurrentNow,about:vAboutCurrent};
+let firstRoute=true;
 function router(){
-  const h = (location.hash||"#/overview").replace(/^#\//,"");
+  const h = (location.hash||"#/current").replace(/^#\//,"");
   const [page,id] = h.split("/");
   document.querySelectorAll(".navlink").forEach(a=>a.classList.toggle("active", a.getAttribute("href")==="#/"+page));
-  (routes[page]||vOverview)(id?decodeURIComponent(id):null);
+  (routes[page]||vCurrentNow)(id?decodeURIComponent(id):null);
   window.scrollTo(0,0);
+  if(!firstRoute)main.focus({preventScroll:true});
+  firstRoute=false;
   const pop=document.getElementById("cellpop"); if(pop) pop.style.display="none";
 }
 addEventListener("hashchange",router);
@@ -653,7 +955,7 @@ const DEBATE_AXES = [
   {name:"Protocol minimalism ↔ enshrined keystore & account features",
    a:{lbl:"Keystore as public infrastructure",txt:"“Keystore needs to be foundational for EVM” — one shared authority primitive ends wallet fragmentation for dapps.",who:"Chris (Base), tdubb, Pedro (WalletConnect), Joe Pegler (exploratory)"},
    b:{lbl:"Ethereum doesn’t enshrine use cases",txt:"A rich enshrined account system is complex and bug-prone; account-owned auth can be functionally equivalent without L1 burden.",who:"matt; historical echoes of the same instinct from Yoav (limits of 7560 scope)"},
-   note:"The sharpest live fight of Aug 2026 (matt ↔ Joe Pegler/Chris). Unresolved; Base ships regardless in Sept 2026.",
+    note:"The sharpest live fight of Aug 2026 (matt ↔ Joe Pegler/Chris). Unresolved; Base reported a live vibenet and announced a Sept 2026 rollout that was not yet observed at the dataset cutoff.",
    evolved:"Successor to every earlier ‘how much protocol?’ fight — 3074, 7702 scope, 7560 mempool rules."},
   {name:"Minimal modular standard (ERC-7579) ↔ feature-rich standard (ERC-6900)",
    a:{lbl:"Minimalism wins adoption",txt:"Standardize the least surface needed for module interop; let accounts differentiate.",who:"Konrad & Kurt (Rhinestone), ZeroDev (Derek, taek), Biconomy, OKX"},
@@ -813,10 +1115,566 @@ function vAbout(){
   </div>`;
 }
 
+// ================= CURRENT COORDINATION VIEWS =================
+let qNowFilter="all";
+let sNowScope="current";
+let sNowQuery="";
+
+function positionPill(p){
+  return `<span class="stance-now ${esc(p.tone)}">${esc(p.label)}</span>`;
+}
+function sourceKind(p){
+  const cls=["explicit","unknown","inference","interpretation"].includes(p.basis)?p.basis:"interpretation";
+  const label=p.basis==="explicit"?"explicit statement":p.basis==="unknown"?"insufficient evidence":p.basis==="inference"?"strong inference":"tentative interpretation";
+  return `<span class="source-kind ${cls}">${label}</span>`;
+}
+function currentPositionCell(p){
+  return `<div class="position-cell">${positionPill(p)}<div class="note">${esc(p.note)}</div><div class="evidence-line">${sourceKind(p)} ${p.date&&p.date!=="—"?`<span class="badge dim">latest ${esc(p.date)}</span>`:""} ${cite(p.ids)}</div></div>`;
+}
+function officialBadge(p){
+  return `<a class="badge acc" href="${p.url}" target="_blank" rel="noopener">Official draft ↗</a>`;
+}
+function proposalCard(p,key){
+  return `<article class="proposal-now ${key==="eip-8130"?"p8130":""}">
+    <div class="eyebrow">${esc(p.status)} · created ${esc(p.created)}</div>
+    <h3>${esc(p.short)} · ${esc(p.title)}</h3>
+    <p class="thesis">${esc(p.thesis)}</p>
+    <ul>${p.mechanism.slice(0,3).map(x=>`<li>${esc(x)}</li>`).join("")}</ul>
+    <div class="actions"><a class="btn primary" href="#/proposals/${key}">Deep analysis</a><a class="btn" href="${p.url}" target="_blank" rel="noopener">Read official EIP ↗</a></div>
+  </article>`;
+}
+function currentClaim(c,cls){
+  return `<article class="consensus-item ${cls}"><h4>${esc(c.title)}</h4><p>${esc(c.text)}</p><div class="evidence-line">${cite(c.ids)}</div></article>`;
+}
+
+function vCurrentNow(){
+  const p8141=CURRENT.proposals["eip-8141"],p8130=CURRENT.proposals["eip-8130"];
+  const known=CURRENT.positions.reduce((n,p)=>n+(p.p8141.basis!=="unknown"?1:0)+(p.p8130.basis!=="unknown"?1:0),0);
+  main.innerHTML=`
+    <section class="current-hero" aria-labelledby="current-title">
+      <div class="eyebrow">Current coordination map · evidence through ${CURRENT.evidenceCutoff}</div>
+      <h2 id="current-title">The decision is no longer whether to pursue native AA. It is where to put the boundary.</h2>
+      <p class="dek">${esc(CURRENT.headline)}</p>
+      <div class="statusline">
+        <span class="badge acc">EIP-8141 · Draft</span>
+        <span class="badge gold">EIP-8130 · Draft</span>
+        <span class="badge">${known} evidence-backed non-unknown cells</span>
+        <span class="badge">No winner declared</span>
+      </div>
+    </section>
+
+    <div class="freshness"><span class="source-kind explicit">current means</span><span><b>Stakeholder evidence:</b> local AA Mafia export through ${CURRENT.evidenceCutoff}. <b>Proposal mechanics:</b> official EIP drafts checked ${CURRENT.specChecked}. Planned rollouts are labeled as plans, not completed deployments.</span></div>
+
+    <aside class="bridge-callout" aria-label="EIP-7702 context">
+      <div><div class="eyebrow">The bridge into today's debate</div><h3>7702 gave EOAs smart-account abilities—but left the original master key in charge.</h3><p>That is why batching and sponsorship arrived without completing native account abstraction. The two current drafts move the protocol boundary further.</p></div>
+      <a class="btn" href="#/7702">Understand the difference</a>
+    </aside>
+
+    <section aria-labelledby="decision-title">
+      <div class="section-intro"><h3 id="decision-title">What is actually being decided?</h3><p>The proposals overlap on outcomes. They diverge on which coordination work the protocol should do.</p></div>
+      <div class="decision-strip">
+        <div><div class="n">Shared direction</div><div class="v">Native transaction-level AA</div></div>
+        <div><div class="n">Main fault line</div><div class="v">Primitive vs authority system</div></div>
+        <div><div class="n">Technical blocker</div><div class="v">Safe public validation</div></div>
+        <div><div class="n">Ecosystem blocker</div><div class="v">Portable wallet adoption</div></div>
+      </div>
+    </section>
+
+    <section aria-labelledby="proposals-now">
+      <div class="section-intro"><h3 id="proposals-now">Two active proposals</h3><p>Both are draft Core EIPs. Neither had been selected as Ethereum's shared path by the evidence cutoff.</p></div>
+      <div class="proposal-duo">${proposalCard(p8141,"eip-8141")}${proposalCard(p8130,"eip-8130")}</div>
+      <div class="claim-grid">
+        <article class="claim-card"><h4>Where they overlap</h4><p>Custom authentication, batching, sponsorship, EOA compatibility and coexistence with existing accounts.</p></article>
+        <article class="claim-card"><h4>Where they differ</h4><p>8141 standardizes frame execution and bounded validation; 8130 standardizes account authority, authenticators and scopes.</p></article>
+        <article class="claim-card"><h4>Why that matters</h4><p>8141 leaves more policy in code; 8130 spends more protocol complexity to make permissions and sessions easier to coordinate.</p></article>
+      </div>
+      <div class="actions" style="margin-top:14px"><a class="btn primary" href="#/comparison">Compare meaningful design choices</a><a class="btn" href="#/matrix">See who thinks what</a></div>
+    </section>
+
+    <section aria-labelledby="agreement-now">
+      <div class="section-intro"><h3 id="agreement-now">Agreement is strongest on goals</h3><p>It weakens as the question moves from outcomes to implementation boundary.</p></div>
+      <div class="consensus-now">${CURRENT.consensus.goals.map(c=>currentClaim(c,"goal")).join("")}</div>
+      <div class="actions" style="margin-top:12px"><a class="btn" href="#/consensus">Review consensus by confidence and scope</a></div>
+    </section>
+
+    <section aria-labelledby="blockers-now">
+      <div class="section-intro"><h3 id="blockers-now">Questions blocking convergence</h3><p>The highest-leverage work is comparative evidence, not another generic AA explainer.</p></div>
+      <div class="claim-grid">${CURRENT.questions.slice(0,6).map(q=>`<a class="claim-card" href="#/questions" style="text-decoration:none;color:inherit"><h4>${esc(q.title)}</h4><p>${esc(q.status)} · ${esc(q.category)}</p></a>`).join("")}</div>
+      <div class="actions" style="margin-top:12px"><a class="btn primary" href="#/questions">Explore all current open questions</a></div>
+    </section>
+
+    <section aria-labelledby="next-now">
+      <div class="section-intro"><h3 id="next-now">What appears most likely next</h3><p>Near-term trajectory inferred from implementation commitments—not a forecast of final protocol selection.</p></div>
+      <div class="now-list">
+        <div class="now-row"><div class="when">NEXT PHASE</div><div class="signal"><b>Parallel evidence generation:</b> 8141 client/tooling prototypes and 8130 chain-led deployment work are likely to continue before one shared EVM path is chosen. ${cite([32175,32186,32410,32565])}</div><span class="source-kind interpretation">inference</span></div>
+        <div class="now-row"><div class="when">DECISION INPUT</div><div class="signal"><b>Fork scope, measured DoS cost and wallet commitments</b> are more likely to decide the boundary than abstract feature agreement alone. ${cite([30907,31567,32241,32431])}</div><span class="source-kind interpretation">inference</span></div>
+        <div class="now-row"><div class="when">CONVERGENCE TEST</div><div class="signal"><b>A default authority/session layer over the selected primitive</b> is the clearest compromise direction, but no shared specification exists yet. ${cite([32300,32501,32556])}</div><span class="source-kind interpretation">inference</span></div>
+      </div>
+    </section>
+
+    <section aria-labelledby="signals-now">
+      <div class="section-intro"><h3 id="signals-now">What changed most recently</h3><p>Latest explicit evidence receives priority; link sharing and participation alone are not treated as endorsement.</p></div>
+      <div class="now-list">${CURRENT.signals.map(s=>`<div class="now-row"><div class="when">${esc(s.date)}</div><div class="signal">${esc(s.text)} ${cite(s.ids)}</div><span class="source-kind explicit">observed</span></div>`).join("")}</div>
+    </section>
+
+    <section aria-labelledby="path-now">
+      <div class="section-intro"><h3 id="path-now">What could unlock a shared path</h3><p>A coordination sequence, not a prediction.</p></div>
+      <div class="claim-grid">
+        <article class="claim-card"><h4>1 · Bound the protocol surface</h4><p>Write the smallest acceptable 8141 launch profile and the smallest acceptable 8130 authority layer.</p></article>
+        <article class="claim-card"><h4>2 · Compare adversarially</h4><p>Benchmark invalid-transaction cost, client complexity, state access, censorship and policy downgrade risks.</p></article>
+        <article class="claim-card"><h4>3 · Prove interoperability</h4><p>Run the same session, recovery and sponsorship flows across multiple wallets, applications and chains.</p></article>
+        <article class="claim-card"><h4>4 · Decide layering</h4><p>Test whether a shared keystore/default can sit above frames without duplicating consensus machinery.</p></article>
+        <article class="claim-card"><h4>5 · Measure adoption</h4><p>Separate live deployments and integrations from announced targets; publish incidents as well as successes.</p></article>
+        <article class="claim-card"><h4>6 · Revisit with evidence</h4><p>Use prototypes and wallet commitments to decide whether the paths compete, converge or remain chain-specific.</p></article>
+      </div>
+    </section>
+    <div class="footer-note">This current-state layer is deliberately conservative: explicit position, dated evolution, tentative interpretation and unknown are kept distinct. Historical context remains available in the navigation.</div>`;
+}
+
+function v7702Explainer(){
+  main.innerHTML=`
+    <section class='current-hero' aria-labelledby='bridge-title'>
+      <div class='eyebrow'>Plain-language explainer · bridge, not finish line</div>
+      <h2 id='bridge-title'>Why EIP-7702 was not full Account Abstraction</h2>
+      <p class='dek'>EIP-7702 made an existing key-controlled account behave much more like a smart account. It did not replace the original key-controlled transaction model itself.</p>
+      <div class='statusline'><span class='badge gold'>EIP-7702 · Final</span><span class='badge acc'>EIP-8141 · Draft</span><span class='badge acc'>EIP-8130 · Draft</span><span class='badge'>No proposal winner implied</span></div>
+    </section>
+
+    <div class='freshness'><span class='source-kind explicit'>plain-language terms</span><span><b>EOA</b> means an externally owned account: the familiar address controlled by a private key. <b>Native AA</b> means moving programmable approval and fee payment into Ethereum’s own transaction rules. AA is not a single binary label: 7702 is an AA enabler, while smart contract accounts and ERC-4337 already provide programmable account behavior through a different layer.</span></div>
+
+    <section class='bridge-verdict' aria-label='Short answer'>
+      <div class='eyebrow'>Short answer</div>
+      <div class='answer'>EIP-7702 upgraded what an EOA can <em>do</em>. It did not replace who ultimately <em>controls</em> it.</div>
+      <p>7702 lets an EOA point to smart-contract code, so wallets can add batching, sponsorship and permissioned actions. But the original private key—the ECDSA key—remains the senior authority: it can sign normal transactions and change or clear that delegation. The account therefore gains smart behavior without fully abstracting away its master key. ${cite([25269,25270,25704,25705,26291,32252,32256])}</p>
+    </section>
+
+    <section aria-labelledby='analogy-title'>
+      <div class='section-intro'><h3 id='analogy-title'>The three-step mental model</h3><p>Think of an account as a house and authorization as the rules for entering it.</p></div>
+      <ol class='bridge-path'>
+        <li class='bridge-step'><h4>EOA before 7702</h4><p>One master key controls a basic account. The protocol understands that key, but the account itself cannot install richer approval rules.</p><span class='anchor'>Basic door · one master key</span></li>
+        <li class='bridge-step'><h4>EOA with 7702</h4><p>The owner installs a smart control panel. It can enable one-click batches, sponsored actions or temporary permissions—but the original master key can still replace the panel.</p><span class='anchor'>Smart behavior · same master key</span></li>
+        <li class='bridge-step'><h4>Native AA proposals</h4><p>The entry rules themselves change. Approval, payment and execution become part of a programmable or shared native transaction model, rather than an add-on behind the old key.</p><span class='anchor'>Programmable authorization</span></li>
+      </ol>
+    </section>
+
+    <section aria-labelledby='appearance-title'>
+      <div class='section-intro'><h3 id='appearance-title'>Why 7702 looked like the finish line</h3><p>The expectation was understandable: users saw many of the outcomes normally associated with AA.</p></div>
+      <div class='claim-grid'>
+        <article class='claim-card'><h4>The visible features overlapped</h4><p>One-click flows, batched calls, fee sponsorship and session-like permissions are the experiences most people recognize as account abstraction. 7702 can enable them through delegated code and surrounding wallet infrastructure. ${cite([24856,24942,25122,26296])}</p></article>
+        <article class='claim-card'><h4>No new address was required</h4><p>Existing users could keep their address, assets, history, reputation and dapp compatibility while gaining smart-account behavior. That made 7702 feel more immediate than asking everyone to migrate. ${cite([25710,25715,25720,26292])}</p></article>
+        <article class='claim-card'><h4>The headline compressed the nuance</h4><p>A real protocol upgrade plus AA-like UX was often shortened to “AA solved.” Participants themselves raised the same confusion, while one explicitly criticized coverage that framed 7702 as a billion-user endpoint. ${cite([25265,25269,25270,26296])}</p></article>
+      </div>
+    </section>
+
+    <section aria-labelledby='scope-title'>
+      <div class='section-intro'><h3 id='scope-title'>What EIP-7702 genuinely solved</h3><p>These are substantial improvements, not consolation prizes.</p></div>
+      <div class='scope-grid'>
+        <article class='scope-card solved'><h3>Solved or materially unlocked</h3><ul class='plain-list'>
+          <li><b>Upgrade in place:</b> keep the same address, assets and history instead of moving everything to a new smart account.</li>
+          <li><b>Delegated smart behavior:</b> let an EOA execute wallet logic supplied by a contract.</li>
+          <li><b>Atomic batching:</b> combine several actions into one user flow.</li>
+          <li><b>Sponsorship paths:</b> let another party cover fees when paired with a relayer, delegate design or ERC-4337 infrastructure.</li>
+          <li><b>Limited permissions:</b> delegate code can implement subkeys, sessions and spending rules.</li>
+          <li><b>A compatibility bridge:</b> existing EOAs can use ERC-4337-style infrastructure and move toward later AA designs incrementally.</li>
+        </ul><div class='evidence-line'>Local evidence ${cite([24856,24942,25122,25710,25715,25720,26292,26296,31087])}</div></article>
+        <article class='scope-card limit'><h3>Not solved by 7702 alone</h3><ul class='plain-list'>
+          <li><b>Retiring the original root key:</b> delegated keys may rotate, but 7702 alone does not remove the EOA key’s ultimate authority.</li>
+          <li><b>Native account-defined validity:</b> the protocol still recognizes the original ECDSA transaction and authorization signatures.</li>
+          <li><b>Native fee rules:</b> sponsorship is enabled through surrounding systems rather than becoming a general account-defined transaction rule.</li>
+          <li><b>One portable permission language:</b> sessions and scopes depend on delegate implementations and wallet/app conventions.</li>
+          <li><b>Automatic adoption:</b> wallets and applications still need to implement, expose and safely explain the new flows.</li>
+          <li><b>A universal AA endpoint:</b> new users may still prefer a full smart account, and migration remains a product choice.</li>
+        </ul><div class='evidence-line'>Local evidence ${cite([25270,25704,25705,25790,25798,26291,26292,32241,32248,32286])}</div></article>
+      </div>
+    </section>
+
+    <section aria-labelledby='meaningful-title'>
+      <div class='section-intro'><h3 id='meaningful-title'>7702 vs the proposals being discussed now</h3><p>The important difference is the protocol boundary—not the number of features on a checklist.</p></div>
+      <div class='compare-wrap'><table class='compare bridge-table'>
+        <thead><tr><th>Design question</th><th>EIP-7702 · Set Code for EOAs</th><th>EIP-8141 · Frame Transaction</th><th>EIP-8130 · Account Configuration</th></tr></thead>
+        <tbody>
+          <tr><td>What changes?</td><td>An existing EOA can point to contract code and use its behavior.</td><td>A native transaction becomes ordered frames for verification, payment and execution.</td><td>A native transaction uses a shared account configuration with actors, authenticators and scopes.</td></tr>
+          <tr><td>Who ultimately authorizes?</td><td>The original ECDSA key remains the root authority and signs delegation changes.</td><td>A coded account can approve the frame transaction through its own verification logic; codeless accounts have a protocol default.</td><td>An authenticator proves an authorized actor whose configured scope permits the action.</td></tr>
+          <tr><td>Where does complexity live?</td><td>Mostly in delegated wallet code, relayers, ERC-4337 and wallet/app integration.</td><td>In frame semantics, bounded account-code validation and public-mempool policy.</td><td>In the shared keystore/configuration lifecycle, authenticators, scopes and policy semantics.</td></tr>
+          <tr><td>Key and signature change</td><td>Delegate-level keys can change; the original secp256k1 root cannot be fully retired by 7702 alone.</td><td>Account verification can use other signature schemes and rotate authority; moving existing 7702 accounts off their root remains a migration question.</td><td>Accounts can add, rotate and retire configured authenticators without changing the account address.</td></tr>
+          <tr><td>Fees and sponsorship</td><td>Possible through a relayer, delegated implementation or ERC-4337 stack.</td><td>Payer approval and gas handling are part of the frame transaction design.</td><td>Sponsorship is part of the transaction/configuration model with declared roles.</td></tr>
+          <tr><td>Main advantage</td><td>Immediate in-place upgrade for the enormous installed base of EOAs.</td><td>Maximum flexibility: the account can define validation and payment logic.</td><td>Maximum coordination: wallets and apps share a portable authority vocabulary.</td></tr>
+          <tr><td>Status at review</td><td><b>Final.</b> Live infrastructure with meaningful adoption, though success metrics remain debated.</td><td><b>Draft Core EIP.</b> Active prototypes and tooling; no shared fork decision at the evidence cutoff.</td><td><b>Draft Core EIP.</b> Chain-led implementation work; no broad Ethereum-wide adoption at the evidence cutoff.</td></tr>
+        </tbody>
+      </table></div>
+      <p class='status-note'>Mechanics checked against the official specifications on ${CURRENT.specChecked}; local stakeholder evidence ends ${CURRENT.evidenceCutoff}. Draft proposals can change.</p>
+    </section>
+
+    <section aria-labelledby='advantages-title'>
+      <div class='section-intro'><h3 id='advantages-title'>What the newer proposals add</h3><p>They attack the layer that 7702 deliberately left intact, but they make different tradeoffs.</p></div>
+      <div class='proposal-duo'>
+        <article class='proposal-now'><div class='eyebrow'>EIP-8141 advantage · flexibility</div><h3>The account can define native approval and payment</h3><p class='thesis'>Frames bring verification, fee approval and execution into the ordinary transaction path. This creates room for passkeys, post-quantum signatures, recovery and custom fee logic without preserving one mandated root-key scheme.</p><ul><li>More authentication freedom in account code</li><li>Native batching and third-party payment</li><li>A direct transaction path without exposing apps to bundler plumbing</li></ul><div class='actions'><a class='btn primary' href='#/proposals/eip-8141'>Deep analysis</a><a class='btn' href='https://eips.ethereum.org/EIPS/eip-8141' target='_blank' rel='noopener'>Official EIP ↗</a></div></article>
+        <article class='proposal-now p8130'><div class='eyebrow'>EIP-8130 advantage · coordination</div><h3>Wallets and apps can share one authority model</h3><p class='thesis'>Account Configuration makes keys, actors, authenticators and scopes common infrastructure. The goal is to make portable sessions, rotation and consent predictable instead of recreating them in every delegate contract.</p><ul><li>Portable actors, scopes and authenticators</li><li>Predictable initial transaction filtering</li><li>Key rotation and recovery without address migration</li></ul><div class='actions'><a class='btn primary' href='#/proposals/eip-8130'>Deep analysis</a><a class='btn' href='https://eips.ethereum.org/EIPS/eip-8130' target='_blank' rel='noopener'>Official EIP ↗</a></div></article>
+      </div>
+      <div class='freshness'><span class='source-kind interpretation'>important caveat</span><span>Neither draft automatically creates good wallets, safe permission screens or adoption. As one participant noted, even frame transactions will not make smart accounts the default by themselves. ${cite([31150,32241])}</span></div>
+    </section>
+
+    <section aria-labelledby='still-matters-title'>
+      <div class='section-intro'><h3 id='still-matters-title'>Why 7702 still matters</h3><p>“Not full AA” does not mean obsolete, failed or incompatible.</p></div>
+      <div class='now-list'>
+        <div class='now-row'><div class='when'>TODAY</div><div class='signal'><b>It is the deployed bridge.</b> Existing EOAs can gain useful smart behavior now, and the archive records substantial wallet deployment counts. The right success metric—wallets, migrated EOAs or actual usage—remains disputed. ${cite([32242,32248,32286])}</div><span class='source-kind explicit'>observed</span></div>
+        <div class='now-row'><div class='when'>TRADEOFF</div><div class='signal'><b>The root key is both a limitation and a safety feature.</b> It blocks full retirement, but some wallet builders value a recovery path that cannot be lost through delegate configuration. That is a stakeholder preference, not universal consensus. ${cite([32252,32256,32258])}</div><span class='source-kind explicit'>observed</span></div>
+        <div class='now-row'><div class='when'>NEXT</div><div class='signal'><b>The mechanisms can be complementary.</b> 7702 can remain an installed-base and migration tool while native transaction designs move validation and authority further into the protocol. ${cite([31865,32090,32468])}</div><span class='source-kind interpretation'>direction</span></div>
+      </div>
+    </section>
+
+    <section class='bridge-verdict' aria-label='Bottom line'>
+      <div class='eyebrow'>Bottom line</div>
+      <div class='answer'>7702 made the old account smarter. EIP-8141 and EIP-8130 try to make the transaction and authority model itself smarter.</div>
+      <p>8141 does that with a flexible frame primitive; 8130 does it with a shared authority configuration. Neither has won, and neither erases the value of 7702.</p>
+      <div class='actions' style='margin-top:16px'><a class='btn primary' href='#/comparison'>Compare 8141 and 8130</a><a class='btn' href='#/proposals/eip-7702'>Open the full 7702 lifecycle</a><a class='btn' href='#/matrix'>See stakeholder positions</a></div>
+    </section>
+
+    <div class='footer-note'><b>Official sources:</b> <a href='https://eips.ethereum.org/EIPS/eip-7702' target='_blank' rel='noopener'>EIP-7702</a>, <a href='https://eips.ethereum.org/EIPS/eip-8141' target='_blank' rel='noopener'>EIP-8141</a>, and <a href='https://eips.ethereum.org/EIPS/eip-8130' target='_blank' rel='noopener'>EIP-8130</a>. The explanatory distinction is evidence-backed analysis; it is not an official Ethereum taxonomy.</div>`;
+}
+
+function vComparison(){
+  const a=CURRENT.proposals["eip-8141"],b=CURRENT.proposals["eip-8130"];
+  const deep=(p,key)=>`<article class="deep-section">
+    <div class="eyebrow">${esc(p.status)} · official draft checked ${CURRENT.specChecked}</div>
+    <h3>${esc(p.short)} · ${esc(p.title)}</h3>
+    <p>${esc(p.problem)}</p>
+    <h4>Design philosophy</h4><p>${esc(p.philosophy)}</p>
+    <h4>Core mechanism</h4><ul>${p.mechanism.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>
+    <div class="twocol" style="margin-top:18px">
+      <div class="argbox for"><h5>Benefits</h5><ul>${p.benefits.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div>
+      <div class="argbox against"><h5>Tradeoffs</h5><ul>${p.tradeoffs.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div>
+    </div>
+    <h4>Relationship to earlier AA</h4><p>${esc(p.previous)}</p>
+    <h4>Relationship to ERC-4337</h4><p>${esc(p.relation4337)}</p>
+    <h4>Latest discussion state</h4><p>${esc(p.latest)} ${cite(p.latestIds)}</p>
+    <h4>Unresolved</h4><ul>${p.unresolved.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>
+    <div class="actions">${officialBadge(p)}<a class="btn" href="#/matrix">Stakeholder positions</a><a class="btn" href="#/questions">Open questions</a></div>
+  </article>`;
+  main.innerHTML=`<h2 class="pagetitle">EIP-8141 vs EIP-8130</h2>
+    <p class="pagelede">A comparison of design boundaries and operational consequences—not a superficial feature checklist. Both documents are Draft Core EIPs, and the site does not infer adoption or endorsement from publication alone.</p>
+    <aside class="bridge-callout" aria-label="EIP-7702 comparison context"><div><div class="eyebrow">Need the missing step first?</div><h3>See why EIP-7702 delivered AA-like features without completing native AA.</h3><p>The explainer separates what 7702 solved from the additional authority and transaction changes proposed now.</p></div><a class="btn" href="#/7702">7702 → current proposals</a></aside>
+    <div class="freshness"><span class="source-kind explicit">scope correction</span><span><b>EIP-8130 is analyzed independently</b> from Tempo and EIPs 8202/8221/8223/8224. <b>Post-transaction assertions are not part of the current EIP-8141 core draft</b>; they are a separate companion, EIP-7906.</span></div>
+    <div class="compare-wrap"><table class="compare">
+      <thead><tr><th>Design question</th><th>EIP-8141 · Frame Transaction</th><th>EIP-8130 · Account Configuration</th></tr></thead>
+      <tbody>${CURRENT.comparison.map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join("")}</tbody>
+    </table></div>
+    <div class="section-intro"><h3>Proposal deep dives</h3><p>Official drafts describe mechanics; evidence chips describe the local debate and implementation signals.</p></div>
+    ${deep(a,"eip-8141")}${deep(b,"eip-8130")}
+    <div class="section-intro"><h3>Where convergence may be possible</h3><p>These are live hypotheses, not consensus claims.</p></div>
+    <div class="claim-grid">
+      <article class="claim-card"><h4>Frames plus a shared default layer</h4><p>8141 could provide the general transaction primitive while a keystore/session convention coordinates common wallet behavior above it. The missing artifact is a concrete boundary specification. ${cite([32300,32556])}</p></article>
+      <article class="claim-card"><h4>A smaller L1 keystore</h4><p>Even an 8130 critic left room to evaluate a barebones keystore. The open question is whether it preserves the portability benefit without becoming a rich permanent account system. ${cite([32544,32550,32551])}</p></article>
+      <article class="claim-card"><h4>Chain-specific learning before L1</h4><p>Base can produce deployment evidence for 8130 while L1 clients prototype 8141. Comparable metrics could turn parallel motion into a better-informed protocol decision. ${cite([32175,32186,32410])}</p></article>
+    </div>
+    <div class="footer-note">Official sources: <a href="${a.url}" target="_blank" rel="noopener">EIP-8141</a> and <a href="${b.url}" target="_blank" rel="noopener">EIP-8130</a>. Drafts can change after the checked date.</div>`;
+}
+
+function vCurrentProposalDetail(id){
+  const p=CURRENT.proposals[id];
+  if(!p){return vProposalDetail(id);}
+  const key=id==="eip-8141"?"p8141":"p8130";
+  const supporters=CURRENT.positions.filter(x=>["support","lean","component"].includes(x[key].tone)&&x[key].basis==="explicit");
+  const concerns=CURRENT.positions.filter(x=>["concern","oppose"].includes(x[key].tone));
+  main.innerHTML=`<a class="backlink" href="#/proposals">← Current proposals</a>
+    <div class="detail-head"><h2>${esc(p.short)} · ${esc(p.title)}</h2><span class="badge acc">${esc(p.status)}</span>${officialBadge(p)}</div>
+    <div class="freshness"><span class="source-kind explicit">official mechanics</span><span>Specification checked ${CURRENT.specChecked}. Discussion and stakeholder evidence end ${CURRENT.evidenceCutoff}.</span></div>
+    <div class="latestbox"><div class="d">LATEST OBSERVED DISCUSSION STATE</div>${esc(p.latest)} ${cite(p.latestIds)}</div>
+    <div class="deep-section">
+      <h3>What it proposes</h3><p>${esc(p.problem)}</p>
+      <h4>Design philosophy</h4><p>${esc(p.philosophy)}</p>
+      <h4>Major components</h4><ul>${p.mechanism.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>
+    </div>
+    <div class="twocol">
+      <div class="argbox for"><h5>Benefits</h5><ul>${p.benefits.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div>
+      <div class="argbox against"><h5>Tradeoffs</h5><ul>${p.tradeoffs.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div>
+    </div>
+    <h3 class="sect">Relationship to the existing stack</h3>
+    <dl class="dl"><dt>Earlier AA</dt><dd>${esc(p.previous)}</dd><dt>ERC-4337</dt><dd>${esc(p.relation4337)}</dd></dl>
+    <h3 class="sect">Current stakeholder evidence</h3>
+    <div class="consensus-now">
+      ${supporters.map(x=>`<article class="consensus-item goal"><h4><a href="#/stakeholders/${x.id}">${esc(x.name)}</a> · ${esc(x[key].label)}</h4><p>${esc(x[key].note)}</p><div class="evidence-line">${cite(x[key].ids)}</div></article>`).join("")}
+      ${concerns.map(x=>`<article class="consensus-item constraint"><h4><a href="#/stakeholders/${x.id}">${esc(x.name)}</a> · ${esc(x[key].label)}</h4><p>${esc(x[key].note)}</p><div class="evidence-line">${cite(x[key].ids)}</div></article>`).join("")}
+    </div>
+    <h3 class="sect">Questions still open</h3><ul style="margin-left:18px;color:var(--ink2);display:grid;gap:7px">${p.unresolved.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>
+    <div class="actions" style="margin-top:18px"><a class="btn primary" href="#/comparison">Compare both proposals</a><a class="btn" href="#/questions">Questions by topic</a></div>`;
+}
+
+function historicalMatrixHtml(){
+  let rows=D.stakeholders.filter(s=>Object.keys(s.matrix||{}).length>0&&s.archetype.indexOf("automated")<0);
+  rows=rows.filter(s=>s.tier<=2||Object.keys(s.matrix).length>=4);
+  rows.sort((a,b)=>a.tier-b.tier||Object.keys(b.matrix).length-Object.keys(a.matrix).length);
+  return `<div class="mtxlegend">${Object.entries(STANCE).map(([k,v])=>`<span><span class="cell" style="background:${v[1]}"></span> ${v[0]}</span>`).join("")}<span><span class="cell" style="background:transparent;border:1px dashed var(--line2)"></span> not observed</span></div>
+    <div class="mtxwrap"><table class="mtx"><thead><tr><th>Stakeholder</th>${AXES.map(a=>`<th>${a[1]}</th>`).join("")}</tr></thead><tbody>${rows.map(s=>`<tr><td><a href="#/stakeholders/${s.id}" style="color:inherit;text-decoration:none">${esc(s.name)}</a></td>${AXES.map(([k,label])=>{
+      const m=s.matrix[k];
+      if(!m)return `<td><span class="cell" style="background:transparent;border:1px dashed var(--line2)" data-tip="not observed"></span></td>`;
+      const st=STANCE[m.stance]||STANCE.neutral;
+      return `<td><button class="cell" style="background:${st[1]};border:0" data-hsid="${s.id}" data-hax="${k}" data-tip="${esc(s.name)} on ${esc(label)}: ${st[0]} — open evidence" aria-label="${esc(s.name)} on ${esc(label)}: ${st[0]}; open evidence"></button></td>`;
+    }).join("")}</tr>`).join("")}</tbody></table></div>`;
+}
+
+function vMatrixCurrent(){
+  main.innerHTML=`<h2 class="pagetitle">Current position matrix</h2>
+    <p class="pagelede">Latest known positions toward EIP-8141 and EIP-8130. A person discussing, linking or implementing part of a proposal is not automatically classified as supporting the whole proposal. The note and evidence are the unit of analysis—not the color.</p>
+    <div class="freshness"><span class="source-kind explicit">evidence rule</span><span>Latest explicit statements receive strongest prominence. Historical evolution stays in each profile. Official co-authorship is noted elsewhere but is not substituted for a recent in-dataset position.</span></div>
+    <div class="compare-wrap"><table class="matrix-current">
+      <thead><tr><th>Stakeholder</th><th>EIP-8141 · latest observed</th><th>EIP-8130 · latest observed</th></tr></thead>
+      <tbody>${CURRENT.positions.map(p=>`<tr><td><a href="#/stakeholders/${p.id}">${esc(p.name)}</a></td><td>${currentPositionCell(p.p8141)}</td><td>${currentPositionCell(p.p8130)}</td></tr>`).join("")}</tbody>
+    </table></div>
+    <div class="footer-note">Unknown is intentional. It means no explicit, reliable stance was found in the local source—not neutrality and not opposition.</div>
+    <details class="historical-box"><summary>Historical multi-proposal matrix · secondary context</summary><div class="archive-inner">
+      <p class="pagelede" style="margin-top:0">This preserved matrix covers earlier proposal axes. It explains how participants arrived here, but it does not override the two current columns above.</p>
+      ${historicalMatrixHtml()}
+    </div></details>`;
+  const pop=document.getElementById("cellpop");
+  main.addEventListener("click",e=>{
+    const c=e.target.closest("[data-hsid]");
+    if(!c){if(!e.target.closest("#cellpop"))pop.style.display="none";return;}
+    const s=D.stakeholders.find(x=>x.id===c.dataset.hsid),m=s&&s.matrix[c.dataset.hax];
+    if(!s||!m)return;
+    const ax=AXES.find(a=>a[0]===c.dataset.hax);
+    pop.innerHTML=`<div class="h">${esc(s.name)} × ${esc(ax?ax[1]:c.dataset.hax)}</div>${stancePill(m.stance)}<div class="note">${esc(m.note||"(no note)")}</div><div>${cite(m.ids||[])}</div><div style="margin-top:8px"><a href="#/stakeholders/${s.id}" style="font-size:12px;color:var(--accent-ink)">full profile →</a></div>`;
+    pop.style.display="block";
+    const r=c.getBoundingClientRect();
+    pop.style.left=Math.max(8,Math.min(r.left,innerWidth-380))+"px";
+    pop.style.top=Math.max(8,Math.min(r.bottom+8,innerHeight-pop.offsetHeight-10))+"px";
+    e.stopPropagation();
+  });
+}
+
+function consensusGroup(title,definition,items,cls){
+  return `<section class="consensus-group"><div class="group-head"><h3>${esc(title)}</h3><span class="definition">${esc(definition)}</span></div><div class="consensus-now">${items.map(c=>currentClaim(c,cls)).join("")}</div></section>`;
+}
+function vConsensusCurrent(){
+  const C=CURRENT.consensus;
+  const historical=D.consensus;
+  const oldItem=(c,cls)=>`<div class="citem ${cls}">${inlineCites(esc(c.claim))}<div class="who">${c.voiced_by&&c.voiced_by.length?"Voiced by: "+esc(c.voiced_by.join(", ")):""} ${cite(c.ids)}</div></div>`;
+  main.innerHTML=`<h2 class="pagetitle">Consensus in the current design space</h2>
+    <p class="pagelede">Agreement is separated by what it applies to. Broad agreement on an outcome does not imply agreement on EIP-8141, EIP-8130 or the amount of protocol enshrinement.</p>
+    ${consensusGroup("Shared goals","Implementation-independent outcomes",C.goals,"goal")}
+    ${consensusGroup("Shared constraints","Properties neither path may ignore",C.constraints,"constraint")}
+    ${consensusGroup("Emerging implementation convergence","Direction with meaningful caveats",C.emerging,"emerging")}
+    ${consensusGroup("Proposal-specific observations","Evidence of motion, not community-wide agreement",C.specific,"specific")}
+    <div class="csintro" style="border-left-color:var(--gold);background:var(--gold-soft)"><b>Not consensus:</b> The dataset does not establish that EIP-8141 has won L1 selection, that EIP-8130 has broad Ethereum wallet adoption, or that a layered combination is agreed. Those remain questions.</div>
+    <div class="actions"><a class="btn primary" href="#/questions">See unresolved questions</a><a class="btn" href="#/matrix">Compare positions</a></div>
+    <details class="historical-box"><summary>Historical consensus findings · preserved for context</summary><div class="archive-inner">
+      <p class="pagelede" style="margin-top:0">These findings explain earlier phases. They are visually secondary because several describe goals or superseded decision points rather than today's implementation choice.</p>
+      <div class="consec"><h4><span class="badge ok">Historically strong</span></h4>${historical.strong.map(c=>oldItem(c,"strong")).join("")}</div>
+      <div class="consec"><h4><span class="badge warn">Historically emerging</span></h4>${historical.emerging.map(c=>oldItem(c,"emerging")).join("")}</div>
+      <div class="consec"><h4><span class="badge dim">Historically weak/apparent</span></h4>${historical.weak.map(c=>oldItem(c,"weak")).join("")}</div>
+    </div></details>`;
+}
+
+function renderCurrentQuestions(){
+  const items=qNowFilter==="all"?CURRENT.questions:CURRENT.questions.filter(q=>q.proposals.includes(qNowFilter));
+  const target=document.getElementById("question-list");
+  if(!target)return;
+  target.innerHTML=items.map(q=>`<details class="question-now" id="question-${q.id}">
+    <summary><div><div class="qtitle">${esc(q.title)}</div><div class="qmeta"><span class="badge warn">${esc(q.status)}</span><span class="badge dim">${esc(q.category)}</span>${q.proposals.map(p=>`<span class="badge ${p==="8141"?"acc":"gold"}">EIP-${p}</span>`).join("")}</div></div></summary>
+    <div class="qbody">
+      <div class="qcols"><div class="qside"><b>Argument / path A</b>${esc(q.a)}</div><div class="qside"><b>Argument / path B</b>${esc(q.b)}</div></div>
+      <dl><dt>Raised by</dt><dd>${esc(q.raised)} ${cite(q.ids)}</dd><dt>Current state</dt><dd>${esc(q.state)}</dd><dt>What would move it</dt><dd>${esc(q.settle)}</dd></dl>
+    </div>
+  </details>`).join("");
+  document.getElementById("qcount").textContent=items.length+" questions";
+}
+function vQuestions(){
+  const cats=[...new Set(CURRENT.questions.map(q=>q.category))];
+  main.innerHTML=`<h2 class="pagetitle">Open questions now</h2>
+    <p class="pagelede">Unresolved issues derived from the current proposals and source discussion. Each question names the competing arguments, the people who raised them, the present state and the evidence that could move the debate.</p>
+    <div class="question-toolbar" role="group" aria-label="Filter questions by proposal">
+      <button class="filter-chip" data-qfilter="all" aria-pressed="${qNowFilter==="all"}">Both proposals</button>
+      <button class="filter-chip" data-qfilter="8141" aria-pressed="${qNowFilter==="8141"}">EIP-8141</button>
+      <button class="filter-chip" data-qfilter="8130" aria-pressed="${qNowFilter==="8130"}">EIP-8130</button>
+      <span class="badge dim" id="qcount"></span>
+    </div>
+    <div class="question-list" id="question-list"></div>
+    <details class="historical-box"><summary>Earlier unresolved questions · historical archive</summary><div class="archive-inner">
+      <p class="pagelede" style="margin-top:0">These are preserved from the longitudinal report. Some remain useful, but they were not promoted unless the current proposals and recent evidence still make them central.</p>
+      ${D.open_questions.filter(q=>!q.question.includes("EIP-8141 (Frame Transactions) vs. EIP-8130")).map(q=>`<details class="pill-details oq"><summary>${esc(q.question)}</summary><div class="inner"><div class="sides"><div class="side"><div class="l">Position A</div>${inlineCites(esc(q.side_a.position))}</div><div class="side"><div class="l">Position B</div>${inlineCites(esc(q.side_b.position))}</div></div><div class="fld"><b>Why it was stuck:</b> ${inlineCites(esc(q.blockers))}</div></div></details>`).join("")}
+    </div></details>`;
+  main.querySelectorAll("[data-qfilter]").forEach(btn=>btn.addEventListener("click",()=>{
+    qNowFilter=btn.dataset.qfilter;
+    main.querySelectorAll("[data-qfilter]").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.qfilter===qNowFilter)));
+    renderCurrentQuestions();
+  }));
+  renderCurrentQuestions();
+}
+
+function vStakeholdersCurrent(id){
+  if(id){
+    vStakeholderDetail(id);
+    const pos=CURRENT.positions.find(p=>p.id===id);
+    const latest=main.querySelector(".latestbox");
+    const profile=pos?`<section class="current-profile"><div class="eyebrow">CURRENT TWO-PROPOSAL VIEW · evidence through ${CURRENT.evidenceCutoff}</div><h3>EIP-8141 / EIP-8130</h3><div class="pgrid"><div>${currentPositionCell(pos.p8141)}</div><div>${currentPositionCell(pos.p8130)}</div></div></section>`:
+      `<section class="current-profile"><div class="eyebrow">CURRENT TWO-PROPOSAL VIEW</div><h3>Insufficient evidence</h3><p style="color:var(--ink2);font-size:13px">No reliable explicit position toward EIP-8141 or EIP-8130 was identified for this participant. The historical profile below is preserved without projecting it onto the current choice.</p></section>`;
+    if(latest){
+      latest.insertAdjacentHTML("beforebegin",profile+`<div class="archive-banner"><strong>Longitudinal context.</strong> The remaining profile preserves older axes and dated evolution. It is secondary to the verified current view above.</div>`);
+      const label=latest.querySelector(".d");
+      if(label)label.textContent="LATEST NOTE IN THE LONGITUDINAL PROFILE — HISTORICAL CONTEXT";
+    }else{
+      main.insertAdjacentHTML("afterbegin",profile);
+    }
+    return;
+  }
+  const render=()=>{
+    const currentById=new Map(CURRENT.positions.map(p=>[p.id,p]));
+    let list=sNowScope==="current"?CURRENT.positions.map(p=>({s:D.stakeholders.find(x=>x.id===p.id),p})).filter(x=>x.s):
+      D.stakeholders.filter(s=>s.archetype.indexOf("automated news digest")<0).map(s=>({s,p:currentById.get(s.id)||null}));
+    if(sNowQuery){
+      const q=sNowQuery.toLowerCase();
+      list=list.filter(({s,p})=>(s.name+" "+s.org+" "+s.archetype+" "+(p?`${p.p8141.label} ${p.p8130.label}`:"")).toLowerCase().includes(q));
+    }
+    list.sort((a,b)=>(b.p?1:0)-(a.p?1:0)||a.s.tier-b.s.tier||a.s.name.localeCompare(b.s.name));
+    document.getElementById("sgrid").innerHTML=list.map(({s,p})=>`<a class="card scard" href="#/stakeholders/${s.id}" style="text-decoration:none;color:inherit">
+      <div><span class="badge ${p?"acc":"dim"}">${p?"Current evidence":"Historical profile"}</span></div>
+      <div class="nm">${esc(s.name)}</div><div class="org">${esc(s.org.split(";")[0].split(".")[0])}</div>
+      ${p?`<div style="display:grid;gap:6px;margin-top:8px"><div><span class="tag">8141</span>${positionPill(p.p8141)}</div><div><span class="tag">8130</span>${positionPill(p.p8130)}</div></div>`:`<div class="arch">${esc(s.archetype)}</div>`}
+      <div class="foot"><span class="badge dim">${esc(s.active.from)} → ${esc(s.active.to)}</span></div>
+    </a>`).join("")||`<p style="color:var(--ink3)">No matches.</p>`;
+    document.getElementById("scount").textContent=list.length+" shown";
+  };
+  main.innerHTML=`<h2 class="pagetitle">Stakeholders in the current debate</h2>
+    <p class="pagelede">Current participants are shown first with separate EIP-8141 and EIP-8130 evidence. Switch to the archive to reach every longitudinal profile; absence from the current set does not imply neutrality.</p>
+    <div class="toolbar">
+      <input type="search" id="sqnow" aria-label="Search stakeholders" placeholder="Search name, organization or position…" value="${esc(sNowQuery)}">
+      <select id="sscopenow" aria-label="Choose stakeholder scope"><option value="current">Current decision-space participants</option><option value="all">All historical profiles</option></select>
+      <span class="badge dim" id="scount"></span>
+    </div><div class="grid g3" id="sgrid"></div>`;
+  document.getElementById("sqnow").addEventListener("input",e=>{sNowQuery=e.target.value;render();});
+  const scope=document.getElementById("sscopenow");scope.value=sNowScope;scope.addEventListener("change",e=>{sNowScope=e.target.value;render();});
+  render();
+}
+
+function vProposalsCurrent(id){
+  if(id)return vCurrentProposalDetail(id);
+  const a=CURRENT.proposals["eip-8141"],b=CURRENT.proposals["eip-8130"];
+  const supportIds=["erc-4337","eip-7702","shared-p2p-mempool","paymasters-gas-sponsorship","account-recovery-keystore-rollups"];
+  const supporting=supportIds.map(id=>D.proposals.find(p=>p.id===id)).filter(Boolean);
+  const archive=D.proposals.filter(p=>!["eip-8141","eip-8130",...supportIds].includes(p.id));
+  main.innerHTML=`<h2 class="pagetitle">Current proposals</h2>
+    <p class="pagelede">The active design space is led by two Draft Core EIPs. Existing infrastructure and migration mechanisms remain relevant; older and superseded proposals are preserved in the archive below.</p>
+    <div class="proposal-duo">${proposalCard(a,"eip-8141")}${proposalCard(b,"eip-8130")}</div>
+    <div class="section-intro"><h3>Current supporting stack</h3><p>These mechanisms shape deployment, compatibility and the practical meaning of either native path.</p></div>
+    <div class="proposal-stack">${supporting.map(p=>`<a class="card" href="#/proposals/${p.id}" style="text-decoration:none;color:inherit"><div class="nm" style="font-family:var(--serif);font-size:17px;font-weight:700">${esc(p.name)}</div><div style="font-size:12.5px;color:var(--ink2);margin-top:5px">${esc(p.what)}</div></a>`).join("")}</div>
+    <details class="historical-box"><summary>Historical proposal archive · ${archive.length} entries</summary><div class="archive-inner">
+      <div class="freshness"><span class="source-kind interpretation">data correction</span><span>The original EIP-8130 record bundled it with Tempo and EIPs 8202/8221/8223/8224. That bundled record is superseded by the standalone analysis above and is not rendered here.</span></div>
+      <div class="grid g2">${archive.map(p=>{const m=MOM[p.status.momentum]||["?","dim"];return `<a class="card pcard" href="#/proposals/${p.id}" style="text-decoration:none;color:inherit"><div style="display:flex;justify-content:space-between;gap:10px"><span class="nm">${esc(p.name)}</span><span class="badge ${m[1]}">${m[0]}</span></div><div class="what">${esc(p.what)}</div><div style="font-size:11.5px;color:var(--ink3)">Status recorded ${esc(p.status.as_of)}</div></a>`;}).join("")}</div>
+    </div></details>`;
+}
+
+function eraBlock(e,i){
+  const col=ERA_COLORS[i%ERA_COLORS.length];
+  const months=D.months.filter(m=>monthEra(m.key)===e);
+  return `<div class="erahead"><span class="n">ERA ${i+1} · ${esc(e.from)} → ${esc(e.to)}</span></div>
+    <div class="erahead" style="margin-top:0"><h3 style="color:${col}">${esc(e.name)}</h3><span class="badge dim">${esc(e.mood||"")}</span></div>
+    <div class="eraq">“${esc(e.main_question)}”</div><div class="eranarr">${inlineCites(esc(e.narrative))}</div>
+    ${e.dominant_proposals&&e.dominant_proposals.length?`<div style="margin:-8px 0 18px">${e.dominant_proposals.map(p=>`<span class="tag">${esc(p)}</span>`).join("")}</div>`:""}
+    ${months.map(m=>{const actv=D.activity.filter(a=>m.calendar.includes(a.month)).reduce((s,a)=>s+a.messages,0);return `<div class="mcard" style="border-left-color:${col}55"><h4>${esc(m.label)}<span class="msgs">${nfmt(actv)} msgs</span></h4><div style="margin:2px 0 4px">${(m.proposals||[]).slice(0,7).map(p=>`<span class="tag">${esc(p)}</span>`).join("")}</div><div class="summ">${esc(m.summary)}</div><details class="pill-details"><summary>Key moments (${m.moments.length})</summary><div class="inner"><div class="moments">${m.moments.map(x=>`<div class="moment"><span class="d">${esc(x.date||"")}</span><span class="t">${esc(x.text)} ${cite(x.ids)}</span></div>`).join("")}</div></div></details></div>`;}).join("")}`;
+}
+function vTimelineCurrent(){
+  const latest=D.eras[D.eras.length-1];
+  main.innerHTML=`<h2 class="pagetitle">Evolution toward the current decision</h2>
+    <p class="pagelede">The active 2026 era comes first. Earlier eras remain intact in a chronological archive because they explain the constraints and institutional memory behind EIP-8141 and EIP-8130.</p>
+    ${eraBlock(latest,D.eras.length-1)}
+    <details class="historical-box"><summary>Earlier eras · December 2022 to December 2025</summary><div class="archive-inner">${D.eras.slice(0,-1).map((e,i)=>eraBlock(e,i)).join("")}</div></details>`;
+}
+
+function turningItem(tp){
+  return `<div class="tp"><div class="d">${esc(tp.date)}</div><h4>${esc(tp.name)}</h4><div class="what">${inlineCites(esc(tp.what))} ${cite(tp.ids)}</div><div class="what" style="margin-top:6px"><b style="color:var(--ink)">Why it mattered:</b> ${inlineCites(esc(tp.why))}</div><div class="beforeafter"><div class="ba"><div class="l">Before</div>${inlineCites(esc(tp.before))}</div><div class="ba"><div class="l">After</div>${inlineCites(esc(tp.after))}</div></div></div>`;
+}
+function vTurningCurrent(){
+  const current=D.turning_points.filter(tp=>String(tp.date).startsWith("2026"));
+  const historical=D.turning_points.filter(tp=>!String(tp.date).startsWith("2026"));
+  main.innerHTML=`<h2 class="pagetitle">Recent changes in the debate</h2><p class="pagelede">2026 turning points are promoted because they define today's choice. Earlier turning points remain accessible as the path that produced it.</p>
+    <div class="tpline">${current.map(turningItem).join("")}</div>
+    <details class="historical-box"><summary>Earlier turning points · historical context</summary><div class="archive-inner"><div class="tpline">${historical.map(turningItem).join("")}</div></div></details>`;
+}
+
+const CURRENT_AXES=[
+  {name:"General transaction primitive ↔ shared authority system",a:"EIP-8141 enshrines frames and approval while leaving authentication policy in account code.",b:"EIP-8130 enshrines actors, authenticators, scopes and account configuration as a common authority seam.",where:"This is the core design disagreement. A smaller keystore or layered default is the main convergence hypothesis.",ids:[31065,32407,32537,32544,32549,32556]},
+  {name:"Flexible EVM validation ↔ predictable authenticator filtering",a:"8141's VERIFY frames preserve account-defined logic under bounded public-mempool policies.",b:"8130 declares the authenticator so nodes can decide more cheaply whether a transaction is worth processing.",where:"Both camps accept anti-DoS constraints; the missing evidence is a comparable adversarial cost model.",ids:[30567,30787,31000,31598]},
+  {name:"Wallet freedom ↔ cross-wallet portability",a:"Flexible account code lets wallets differentiate, but shared sessions require conventions above the primitive.",b:"A canonical authority vocabulary can coordinate sessions and consent, but only if wallets adopt and render it consistently.",where:"The goal is shared; implementation buy-in and safe scope rendering remain unresolved.",ids:[31813,32400,32443,32468,32501]},
+  {name:"L1 implementation path ↔ chain-led deployment path",a:"8141 has Ethereum client prototyping and tooling but still needs a fork decision and wallet migration plan.",b:"8130 has a Base vibenet and announced rollout targets but lacks observed broad deployment at the cutoff.",where:"Parallel work can create useful evidence if metrics are comparable and announcements are not treated as adoption.",ids:[32175,32186,32241,32410,32565]}
+];
+function vDebateCurrent(){
+  main.innerHTML=`<h2 class="pagetitle">Current debate map</h2><p class="pagelede">The live fault lines beneath the EIP-8141 / EIP-8130 choice. People can agree on one axis and disagree on another; the map describes arguments rather than assigning camps by association.</p>
+    ${CURRENT_AXES.map(ax=>`<div class="card axis"><div class="axhead"><h4>${esc(ax.name)}</h4></div><div class="axgrid"><div class="axside a"><div class="lbl">8141-side emphasis</div>${esc(ax.a)}</div><div class="axmid">⇋</div><div class="axside b"><div class="lbl">8130-side emphasis</div>${esc(ax.b)}</div></div><div class="axnote"><b>Where it stands:</b> ${esc(ax.where)} ${cite(ax.ids)}</div></div>`).join("")}
+    <details class="historical-box"><summary>Recurring historical fault lines</summary><div class="archive-inner"><p class="pagelede" style="margin-top:0">These axes still explain institutional preferences, but they no longer receive equal prominence with the current choice.</p>${DEBATE_AXES.map(ax=>`<div class="card axis"><div class="axhead"><h4>${esc(ax.name)}</h4></div><div class="axgrid"><div class="axside a"><div class="lbl">${esc(ax.a.lbl)}</div>${esc(ax.a.txt)}<div class="who"><b>Voices:</b> ${esc(ax.a.who)}</div></div><div class="axmid">⇋</div><div class="axside b"><div class="lbl">${esc(ax.b.lbl)}</div>${esc(ax.b.txt)}<div class="who"><b>Voices:</b> ${esc(ax.b.who)}</div></div></div><div class="axnote"><b>Historical note:</b> ${esc(ax.note)}</div></div>`).join("")}</div></details>`;
+}
+
+function prependArchiveBanner(label,description){
+  main.insertAdjacentHTML('afterbegin',`<div class='archive-banner'><strong>${esc(label)}.</strong> ${esc(description)} <a href='#/current'>Return to the current coordination map</a>.</div>`);
+}
+function vHistoricalTimeline(){
+  vTimeline();
+  prependArchiveBanner('Full timeline archive','All eras are shown directly here, in chronological order, instead of being nested under the current-era view');
+}
+function vHistoricalTurningPoints(){
+  vTurning();
+  prependArchiveBanner('All turning points','This direct archive includes both recent and earlier moments; the current-facing page still promotes 2026 changes first');
+}
+function vHistoricalStakeholders(id){
+  vStakeholders(id);
+  if(!id)prependArchiveBanner('Stakeholder archive','Every longitudinal profile is available directly from the Historical context navigation; old views do not override the separate current EIP-8141 / EIP-8130 matrix');
+}
+function vHistoricalProposals(id){
+  if(id)return vCurrentProposalDetail(id);
+  const archived=D.proposals.filter(p=>!CURRENT.proposals[p.id]);
+  main.innerHTML=`<div class='archive-banner'><strong>Proposal archive.</strong> Dated histories and last-recorded momentum are shown directly here. Some remain active supporting infrastructure; others are superseded. <a href='#/proposals'>Return to current proposals</a>.</div>
+    <h2 class='pagetitle'>Historical proposal archive</h2><p class='pagelede'>${archived.length} longitudinal proposal and mechanism records. The two active EIPs use the corrected, standalone analyses below rather than the older bundled or draft-stale summaries.</p>
+    <div class='freshness'><span class='source-kind interpretation'>verified boundary</span><span>The original EIP-8130 bundle and the old EIP-8141 post-assertion description are preserved only in the reference dataset. Read <a href='#/proposals/eip-8141'>current EIP-8141</a> and <a href='#/proposals/eip-8130'>current EIP-8130</a> for their verified scope.</span></div>
+    ${Object.keys(FAM).map(f=>{const ps=archived.filter(p=>p.family===f);return ps.length?`<div class='famhead'>${esc(FAM[f])}</div><div class='grid g2'>${ps.map(p=>{const m=MOM[p.status.momentum]||['?','dim'];return `<a class='card pcard' href='#/proposals/${p.id}' style='text-decoration:none;color:inherit'><div style='display:flex;justify-content:space-between;gap:10px;align-items:baseline'><span class='nm'>${esc(p.name)}</span><span class='badge ${m[1]}'>${m[0]}</span></div><div class='what'>${esc(p.what)}</div><div style='font-size:11.5px;color:var(--ink3)'>First seen ${esc(p.first.date)} · status recorded ${esc(p.status.as_of)}</div></a>`;}).join('')}</div>`:'';}).join('')}`;
+}
+function vHistoricalDebates(){
+  vDebate();
+  prependArchiveBanner('Debate archive','These recurring fault lines explain how current preferences formed, but they are not a substitute for latest proposal-specific evidence');
+}
+function vHistoricalMatrix(){
+  vMatrix();
+  prependArchiveBanner('Historical position matrix','This longitudinal multi-proposal matrix is now a direct destination; the current matrix remains the source for latest EIP-8141 / EIP-8130 positions');
+}
+function vHistoricalConsensus(){
+  const C=D.consensus;
+  const item=(c,cls)=>`<div class='citem ${cls}'>${inlineCites(esc(c.claim))}<div class='who'>${c.voiced_by&&c.voiced_by.length?'Voiced by: '+esc(c.voiced_by.join(', ')):''} ${cite(c.ids)}</div></div>`;
+  main.innerHTML=`<div class='archive-banner'><strong>Historical consensus archive.</strong> These findings explain earlier phases and are shown directly rather than below the current consensus page. <a href='#/consensus'>Review current consensus</a>.</div>
+    <h2 class='pagetitle'>Historical consensus findings</h2><p class='pagelede'>The original longitudinal grades are preserved as context. They must not be read as automatic agreement on EIP-8141 or EIP-8130.</p>
+    <div class='consec'><h4><span class='badge ok'>Historically strong</span></h4>${C.strong.map(c=>item(c,'strong')).join('')}</div>
+    <div class='consec'><h4><span class='badge warn'>Historically emerging</span></h4>${C.emerging.map(c=>item(c,'emerging')).join('')}</div>
+    <div class='consec'><h4><span class='badge dim'>Historically weak / apparent</span></h4>${C.weak.map(c=>item(c,'weak')).join('')}</div>`;
+}
+function vHistoricalQuestions(){
+  main.innerHTML=`<div class='archive-banner'><strong>Earlier open-question archive.</strong> These questions are preserved directly here. <a href='#/questions'>Review the questions blocking today’s EIP-8141 / EIP-8130 decision</a>.</div>
+    <h2 class='pagetitle'>Earlier unresolved questions</h2><p class='pagelede'>Longitudinal questions from previous phases of the discussion. Some remain relevant; others document a decision point that has moved on.</p>
+    ${D.open_questions.map(q=>`<details class='pill-details oq'><summary>${esc(q.question)}</summary><div class='inner'><div class='sides'><div class='side'><div class='l'>Position A</div>${inlineCites(esc(q.side_a.position))}<div style='margin-top:5px;font-size:11.5px;color:var(--ink3)'>${esc((q.side_a.who||[]).join(', '))}</div></div><div class='side'><div class='l'>Position B</div>${inlineCites(esc(q.side_b.position))}<div style='margin-top:5px;font-size:11.5px;color:var(--ink3)'>${esc((q.side_b.who||[]).join(', '))}</div></div></div><div class='fld'><b>The argument:</b> ${inlineCites(esc(q.arguments))}</div><div class='fld'><b>Why it was stuck:</b> ${inlineCites(esc(q.blockers))}</div><div class='fld'><b>What could settle it:</b> ${inlineCites(esc(q.resolution_path))}</div></div></details>`).join('')}`;
+}
+
+function vHistoricalOverview(){
+  vOverview();
+  main.insertAdjacentHTML("afterbegin",`<div class="archive-banner"><strong>Historical overview.</strong> This page explains how the community arrived at today's EIP-8141 / EIP-8130 decision. Start with <a href="#/current">Current state</a> for the active coordination map.</div>`);
+}
+
+function vAboutCurrent(){
+  main.innerHTML=`<h2 class="pagetitle">Method, evidence and caveats</h2><div class="about">
+    <h4>Two evidence clocks</h4>
+    <p><b>Stakeholder and discussion evidence</b> comes from the local AA Mafia Telegram export through ${CURRENT.evidenceCutoff}: 30,847 records, including 27,336 user messages from 1,094 accounts. <b>Proposal mechanics</b> were checked against the official EIP-7702 specification and EIP-8141 / EIP-8130 draft pages on ${CURRENT.specChecked}. Keeping these dates separate prevents a later draft from being presented as something participants had already discussed.</p>
+    <h4>How current positions were classified</h4>
+    <ul><li>Explicit preference, support, concern or implementation commitment is labeled and dated.</li><li>Discussion, link sharing, authorship, tool building and meeting participation are not automatically converted into whole-proposal support.</li><li>The latest explicit statement controls the current view. Earlier views remain in the profile timeline.</li><li>Tentative interpretation is labeled; insufficient evidence remains unknown rather than guessed.</li><li>Position colors never stand alone: every cell includes a text label, reasoning and source chips.</li></ul>
+    <h4>What was re-verified for this edition</h4>
+    <ul><li>EIP-8141 and EIP-8130 mechanics, statuses, creation dates, proposal boundaries and ERC-4337 relationships.</li><li>Current stakeholder evidence for the two proposals, with particular attention to later statements that could change an earlier view.</li><li>Consensus claims, open questions, current rollout language and claims of convergence or opposition.</li><li>Historical pages were retained but moved behind the current analytical layer.</li></ul>
+    <h4>Corrections made</h4>
+    <ul><li>EIP-8130 is no longer bundled analytically with Tempo or EIPs 8202/8221/8223/8224.</li><li>The current EIP-8141 summary no longer treats post-transaction assertions as a core feature; companion EIP-7906 is identified separately.</li><li>frangio is not identified as EIP-8141's author. The official draft's author list is the source of record.</li><li>Pedro's latest explicit statement remains a preference for EIP-8130; later comparison-link activity is not treated as a reversal.</li><li>Base's September 2026 rollout is labeled as an announced target. Only the vibenet was reported live by the cutoff.</li></ul>
+    <h4>Known limitations</h4>
+    <ul><li>This chat is one coordination venue. ACD calls, GitHub, forums and conferences appear only when reflected in the local export; official EIPs supplement mechanics, not stakeholder intent.</li><li>Draft EIPs can change after ${CURRENT.specChecked}. This standalone file has no live data pipeline.</li><li>Some important authors and implementers were quiet in the latest chat window. Official authorship is visible on the EIP page, but a missing chat stance remains missing in the position matrix.</li><li>Telegram display names and organization labels can be anachronistic. Profiles retain the original caveats.</li><li>Evidence quality is intentionally uneven: a well-supported unknown is preferable to a filled but speculative cell.</li></ul>
+    <h4>Reading citations</h4><p>Chips such as ${cite([32351,32544])} show sender and date on hover and open the local source message in Telegram for group members. Official proposal links open the Ethereum EIP pages.</p>
+    <h4>Distribution and original reference</h4><p>This is a standalone report with embedded data and no live synchronization. The <a href="./aa_mafia_chronicle.html">original chronicle</a> remains available as an unrevised historical reference; use this edition for the current EIP-8141 / EIP-8130 analysis. The raw Telegram export and intermediate analysis are not part of the repository.</p>
+    <div class="footer-note">Current analysis is a coordination aid, not a protocol recommendation. It distinguishes shared goals, implementation convergence, proposal-specific motion and unresolved disagreement.</div>
+  </div>`;
+}
+
 router();
 })();
 
 </script>
-
 </body>
 </html>

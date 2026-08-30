@@ -1,100 +1,96 @@
-# AA Mafia Chronicle
+# AA Coordination Map
 
-**How Ethereum argued its way from ERC-4337 to native account abstraction.**
+An evidence-linked map of Ethereum's current Account Abstraction design space, centered on **EIP-8141** and **EIP-8130**. It explains what is being decided, who has said what, where agreement ends, and which research or implementation work could unlock progress.
 
-A longitudinal research report reconstructed from the *AA Mafia* Telegram group — 27,336 messages
-from 1,094 accounts, 13 December 2022 to 27 August 2026 — covering who believed what, how positions
-moved over time, which events bent the conversation, and where the debate stood at the end of the
-dataset.
+[Production site](https://aabstraction.netlify.app/) · [Original chronicle](https://aabstraction.netlify.app/aa_mafia_chronicle.html)
 
-▶ **[Live site](https://aa-mafia-telegram.netlify.app)** ← update this link after your first deploy
+## What “current” means
 
----
+- **Discussion cutoff:** 27 August 2026, from the AA Mafia Telegram export: 30,847 records, including 27,336 user messages from 1,094 accounts.
+- **Specification review:** 28 August 2026, against the official [EIP-7702](https://eips.ethereum.org/EIPS/eip-7702), [EIP-8141](https://eips.ethereum.org/EIPS/eip-8141), and [EIP-8130](https://eips.ethereum.org/EIPS/eip-8130) pages.
+- This is a dated snapshot, not a live feed. Both 8141 and 8130 are presented as Draft Core EIPs at the review date. No winner or Ethereum-wide implementation consensus is implied.
 
-## What's in the report
+These two dates are deliberately separate: a later specification is not evidence of what someone supported earlier.
 
-| Section | Contents |
+## Inside the site
+
+| Section | Purpose |
 | --- | --- |
-| **Overview** | Activity chart, executive summary, dataset facts |
-| **Timeline** | 8 eras derived from the discussion itself, 36 analyzed periods |
-| **Turning points** | 14 moments after which the conversation materially changed, each with a before/after |
-| **Stakeholders** | 68 profiles with dated position timelines and explicit change labels (softened / reversed / unchanged …) |
-| **Proposals** | 22 histories — ERC-4337, EIP-7702, EIP-3074, RIP-7560, ERC-6900/7579, EIP-8141, EIP-8130 and more — from first appearance to latest status |
-| **Debate map** | 8 recurring fault lines with the voices on each side |
-| **Position matrix** | Stakeholder × proposal stances; click any cell for reasoning and evidence |
-| **Consensus & open questions** | Strong / emerging / weak consensus, separated from 13 unresolved disagreements |
-| **Where things stand** | State of play on 2026-08-27, labeled *observed* vs *inference* |
+| Current state | The decision boundary, active proposals, recent changes and possible next steps |
+| 8141 vs 8130 | Mechanisms, protocol assumptions, benefits, tradeoffs, ERC-4337 relationships and convergence hypotheses |
+| Why 7702 was not full AA | A plain-language explanation of what delegation solved, what the original root key still controls, and what the new drafts add |
+| Position matrix | Latest observed positions on both current proposals, with dates, reasoning, confidence and citations |
+| Consensus | Shared goals and constraints, emerging implementation agreement and proposal-specific motion |
+| Open questions | Ten evidence-linked questions, opposing arguments and work that could resolve them |
+| Stakeholders, proposals and debate map | Current-first summaries with the longitudinal record still available |
+| Historical context | Direct sidebar pages for the overview, timeline, turning points, profiles, proposals, debate, matrix, consensus and earlier questions |
+| Method & caveats | Evidence clocks, classification rules, corrections and known limits |
 
-Roughly 1,880 claims carry Telegram message-ID citations. Hover a `#id` chip for sender and date;
-clicking opens the message in Telegram (visible to group members only).
+The original chronicle is also retained as a separate, **unrevised historical reference**. Its earlier classifications and summaries should not override the current edition.
 
-## Method, in brief
+## Evidence and corrections
 
-```
-raw export  →  normalization      identities keyed by Telegram user ID, not display name
-            →  36 period chunks   busy months split, quiet months merged
-            →  period analyses    proposals, positions, disagreements, key moments, images
-            →  synthesis          stakeholder timelines, proposal histories, eras, turning points
-            →  this report
-```
+Every current position separates explicit statements, interpretation and insufficient evidence. Discussing a proposal, sharing a link, building a tool or appearing on an author list is not automatically classified as whole-proposal support. Silence is not agreement.
 
-Analytical rules applied throughout: descriptive statements ≠ preferences, speculation ≠ commitment,
-questioning ≠ opposition, **silence ≠ agreement**. Positions are dated, so a 2023 opinion is never
-presented as a current one. An independent fact-check pass verified 12 high-stakes claims plus a
-random citation sample against the raw export.
+Telegram citation chips link to the source message and show its sender and date on hover. The group is private, so those links require membership. The raw export and intermediate analysis are deliberately not included in this repository.
 
-Full caveats — including affiliation drift, deleted accounts, and the limits of reading one venue of
-a multi-venue debate — are in the report's **Method & caveats** section.
+Notable corrections in this edition:
+
+- EIP-8130 is analyzed separately from Tempo and EIPs 8202/8221/8223/8224.
+- Post-transaction assertions are not presented as part of the current EIP-8141 core draft; EIP-7906 is identified as a companion.
+- frangio is not identified as EIP-8141's author.
+- Pedro's latest explicit preference remains EIP-8130; later link sharing is not treated as a reversal.
+- Base's September rollout is an announced target, not a completed deployment at the cutoff.
+- EIP-7702 is described as an AA enabler and deployed bridge, not as a failed or worthless upgrade.
+- Dark-mode links use a readable accent; historical material has direct navigation rather than only bottom-of-page expanders.
+- Missing sender/date metadata for 25 additional analytical citations was checked against the local export and restored during PR preparation.
+
+**Limits:** this chat is one coordination venue, not the whole Ethereum community. Unknown stances remain unknown. Plans are not adoption evidence, common goals are not implementation agreement, and draft specifications can change after the review date.
 
 ## Repository layout
 
-```
-index.html      the entire report — HTML, CSS, JS and data in one self-contained file
-netlify.toml    publish settings, security headers, hash-routing fallback
-```
-
-There is no build step, no dependency install, and no runtime backend. The only external requests
-the page makes are to Google Fonts; all content is embedded.
-
-## Deploying
-
-**Netlify — via Git (recommended).** New site → import this repository. `netlify.toml` supplies the
-settings, so leave the build command empty and the publish directory as `.`. Every push redeploys.
-
-**Netlify — drag and drop.** Drop the repository folder onto <https://app.netlify.com/drop>.
-
-**Netlify CLI.**
-
-```bash
-npm i -g netlify-cli
-netlify deploy --prod --dir .
+```text
+index.html                  current coordination map: HTML, CSS, JavaScript and embedded data
+aa_mafia_chronicle.html      unchanged original deployed chronicle
+netlify.toml                existing static publishing settings and security headers
+tests/site.test.mjs         dependency-free regression checks
 ```
 
-**Anywhere else.** Any static host works — GitHub Pages, Cloudflare Pages, S3 — or just open
-`index.html` in a browser.
+The site retains its original standalone architecture: no build step, dependency install or runtime backend. Google Fonts is the only external content dependency; the report itself is embedded. The homepage metadata and JavaScript-disabled explanation are retained.
 
-## Viewing locally
+## View locally
 
-```bash
-python3 -m http.server 8000    # then open http://localhost:8000
+Run from this repository:
+
+```sh
+python -m http.server 8000 --bind 127.0.0.1
 ```
 
-Opening the file directly also works; serving it over HTTP simply matches production more closely.
+Open [the local homepage](http://127.0.0.1:8000/). Opening `index.html` directly also works.
 
-## Source data
+## Verify changes
 
-The Telegram export and the intermediate analysis files are deliberately **not** published in this
-repository (see `.gitignore`); the report is the deliverable. The group is private, so citation
-links resolve only for its members.
+With Node.js 18 or later:
 
-## Regenerating
+```sh
+node --test tests/site.test.mjs
+git diff --check
+```
 
-The report is assembled from a shell (HTML/CSS), an application script, and a set of JSON datasets
-(`stakeholders`, `proposals`, `months`, `eras`, `turning_points`, `consensus`, `open_questions`,
-`patterns`, `current_state`, `activity`, `citations`). To revise findings, edit the JSON and rebuild
-— `build_site.py` regenerates `index.html` and validates the document structure.
+The tests check JavaScript syntax, all eleven embedded datasets, 21 route renderers, source metadata, the 7702 and historical sidebar destinations, dark-mode link contrast, publication metadata and preservation of the original chronicle. They do not independently prove an analytical claim: claims still require source review.
+
+Also check the changed pages in a real browser, including the current matrix, a citation tooltip, the 7702 explanation and historical navigation at desktop and mobile widths.
+
+## Updating the report
+
+There is no generator included in this repository. Edit `index.html` directly. The original JSON data blocks hold the longitudinal record; the `CURRENT` object and current-view renderers contain the new analytical layer. Add verified sender/date metadata whenever introducing a new citation. Keep current and historical classifications separate, and advance either evidence date only after a corresponding source review.
+
+Do not edit the preserved chronicle to reflect new conclusions. Update the current edition instead.
+
+## Delivery
+
+Submit changes through a pull request against `main`. This repository's existing Netlify configuration publishes the root directory with no build command; the intended production site is [aabstraction.netlify.app](https://aabstraction.netlify.app/). Merging and production deployment are separate from preparing a PR. No new hosting service or deployment pipeline is required.
 
 ---
 
-*Analysis and report generated with Claude. Findings are traceable to source messages; interpretation
-is the author's responsibility.*
+The original report was generated with Claude; this edition refocuses and re-verifies the current design-space analysis. Interpretations are a coordination aid, not a protocol recommendation.
