@@ -59,7 +59,7 @@
   --shadow-lg:0 4px 10px rgba(0,0,0,.5),0 16px 44px rgba(0,0,0,.5);
 }
 *{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
+html{scroll-behavior:auto}
 body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased}
 a,a:visited{color:var(--accent-ink)}
 ::selection{background:var(--accent);color:#fff}
@@ -433,7 +433,267 @@ table.mtx tr:hover td:first-child{background:var(--panel2)}
 @media(max-width:980px){.decision-strip{grid-template-columns:1fr 1fr}.decision-strip>div:nth-child(2){border-right:0}.decision-strip>div:nth-child(-n+2){border-bottom:1px solid var(--line)}.claim-grid,.proposal-stack{grid-template-columns:1fr 1fr}}
 @media(max-width:700px){.proposal-duo,.claim-grid,.consensus-now,.question-now .qcols,.current-profile .pgrid,.proposal-stack,.bridge-path,.scope-grid{grid-template-columns:1fr}.decision-strip{grid-template-columns:1fr}.decision-strip>div{border-right:0;border-bottom:1px solid var(--line)}.decision-strip>div:last-child{border-bottom:0}.section-intro{align-items:start;flex-direction:column}.now-row{grid-template-columns:1fr}.question-now dl{grid-template-columns:1fr;gap:2px}.current-hero{border-radius:12px}.current-hero h2{font-size:36px}.proposal-now{padding:18px}.bridge-callout{align-items:flex-start;flex-direction:column}.bridge-step{min-height:0}}
 @media(max-width:390px){body{font-size:14px}.current-hero{padding:22px 17px}.current-hero h2{font-size:31px}.proposal-now,.deep-section{padding:16px}.statusline{gap:5px}.question-now>summary{padding:14px}.main{padding-left:14px;padding-right:14px}}
-@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{transition-duration:.001ms!important;animation-duration:.001ms!important}}
+/* Reading-first presentation. Native disclosures keep the complete analysis in reach. */
+:root{--ink3:#646670;--gold:#805912;--con:#805912;--neg1:#a63e2b}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--ink3:#a2a1ad;--gold:#d3a44e;--con:#d3a44e;--neg1:#efa18b;--neg2:#ed8c81}}
+:root[data-theme="dark"]{color-scheme:dark;--ink3:#a2a1ad;--gold:#d3a44e;--con:#d3a44e;--neg1:#efa18b;--neg2:#ed8c81}
+:root[data-theme="light"]{color-scheme:light}
+[hidden]{display:none!important}
+.skiplink,.skiplink:visited{color:var(--panel)}
+.mobile-header{display:none}
+.main{padding:2.5rem clamp(1.5rem,4vw,4rem) 5rem;max-width:1120px}
+/* Route focus announces the page; interactive elements retain their own focus rings. */
+.main:focus-visible{outline:none}
+.sidebar{width:230px;padding:1.25rem .75rem;gap:0}
+.brand{padding:.25rem .625rem 1rem}
+.brand h1{font-family:var(--sans);font-size:1.0625rem;line-height:1.3;letter-spacing:-.025em}
+.brand .sub{font-size:.6875rem;line-height:1.6;margin-top:.625rem}
+.navsec{padding:1.125rem .625rem .375rem;font-size:.625rem;letter-spacing:.09em}
+a.navlink{min-height:34px;padding:.375rem .625rem;font-size:.78125rem;border-radius:6px;line-height:1.5;transition:none}
+a.navlink .ic{display:none}
+a.navlink.active{box-shadow:inset 2px 0 var(--accent)}
+.sidefoot{margin-top:1.5rem;padding:.75rem .625rem 0;font-size:.6875rem;border-top:1px solid var(--line)}
+.theme-control{display:flex;align-items:center;justify-content:space-between;gap:.5rem;margin-top:.875rem}
+.theme-control select{max-width:120px;background:var(--bg2);color:var(--ink2);border:1px solid var(--line2);border-radius:6px;padding:.375rem;font:inherit}
+h2.pagetitle,.detail-head h2{font-family:var(--sans);font-size:clamp(1.65rem,2.7vw,2.125rem);line-height:1.2;letter-spacing:-.035em;margin-bottom:.75rem}
+.pagelede{font-size:.9375rem;line-height:1.65;max-width:72ch;margin-bottom:1.75rem}
+h3.sect,.section-intro h3,.consensus-group h3{font-family:var(--sans);font-size:1.125rem;line-height:1.4;letter-spacing:-.02em}
+.section-intro{display:block;margin:2.25rem 0 1rem}
+.section-intro p{max-width:72ch;font-size:.875rem;line-height:1.6;margin-top:.375rem}
+.eyebrow,.kicker{font-family:var(--sans);font-size:.6875rem;letter-spacing:.06em}
+.card,.stat,.chartbox,.claim-card,.deep-section,.proposal-now,.consensus-item,.scope-card,.bridge-step{box-shadow:none}
+.card{border-radius:8px}
+.grid.g2{grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr))}
+.current-hero{border:0;border-radius:0;background:none;box-shadow:none;padding:0;margin-bottom:1.5rem;overflow:visible}
+.current-hero:before{display:none}
+.current-hero h2{font-family:var(--sans);font-size:clamp(1.875rem,3.5vw,2.75rem);line-height:1.15;letter-spacing:-.04em;max-width:24ch;margin:.75rem 0 1rem}
+.current-hero .dek{font-size:1rem;line-height:1.65;max-width:70ch}
+.evidence-clock{font-size:.75rem;color:var(--ink3);line-height:1.7;margin:1rem 0 1.5rem}
+.current-hero .statusline{margin-top:1rem;gap:.375rem .75rem}
+.statusline .badge{background:none;border:0;border-radius:0;padding:0;font-size:.75rem;color:var(--ink2);font-weight:500;letter-spacing:0;white-space:normal}
+.statusline .badge+.badge:before{content:"·";margin-right:.75rem;color:var(--ink3)}
+.summary-context{margin:1rem 0;color:var(--ink2);font-size:.875rem;max-width:75ch}
+.summary-context>summary{width:fit-content;cursor:pointer;color:var(--accent-ink);padding:.25rem 0;font-weight:600}
+.summary-context>p{margin:.75rem 0}
+.freshness,.archive-banner{border:0;border-left:2px solid var(--line2);border-radius:0;background:none;padding:.25rem 0 .25rem 1rem;margin:1rem 0 1.5rem;font-size:.8125rem;line-height:1.65}
+.freshness>.source-kind{display:none}
+.archive-banner{font-size:.8125rem;color:var(--ink3)}
+.proposal-duo{gap:0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin:1rem 0 1.5rem}
+.proposal-now,.proposal-now.p8130{padding:1.375rem 1.5rem 1.375rem 0;border:0;border-radius:0;background:none;min-width:0}
+.proposal-now+.proposal-now{border-left:1px solid var(--line);padding-left:1.5rem;padding-right:0}
+.proposal-now h3{font-family:var(--sans);font-size:1.1875rem;line-height:1.4;letter-spacing:-.02em;margin:.5rem 0}
+.proposal-now .thesis{font-size:.9375rem;line-height:1.6;margin-bottom:.75rem}
+.proposal-now .eyebrow{color:var(--ink3);font-size:.6875rem;letter-spacing:0}
+.proposal-now .actions{margin-top:1rem}
+.proposal-now .summary-context{margin:.75rem 0}
+.proposal-now ul{font-size:.875rem;line-height:1.6}
+.actions{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center}
+.btn{min-height:40px;border-radius:6px;padding:.5rem .75rem;font-family:var(--sans);font-size:.8125rem;font-weight:600;transition:background-color .12s,color .12s}
+.btn.primary,.btn.primary:visited{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.btn.primary:hover{color:var(--bg);filter:none}
+.btn:active,.filter-chip:active{transform:scale(.98)}
+.text-link{display:inline-block;color:var(--accent-ink);font-size:.8125rem;font-weight:600;text-underline-offset:3px;padding:.375rem 0}
+.claim-grid{grid-template-columns:1fr;gap:0}
+.claim-card{display:block;border:0;border-bottom:1px solid var(--line);border-radius:0;background:none;padding:1rem 0}
+.claim-card h4{font-family:var(--sans);font-size:.9375rem;line-height:1.5;letter-spacing:-.01em;margin-bottom:.25rem}
+.claim-card p{font-size:.875rem;line-height:1.6;max-width:80ch}
+.claim-card:last-child{border-bottom:0}
+.bridge-callout{border:0;border-left:0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);border-radius:0;background:none;padding:1rem 0;margin:1.75rem 0}
+.bridge-callout .eyebrow{display:none}
+.bridge-callout h3{font-family:var(--sans);font-size:.9375rem;line-height:1.5}
+.bridge-callout p{font-size:.8125rem;margin-top:.375rem}
+.bridge-callout .btn{flex-shrink:0}
+.decision-strip{border:0;border-radius:0;background:none;margin:1rem 0}
+.decision-strip>div{padding:.5rem 1rem .5rem 0}
+.decision-strip .v{font-family:var(--sans);font-size:.9375rem;line-height:1.5}
+.now-list{border:0;border-radius:0;background:none}
+.now-row{border-bottom:1px solid var(--line);background:none;padding:1rem 0;grid-template-columns:100px minmax(0,1fr) auto}
+.now-row:last-child{border-bottom:0}
+.now-row .signal{font-size:.875rem;line-height:1.7}
+.source-kind{font-size:.625rem;line-height:1.4;letter-spacing:.02em;white-space:normal}
+.reading-shell{margin:0!important;padding:0!important;border:0!important;border-radius:0!important;background:none!important}
+.reading-section{border-top:1px solid var(--line);margin:0}
+.reading-section>summary,.consensus-item>summary,.directory-row>summary,.position-cell>summary{list-style:none;display:flex;align-items:baseline;gap:1rem;cursor:pointer;padding:1rem 0}
+.reading-section>summary::-webkit-details-marker,.consensus-item>summary::-webkit-details-marker,.directory-row>summary::-webkit-details-marker,.position-cell>summary::-webkit-details-marker{display:none}
+.reading-section>summary:after,.consensus-item>summary:after,.directory-row>summary:after,.position-cell>summary:after{content:"+";margin-left:auto;flex-shrink:0;font:400 1.125rem/1 var(--sans);color:var(--ink3)}
+.reading-section[open]>summary:after,.consensus-item[open]>summary:after,.directory-row[open]>summary:after,.position-cell[open]>summary:after{content:"−"}
+.reading-section>summary h3{font-family:var(--sans);font-size:1rem;font-weight:600;line-height:1.5;letter-spacing:-.015em;margin:0}
+.reading-body{padding:0 0 1.5rem}
+.reading-body>.section-intro{margin:0 0 1rem}
+.reading-body>.section-intro p{margin:0}
+.consensus-now{grid-template-columns:1fr;gap:0}
+.consensus-group{margin:2rem 0}
+.consensus-group>.group-head{display:block;margin-bottom:.5rem}
+.consensus-group .definition{font-size:.8125rem;line-height:1.6;display:block;margin-top:.25rem}
+.consensus-item,.consensus-item.goal,.consensus-item.constraint,.consensus-item.emerging,.consensus-item.specific{border:0;border-top:1px solid var(--line);border-radius:0;background:none;padding:0}
+.consensus-item>summary h4{font-family:var(--sans);font-size:.9375rem;font-weight:500;line-height:1.5;margin:0}
+.consensus-item .claim-body{padding:0 0 1rem;max-width:78ch}
+.consensus-item p{font-size:.875rem;line-height:1.7}
+.consensus-item:not(details){padding:1rem 0}
+.consensus-item:not(details) h4{font-family:var(--sans);font-size:.9375rem}
+.evidence-line{font-size:.75rem;color:var(--ink3);line-height:1.7}
+.chip{font-size:.6875rem;border-color:transparent;background:none;padding:.1875rem .25rem;color:var(--accent-ink);text-decoration:underline;text-decoration-color:var(--line2);text-underline-offset:3px}
+.chips{gap:.125rem}
+.compare-wrap,.mtxwrap{border-radius:8px;scrollbar-width:thin}
+.table-hint{display:none;font-size:.75rem;color:var(--ink3);margin:.5rem 0}
+.compare{min-width:720px}
+.compare th{font-family:var(--sans);font-size:.75rem;line-height:1.5;letter-spacing:0;text-transform:none;color:var(--ink)}
+.compare td{font-size:.875rem;line-height:1.65;padding:1rem}
+.compare th:first-child,.compare td:first-child{width:155px}
+.matrix-current{min-width:690px;table-layout:fixed}
+.matrix-current th{font-family:var(--sans);font-size:.75rem;letter-spacing:0;text-transform:none;color:var(--ink);padding:.875rem 1rem}
+.matrix-current th:first-child{width:23%}
+.matrix-current td{padding:.875rem 1rem}
+.matrix-current td:first-child{font-size:.8125rem;line-height:1.6;font-weight:600;min-width:0;position:sticky;left:0;background:var(--panel);border-right:1px solid var(--line);z-index:1;overflow-wrap:anywhere}
+.matrix-current th:first-child{position:sticky;left:0;z-index:2}
+.matrix-current td:first-child a{text-decoration:none}
+.matrix-current td:first-child a:hover{text-decoration:underline}
+.position-cell{display:block;min-width:0}
+.position-cell>summary{padding:0;gap:.5rem}
+.position-summary{display:grid;gap:.375rem;min-width:0}
+.position-meta{display:flex;flex-wrap:wrap;gap:.25rem .5rem;color:var(--ink3);font-size:.6875rem;line-height:1.6;font-variant-numeric:tabular-nums}
+.position-meta .source-kind{background:none;padding:0;min-height:0;display:inline;font-family:var(--sans);font-size:inherit;letter-spacing:0;text-transform:none;color:var(--ink3);font-weight:400}
+.position-cell .position-reason{padding-top:.75rem}
+.position-cell .note{font-size:.8125rem;line-height:1.65}
+.stance-now{font-size:.75rem;font-weight:600;letter-spacing:0;line-height:1.5;padding:.1875rem .5rem;white-space:normal}
+.stance-now.unknown{background:none;color:var(--ink3);padding-left:0}
+.stance-now.lean{color:var(--pos2)}
+.directory-toolbar{display:flex;gap:1rem;align-items:end;flex-wrap:wrap;margin:1.5rem 0 1rem}
+.search-field{display:grid;gap:.375rem;flex:1;max-width:360px;min-width:0}
+.search-field label{font-size:.8125rem;font-weight:600}
+.search-field input,.toolbar input[type=search]{width:100%;min-width:0;min-height:42px;padding:.625rem .75rem;border:1px solid var(--line2);border-radius:6px;background:var(--panel);color:var(--ink);font:400 .875rem/1.4 var(--sans)}
+.result-count{font-size:.75rem;color:var(--ink3);padding:.625rem 0;font-variant-numeric:tabular-nums}
+.empty-state{padding:2rem 0;color:var(--ink2);font-size:.9375rem}
+.directory-group{margin:1.75rem 0}
+.directory-group .famhead{font-family:var(--sans);font-size:.75rem;text-transform:none;letter-spacing:0;color:var(--ink3);margin:0 0 .5rem;line-height:1.5}
+.directory-group .famhead:after{display:none}
+.directory-row{border-top:1px solid var(--line)}
+.directory-row>summary{padding:.9375rem 0;gap:.75rem}
+.directory-title{font-size:.9375rem;font-weight:600;line-height:1.5;flex:1}
+.directory-status{font-size:.75rem;line-height:1.6;color:var(--ink3);text-align:right}
+.directory-status .badge{font-size:.6875rem;padding:.125rem .375rem;letter-spacing:0}
+.directory-status time{display:block;margin-top:.25rem;font-variant-numeric:tabular-nums}
+.directory-body{padding:0 0 1rem;max-width:76ch;font-size:.875rem;line-height:1.7;color:var(--ink2)}
+.directory-body .record-meta{font-size:.75rem;color:var(--ink3);margin-top:.5rem}
+.stakeholder-list{display:grid;grid-template-columns:minmax(0,1fr);gap:0}
+.stakeholder-row{display:grid;grid-template-columns:minmax(170px,1.1fr) minmax(0,1fr) minmax(0,1fr);gap:1.25rem;min-width:0;align-items:start;border-top:1px solid var(--line);padding:1rem 0;text-decoration:none;color:var(--ink)!important}
+.stakeholder-row>div{min-width:0;overflow-wrap:anywhere}
+.stakeholder-row .nm{font-size:.9375rem;font-weight:600;color:var(--accent-ink)}
+.stakeholder-row .org,.stakeholder-row .record-meta{font-size:.75rem;color:var(--ink3);line-height:1.6;margin-top:.25rem}
+.stakeholder-row .proposal-label{font-size:.6875rem;display:block;color:var(--ink3);margin-bottom:.375rem}
+.stakeholder-row .arch{font-size:.8125rem;color:var(--ink2);grid-column:2/-1}
+.toolbar{position:static;gap:.75rem;padding:0 0 1rem}
+.toolbar select{max-width:100%;min-height:42px;font-size:.8125rem}
+.toolbar input:focus-visible,.toolbar select:focus-visible{outline:3px solid var(--accent-ink);outline-offset:3px}
+.question-toolbar{align-items:center;gap:.5rem;margin:1.5rem 0}
+.filter-chip{min-height:40px;border-radius:6px;font-size:.8125rem;font-family:var(--sans);font-weight:600}
+.filter-chip[aria-pressed="true"]{background:var(--accent-soft);color:var(--accent-ink);border-color:var(--accent)}
+.question-list{gap:0}
+.question-now{background:none;border:0;border-top:1px solid var(--line);border-radius:0}
+.question-now>summary{padding:1rem 0}
+.question-now .qtitle{font-family:var(--sans);font-size:1rem;line-height:1.5;font-weight:500;letter-spacing:-.01em}
+.question-now .qmeta{font-size:.75rem;gap:.75rem;color:var(--ink3);margin-top:.375rem}
+.question-now .qmeta .badge{font-size:.6875rem;background:none;border:0;padding:0;border-radius:0;letter-spacing:0;color:var(--ink3);white-space:normal;font-weight:400}
+.question-now .qbody{padding:0 0 1.5rem;border:0}
+.question-now .qside{font-size:.875rem;line-height:1.65;background:none;border:0;border-left:2px solid var(--line);border-radius:0;padding:.25rem 1rem}
+.question-now dl{font-size:.8125rem;line-height:1.7}
+.historical-box{border:0;border-top:1px solid var(--line);border-radius:0;background:none;margin-top:2.5rem}
+.historical-box>summary{padding:1rem 0;font-size:.875rem;color:var(--ink3);font-weight:500}
+.historical-box>.archive-inner{padding:0 0 1rem}
+.deep-section{border:0;border-radius:0;background:none;padding:1rem 0}
+.deep-section h3{font-family:var(--sans);font-size:1.125rem}
+.deep-section h4{font-size:.75rem;letter-spacing:.04em}
+.deep-section p,.deep-section li{font-size:.875rem;line-height:1.7}
+.argbox{background:none;border:0;border-left:2px solid var(--line2);border-radius:0;padding:.5rem 1rem}
+.argbox ul{font-size:.875rem;line-height:1.65}
+.current-profile{background:none;border:0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);border-radius:0;padding:1.25rem 0}
+.current-profile h3{font-family:var(--sans);font-size:1.125rem}
+.current-profile h4{font-size:.8125rem;font-weight:600;margin-bottom:.625rem}
+.current-profile .pgrid{gap:1.5rem}
+.bridge-verdict{background:none;border:0;border-left:2px solid var(--accent);border-radius:0;padding:.5rem 0 .5rem 1.25rem;margin:1.5rem 0 2rem}
+.bridge-verdict .answer{font-family:var(--sans);font-size:1.25rem;line-height:1.5;letter-spacing:-.025em}
+.bridge-verdict p{font-size:.9375rem;line-height:1.7}
+.bridge-step{background:none;border:0;border-radius:0;min-height:0;padding:1rem 1rem 1rem 0}
+.bridge-step h4{font-family:var(--sans);font-size:1rem}
+.bridge-step p{font-size:.875rem;line-height:1.65}
+.scope-card{border:0;border-top:2px solid var(--line2);border-radius:0;background:none;padding:1.25rem 0}
+.scope-card h3{font-family:var(--sans);font-size:1rem}
+.plain-list li{font-size:.875rem;line-height:1.65}
+.scope-grid{gap:2rem}
+.bridge-table{min-width:900px}
+.axis.card{border:0;border-top:1px solid var(--line);border-radius:0;background:none;padding:1.5rem 0}
+.axis h4{font-family:var(--sans);font-size:1rem;line-height:1.5}
+.axside.a,.axside.b{background:none;border-radius:0;border-left:2px solid var(--line2);font-size:.875rem;line-height:1.65}
+.axside.a .lbl,.axside.b .lbl{color:var(--ink)}
+.axnote{font-size:.8125rem;line-height:1.65;margin-top:.875rem}
+.citem{border:0;border-top:1px solid var(--line);border-radius:0;background:none;padding:1rem 0;margin:0;line-height:1.7}
+.pill-details{border:0;border-top:1px solid var(--line);border-radius:0;background:none}
+.pill-details>summary{padding:.75rem 0}
+.pill-details .inner{padding:.5rem 0 1rem}
+.oq>summary{font-family:var(--sans);font-size:.9375rem;line-height:1.6;font-weight:500}
+.oq .side{background:none;border:0;border-left:2px solid var(--line);border-radius:0;font-size:.875rem;line-height:1.7}
+.scard,.pcard{transition:none}
+.scard:hover,.pcard:hover{transform:none;box-shadow:none}
+.footer-note{margin-top:2.5rem;font-size:.75rem;line-height:1.7}
+.csintro{font-size:.9375rem;line-height:1.7}
+.btn,.filter-chip,.navlink,summary{touch-action:manipulation}
+@media(hover:hover) and (pointer:fine){
+  .directory-row>summary:hover .directory-title,.reading-section>summary:hover h3,.consensus-item>summary:hover h4{color:var(--accent-ink)}
+  .stakeholder-row:hover .nm{text-decoration:underline;text-underline-offset:3px}
+  .btn:not(.primary):hover,.filter-chip:not([aria-pressed="true"]):hover{background:var(--accent-soft)}
+}
+@media(max-width:1100px){.table-hint{display:block}}
+@media(max-width:900px){
+  .mobile-header{display:flex;position:sticky;top:0;z-index:10;align-items:center;justify-content:space-between;gap:1rem;padding:.625rem 1rem;border-bottom:1px solid var(--line);background:var(--bg)}
+  .mobile-brand{font-size:.875rem;font-weight:700;color:var(--ink)!important;text-decoration:none;letter-spacing:-.02em}
+  .mobile-header .btn{min-width:72px;min-height:44px;background:none}
+  .sidebar{width:100%;height:auto;position:relative;display:flex;flex-direction:column;flex-wrap:nowrap;padding:.75rem 1rem 1.5rem;max-height:calc(100dvh - 62px);overflow:auto;gap:0}
+  .sidebar:not(.is-open){display:none}
+  .sidebar .brand{display:none}
+  .sidebar .navsec{width:auto;padding:.75rem .625rem .25rem}
+  .sidebar a.navlink{min-height:44px;font-size:.875rem}
+  .sidebar .sidefoot{max-width:480px}
+  .main{padding:1.75rem 1.25rem 4rem}
+  .main:focus-visible{outline-offset:-3px}
+  .toolbar{top:auto}
+}
+@media(max-width:700px){
+  .proposal-duo{grid-template-columns:1fr}
+  .proposal-now,.proposal-now.p8130{padding:1.25rem 0}
+  .proposal-now+.proposal-now{border-left:0;border-top:1px solid var(--line);padding-left:0}
+  .current-hero h2{font-size:2rem}
+  .current-hero .dek{font-size:.9375rem}
+  .claim-grid{grid-template-columns:1fr}
+  .reading-section>summary{padding:1rem 0}
+  .reading-section>summary h3{font-size:.9375rem}
+  .directory-status{max-width:100px;font-size:.6875rem}
+  .directory-title{font-size:.875rem}
+  .directory-row>summary{gap:.5rem}
+  .stakeholder-row{grid-template-columns:repeat(2,minmax(0,1fr));gap:.75rem;padding:1rem 0}
+  .stakeholder-row .person{grid-column:1/-1}
+  .stakeholder-row .arch{grid-column:1/-1}
+  .now-row{grid-template-columns:1fr;gap:.375rem}
+  .now-row>.source-kind{width:fit-content}
+  .decision-strip>div{border:0!important;padding:.625rem 0}
+  .scope-grid{gap:1rem}
+  .bridge-callout{gap:.75rem}
+  .bridge-callout .btn{font-size:.8125rem}
+  .matrix-current th:first-child{width:145px}
+  .question-now>summary{gap:.75rem}
+  .question-now .qbody dl{gap:.375rem}
+  .question-now dd{margin-bottom:.625rem}
+  .g3{grid-template-columns:1fr}
+}
+@media(max-width:390px){
+  .main{padding:1.5rem 1rem 3rem}
+  .current-hero{padding:0}
+  .current-hero h2{font-size:1.875rem}
+  .directory-toolbar{gap:.25rem;display:block}
+  .search-field{max-width:none}
+  .pagelede{font-size:.875rem}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{transition:none!important;animation:none!important}.btn:active,.filter-chip:active,.cell:hover{transform:none}}
+@media(prefers-contrast:more){:root{--line:var(--ink3);--line2:var(--ink2)}a{text-decoration:underline}.btn,.filter-chip{border-width:2px}}
 </style>
 </head>
 <body>
@@ -445,7 +705,11 @@ table.mtx tr:hover td:first-child{background:var(--panel2)}
   </div>
 </noscript>
 
-<a class="skiplink" href="#main">Skip to current analysis</a>
+<a class="skiplink" href="#main">Skip to page content</a>
+<header class="mobile-header">
+  <a class="mobile-brand" href="#/current">AA Coordination Map</a>
+  <button class="btn" id="menu-toggle" type="button" aria-expanded="false" aria-controls="sidebar">Menu</button>
+</header>
 <div class="app">
   <nav class="sidebar" id="sidebar" aria-label="Primary navigation">
     <div class="brand">
@@ -476,7 +740,9 @@ table.mtx tr:hover td:first-child{background:var(--panel2)}
     <a class="navlink" href="./aa_mafia_chronicle.html"><span class="ic">↗</span>Original chronicle (unrevised)</a>
     <div class="navsec">Method</div>
     <a class="navlink" href="#/about"><span class="ic">ℹ</span>Method &amp; caveats</a>
-    <div class="sidefoot">Current positions use explicit, dated chat evidence. Official EIP drafts are used for proposal mechanics. Unknown beats guesswork.</div>
+    <div class="sidefoot">Current positions use explicit, dated chat evidence. Official EIP drafts are used for proposal mechanics. Unknown beats guesswork.
+      <label class="theme-control" for="theme-select">Appearance <select id="theme-select"><option value="">System</option><option value="light">Light</option><option value="dark">Dark</option></select></label>
+    </div>
   </nav>
   <main class="main" id="main" tabindex="-1" aria-live="polite"></main>
 </div>
@@ -676,7 +942,7 @@ function cite(ids){
   return '<span class="chips">'+seen.slice(0,14).map(id=>{
     const c = D.citations[id];
     const t = c ? esc(c[1])+" · "+c[0] : "message "+id;
-    return `<a class="chip" data-tip="msg ${id} — ${t}" href="${TG}${id}" target="_blank" rel="noopener">#${id}</a>`;
+    return `<a class="chip" data-tip="msg ${id} — ${t}" aria-label="Message ${id}, ${t}; opens Telegram in a new tab" href="${TG}${id}" target="_blank" rel="noopener">#${id}</a>`;
   }).join("")+(seen.length>14?`<span class="chip" data-tip="${seen.length-14} further citations">+${seen.length-14}</span>`:"")+"</span>";
 }
 function inlineCites(text){
@@ -702,16 +968,64 @@ document.addEventListener("mousemove",e=>{
     tip.style.left = x+"px"; tip.style.top = (e.clientY+16)+"px";
   }
 });
+document.addEventListener("focusin",e=>{
+  const target=e.target.closest("[data-tip]");
+  if(!target)return;
+  tip.textContent=target.getAttribute("data-tip");tip.style.opacity="1";
+  const rect=target.getBoundingClientRect();
+  tip.style.left=Math.max(8,Math.min(rect.left,innerWidth-tip.offsetWidth-8))+"px";
+  tip.style.top=Math.max(8,rect.top-tip.offsetHeight-8)+"px";
+});
+document.addEventListener("focusout",()=>{tip.style.opacity="0";});
 
 /* ---------- routing ---------- */
 const main = document.getElementById("main");
+const sidebar = document.getElementById("sidebar");
+const menuToggle = document.getElementById("menu-toggle");
+function setMenuOpen(open){
+  sidebar.classList.toggle("is-open",open);
+  menuToggle.setAttribute("aria-expanded",String(open));
+  menuToggle.textContent=open?"Close":"Menu";
+}
+menuToggle.addEventListener("click",()=>setMenuOpen(menuToggle.getAttribute("aria-expanded")!=="true"));
+sidebar.addEventListener("click",e=>{
+  if(e.target.closest("a.navlink")){
+    const wasOpen=menuToggle.getAttribute("aria-expanded")==="true";
+    setMenuOpen(false);
+    if(wasOpen)main.focus({preventScroll:true});
+  }
+});
+document.addEventListener("keydown",e=>{
+  if(e.key==="Escape")tip.style.opacity="0";
+  if(e.key==="Escape"&&menuToggle.getAttribute("aria-expanded")==="true"){
+    setMenuOpen(false);
+    menuToggle.focus();
+  }
+});
+document.querySelector(".skiplink").addEventListener("click",e=>{
+  e.preventDefault();
+  setMenuOpen(false);
+  main.focus({preventScroll:true});
+  main.scrollIntoView({block:"start"});
+});
+document.getElementById("theme-select").addEventListener("change",e=>{
+  document.documentElement.dataset.theme=e.target.value;
+});
 const routes = {overview:vHistoricalOverview,timeline:vTimelineCurrent,"turning-points":vTurningCurrent,"history-timeline":vHistoricalTimeline,"history-turning-points":vHistoricalTurningPoints,"history-stakeholders":vHistoricalStakeholders,"history-proposals":vHistoricalProposals,"history-debates":vHistoricalDebates,"history-matrix":vHistoricalMatrix,"history-consensus":vHistoricalConsensus,"history-questions":vHistoricalQuestions,stakeholders:vStakeholdersCurrent,proposals:vProposalsCurrent,"debate-map":vDebateCurrent,matrix:vMatrixCurrent,consensus:vConsensusCurrent,questions:vQuestions,comparison:vComparison,7702:v7702Explainer,current:vCurrentNow,about:vAboutCurrent};
 let firstRoute=true;
 function router(){
   const h = (location.hash||"#/current").replace(/^#\//,"");
   const [page,id] = h.split("/");
-  document.querySelectorAll(".navlink").forEach(a=>a.classList.toggle("active", a.getAttribute("href")==="#/"+page));
+  const resolvedPage=routes[page]?page:"current";
+  document.querySelectorAll(".navlink").forEach(a=>{
+    const active=a.getAttribute("href")==="#/"+resolvedPage;
+    a.classList.toggle("active",active);
+    if(active)a.setAttribute("aria-current","page");else a.removeAttribute("aria-current");
+  });
+  setMenuOpen(false);
   (routes[page]||vCurrentNow)(id?decodeURIComponent(id):null);
+  makeTablesAccessible();
+  document.title=(main.querySelector("h2")?.textContent||"Current state")+" — AA Coordination Map";
   window.scrollTo(0,0);
   if(!firstRoute)main.focus({preventScroll:true});
   firstRoute=false;
@@ -831,33 +1145,29 @@ function vStakeholders(id){
   if(id){ return vStakeholderDetail(id); }
   const render = ()=>{
     let list = D.stakeholders.filter(s=>s.archetype.indexOf("automated news digest")<0);
-    if(sState.q){ const q=sState.q.toLowerCase(); list=list.filter(s=>(s.name+" "+s.org+" "+s.archetype+" "+(s.interests||[]).join(" ")).toLowerCase().includes(q)); }
+    if(sState.q){ list=list.filter(s=>matchesQuery(s.name+" "+s.org+" "+s.archetype+" "+(s.interests||[]).join(" "),sState.q)); }
     if(sState.tier!=="all") list=list.filter(s=>String(s.tier)===sState.tier);
     if(sState.sort==="name") list.sort((a,b)=>a.name.localeCompare(b.name));
     else if(sState.sort==="activity") list.sort((a,b)=>(b.timeline||[]).length-(a.timeline||[]).length);
     else list.sort((a,b)=>a.tier-b.tier || (b.timeline||[]).length-(a.timeline||[]).length);
     document.getElementById("sgrid").innerHTML = list.map(s=>`
-      <div class="card scard" onclick="location.hash='#/stakeholders/${s.id}'">
-        <div><span class="badge ${s.tier===1?"acc":s.tier===2?"gold":"dim"}">${TIER[s.tier]}</span></div>
-        <div class="nm">${esc(s.name)}</div>
+      <a class="stakeholder-row" href="#/stakeholders/${s.id}">
+        <div class="person"><div class="nm">${esc(s.name)}</div>
         <div class="org">${esc(s.org.split(";")[0].split(".")[0])}</div>
+        <div class="record-meta">${TIER[s.tier]} · ${esc(s.active.from)} → ${esc(s.active.to)} · ${Object.keys(s.matrix||{}).length} stances</div></div>
         <div class="arch">${esc(s.archetype)}</div>
-        <div class="foot">
-          <span class="badge dim">${esc(s.active.from)} → ${esc(s.active.to)}</span>
-          <span class="badge dim">${Object.keys(s.matrix||{}).length} stances</span>
-        </div>
-      </div>`).join("") || `<p style="color:var(--ink3)">No matches.</p>`;
+      </a>`).join("") || `<p class="empty-state">No matching stakeholders. Try a different search or tier.</p>`;
     document.getElementById("scount").textContent = list.length+" shown";
   };
   main.innerHTML = `<h2 class="pagetitle">Stakeholders</h2>
-  <p class="pagelede">${D.stakeholders.length} profiled participants. <b>Core voices</b> shaped the debate across years; <b>regular</b> and <b>notable</b> voices carried specific arguments or periods. Click a card for the full position timeline.</p>
+  <p class="pagelede">${D.stakeholders.length} profiled participants. <b>Core voices</b> shaped the debate across years; <b>regular</b> and <b>notable</b> voices carried specific arguments or periods. Select a person for the full position timeline.</p>
   <div class="toolbar">
-    <input type="search" id="sq" placeholder="Search name, org, topic…" value="${esc(sState.q)}">
-    <select id="stier"><option value="all">All tiers</option><option value="1">Core voices</option><option value="2">Regular voices</option><option value="3">Notable voices</option></select>
-    <select id="ssort"><option value="tier">Sort: relevance</option><option value="activity">Sort: activity</option><option value="name">Sort: name</option></select>
-    <span class="badge dim" id="scount"></span>
+    <input type="search" id="sq" aria-label="Search historical stakeholders" placeholder="Search name, org, topic…" value="${esc(sState.q)}">
+    <select id="stier" aria-label="Filter by participation tier"><option value="all">All tiers</option><option value="1">Core voices</option><option value="2">Regular voices</option><option value="3">Notable voices</option></select>
+    <select id="ssort" aria-label="Sort historical stakeholders"><option value="tier">Sort: relevance</option><option value="activity">Sort: activity</option><option value="name">Sort: name</option></select>
+    <span class="result-count" id="scount" role="status" aria-live="polite"></span>
   </div>
-  <div class="grid g3" id="sgrid"></div>`;
+  <div class="stakeholder-list" id="sgrid"></div>`;
   document.getElementById("sq").addEventListener("input",e=>{sState.q=e.target.value;render();});
   const st=document.getElementById("stier"); st.value=sState.tier; st.addEventListener("change",e=>{sState.tier=e.target.value;render();});
   const ss=document.getElementById("ssort"); ss.value=sState.sort; ss.addEventListener("change",e=>{sState.sort=e.target.value;render();});
@@ -1120,6 +1430,71 @@ let qNowFilter="all";
 let sNowScope="current";
 let sNowQuery="";
 
+function matchesQuery(text,query){
+  return text.normalize("NFKC").toLowerCase().includes(query.normalize("NFKC").trim().toLowerCase());
+}
+function makeTablesAccessible(){
+  main.querySelectorAll(".compare-wrap, .mtxwrap").forEach(wrap=>{
+    wrap.setAttribute("role","region");
+    if(!wrap.hasAttribute("aria-label"))wrap.setAttribute("aria-label","Comparison table; scroll horizontally to see every column");
+    wrap.tabIndex=0;
+    const hint=document.createElement("p");hint.className="table-hint";
+    hint.textContent="Scroll the table sideways to see every column →";
+    wrap.before(hint);
+  });
+}
+function directorySearch(id,label,placeholder){
+  return `<div class="directory-toolbar"><div class="search-field"><label for="${id}-search">${esc(label)}</label><input id="${id}-search" type="search" placeholder="${esc(placeholder)}" aria-controls="${id}-items"></div><span class="result-count" id="${id}-count" role="status" aria-live="polite"></span></div>`;
+}
+function bindDirectorySearch(id){
+  const input=document.getElementById(id+"-search");
+  const container=document.getElementById(id+"-items");
+  const rows=[...container.querySelectorAll("[data-directory-item]")];
+  const groups=[...container.querySelectorAll("[data-directory-group]")];
+  const count=document.getElementById(id+"-count");
+  const empty=document.getElementById(id+"-empty");
+  const filter=()=>{
+    let visible=0;
+    rows.forEach(row=>{
+      row.hidden=!matchesQuery(row.dataset.searchText||row.textContent,input.value);
+      if(!row.hidden)visible++;
+    });
+    groups.forEach(group=>{group.hidden=![...group.querySelectorAll("[data-directory-item]")].some(row=>!row.hidden);});
+    count.textContent=visible+" of "+rows.length+" shown";
+    if(empty)empty.hidden=visible>0;
+  };
+  input.addEventListener("input",filter);
+  filter();
+}
+function proposalArchiveRow(p){
+  const momentum=MOM[p.status.momentum]||["?","dim"];
+  return `<details class="directory-row" data-directory-item>
+    <summary><span class="directory-title">${esc(p.name)}</span><span class="directory-status"><span class="badge ${momentum[1]}">${momentum[0]}</span><time datetime="${esc(p.status.as_of)}">Recorded ${esc(p.status.as_of)}</time></span></summary>
+    <div class="directory-body"><p>${esc(p.what)}</p><p class="record-meta">First seen ${esc(p.first.date)} · status recorded ${esc(p.status.as_of)}</p><a class="text-link" href="#/proposals/${p.id}">Read the full history →</a></div>
+  </details>`;
+}
+// Move the original nodes, rather than copying or truncating analysis and evidence.
+function foldSection(section){
+  if(!section)return;
+  const heading=section.querySelector(":scope > .section-intro > h3, :scope > h3");
+  if(!heading)return;
+  const details=document.createElement("details");details.className="reading-section";
+  const summary=document.createElement("summary");summary.append(heading);
+  const body=document.createElement("div");body.className="reading-body";
+  body.append(...section.childNodes);
+  details.append(summary,body);
+  section.append(details);
+  section.classList.add("reading-shell");
+}
+function foldProfileHistory(){
+  main.querySelectorAll(":scope > h3.sect").forEach(heading=>{
+    const section=document.createElement("section");
+    heading.before(section);
+    section.append(heading);
+    while(section.nextSibling&&!section.nextSibling.matches?.("h3.sect"))section.append(section.nextSibling);
+    foldSection(section);
+  });
+}
 function positionPill(p){
   return `<span class="stance-now ${esc(p.tone)}">${esc(p.label)}</span>`;
 }
@@ -1129,22 +1504,22 @@ function sourceKind(p){
   return `<span class="source-kind ${cls}">${label}</span>`;
 }
 function currentPositionCell(p){
-  return `<div class="position-cell">${positionPill(p)}<div class="note">${esc(p.note)}</div><div class="evidence-line">${sourceKind(p)} ${p.date&&p.date!=="—"?`<span class="badge dim">latest ${esc(p.date)}</span>`:""} ${cite(p.ids)}</div></div>`;
+  return `<details class="position-cell"><summary><span class="position-summary">${positionPill(p)}<span class="position-meta">${p.date&&p.date!=="—"?`<time datetime="${esc(p.date)}">Latest ${esc(p.date)}</time>`:""}${sourceKind(p)}</span></span></summary><div class="position-reason"><p class="note">${esc(p.note)}</p><div class="evidence-line">${p.ids.length?"Source messages "+cite(p.ids):"No reliable proposal-specific evidence in this dataset."}</div></div></details>`;
 }
 function officialBadge(p){
   return `<a class="badge acc" href="${p.url}" target="_blank" rel="noopener">Official draft ↗</a>`;
 }
 function proposalCard(p,key){
   return `<article class="proposal-now ${key==="eip-8130"?"p8130":""}">
-    <div class="eyebrow">${esc(p.status)} · created ${esc(p.created)}</div>
+    <div class="eyebrow">${esc(p.status)}</div>
     <h3>${esc(p.short)} · ${esc(p.title)}</h3>
     <p class="thesis">${esc(p.thesis)}</p>
-    <ul>${p.mechanism.slice(0,3).map(x=>`<li>${esc(x)}</li>`).join("")}</ul>
-    <div class="actions"><a class="btn primary" href="#/proposals/${key}">Deep analysis</a><a class="btn" href="${p.url}" target="_blank" rel="noopener">Read official EIP ↗</a></div>
+    <details class="summary-context"><summary>How it works</summary><p class="evidence-line">Created ${esc(p.created)}</p><ul>${p.mechanism.slice(0,3).map(x=>`<li>${esc(x)}</li>`).join("")}</ul></details>
+    <div class="actions"><a class="text-link" href="#/proposals/${key}">Explore ${esc(p.short)} →</a><a class="btn" href="${p.url}" target="_blank" rel="noopener">Official draft ↗</a></div>
   </article>`;
 }
 function currentClaim(c,cls){
-  return `<article class="consensus-item ${cls}"><h4>${esc(c.title)}</h4><p>${esc(c.text)}</p><div class="evidence-line">${cite(c.ids)}</div></article>`;
+  return `<details class="consensus-item ${cls}"><summary><h4>${esc(c.title)}</h4></summary><div class="claim-body"><p>${esc(c.text)}</p><div class="evidence-line">Source messages ${cite(c.ids)}</div></div></details>`;
 }
 
 function vCurrentNow(){
@@ -1152,18 +1527,18 @@ function vCurrentNow(){
   const known=CURRENT.positions.reduce((n,p)=>n+(p.p8141.basis!=="unknown"?1:0)+(p.p8130.basis!=="unknown"?1:0),0);
   main.innerHTML=`
     <section class="current-hero" aria-labelledby="current-title">
-      <div class="eyebrow">Current coordination map · evidence through ${CURRENT.evidenceCutoff}</div>
-      <h2 id="current-title">The decision is no longer whether to pursue native AA. It is where to put the boundary.</h2>
-      <p class="dek">${esc(CURRENT.headline)}</p>
+      <div class="eyebrow">Current state · evidence through ${CURRENT.evidenceCutoff}</div>
+      <h2 id="current-title">The native AA decision</h2>
+      <p class="dek">The proposals overlap on outcomes. They diverge on which coordination work the protocol should do.</p>
+      <details class="summary-context"><summary>Read the current assessment</summary><p><b>The decision is no longer whether to pursue native AA. It is where to put the boundary.</b> ${esc(CURRENT.headline)}</p><p>${known} evidence-backed non-unknown cells. <b>Stakeholder evidence:</b> local AA Mafia export through ${CURRENT.evidenceCutoff}. <b>Proposal mechanics:</b> official EIP drafts checked ${CURRENT.specChecked}. Planned rollouts are labeled as plans, not completed deployments.</p></details>
       <div class="statusline">
         <span class="badge acc">EIP-8141 · Draft</span>
         <span class="badge gold">EIP-8130 · Draft</span>
-        <span class="badge">${known} evidence-backed non-unknown cells</span>
         <span class="badge">No winner declared</span>
       </div>
     </section>
 
-    <div class="freshness"><span class="source-kind explicit">current means</span><span><b>Stakeholder evidence:</b> local AA Mafia export through ${CURRENT.evidenceCutoff}. <b>Proposal mechanics:</b> official EIP drafts checked ${CURRENT.specChecked}. Planned rollouts are labeled as plans, not completed deployments.</span></div>
+    <p class="evidence-clock">Discussion through ${CURRENT.evidenceCutoff} · Drafts checked ${CURRENT.specChecked}. <a href="#/about">About the sources</a></p>
 
     <aside class="bridge-callout" aria-label="EIP-7702 context">
       <div><div class="eyebrow">The bridge into today's debate</div><h3>7702 gave EOAs smart-account abilities—but left the original master key in charge.</h3><p>That is why batching and sponsorship arrived without completing native account abstraction. The two current drafts move the protocol boundary further.</p></div>
@@ -1183,11 +1558,11 @@ function vCurrentNow(){
     <section aria-labelledby="proposals-now">
       <div class="section-intro"><h3 id="proposals-now">Two active proposals</h3><p>Both are draft Core EIPs. Neither had been selected as Ethereum's shared path by the evidence cutoff.</p></div>
       <div class="proposal-duo">${proposalCard(p8141,"eip-8141")}${proposalCard(p8130,"eip-8130")}</div>
-      <div class="claim-grid">
+      <details class="summary-context"><summary>Overlap, differences and implications</summary><div class="claim-grid">
         <article class="claim-card"><h4>Where they overlap</h4><p>Custom authentication, batching, sponsorship, EOA compatibility and coexistence with existing accounts.</p></article>
         <article class="claim-card"><h4>Where they differ</h4><p>8141 standardizes frame execution and bounded validation; 8130 standardizes account authority, authenticators and scopes.</p></article>
         <article class="claim-card"><h4>Why that matters</h4><p>8141 leaves more policy in code; 8130 spends more protocol complexity to make permissions and sessions easier to coordinate.</p></article>
-      </div>
+      </div></details>
       <div class="actions" style="margin-top:14px"><a class="btn primary" href="#/comparison">Compare meaningful design choices</a><a class="btn" href="#/matrix">See who thinks what</a></div>
     </section>
 
@@ -1229,6 +1604,10 @@ function vCurrentNow(){
       </div>
     </section>
     <div class="footer-note">This current-state layer is deliberately conservative: explicit position, dated evolution, tentative interpretation and unknown are kept distinct. Historical context remains available in the navigation.</div>`;
+  const proposals=main.querySelector('[aria-labelledby="proposals-now"]');
+  const decision=main.querySelector('[aria-labelledby="decision-title"]');
+  proposals.after(decision,main.querySelector(".bridge-callout"));
+  ["decision-title","next-now","signals-now","path-now"].forEach(id=>foldSection(main.querySelector(`[aria-labelledby="${id}"]`)));
 }
 
 function v7702Explainer(){
@@ -1240,7 +1619,7 @@ function v7702Explainer(){
       <div class='statusline'><span class='badge gold'>EIP-7702 · Final</span><span class='badge acc'>EIP-8141 · Draft</span><span class='badge acc'>EIP-8130 · Draft</span><span class='badge'>No proposal winner implied</span></div>
     </section>
 
-    <div class='freshness'><span class='source-kind explicit'>plain-language terms</span><span><b>EOA</b> means an externally owned account: the familiar address controlled by a private key. <b>Native AA</b> means moving programmable approval and fee payment into Ethereum’s own transaction rules. AA is not a single binary label: 7702 is an AA enabler, while smart contract accounts and ERC-4337 already provide programmable account behavior through a different layer.</span></div>
+    <details class='summary-context'><summary>Terms: EOAs, native AA and account abstraction</summary><p><b>EOA</b> means an externally owned account: the familiar address controlled by a private key. <b>Native AA</b> means moving programmable approval and fee payment into Ethereum’s own transaction rules. AA is not a single binary label: 7702 is an AA enabler, while smart contract accounts and ERC-4337 already provide programmable account behavior through a different layer.</p></details>
 
     <section class='bridge-verdict' aria-label='Short answer'>
       <div class='eyebrow'>Short answer</div>
@@ -1331,6 +1710,7 @@ function v7702Explainer(){
     </section>
 
     <div class='footer-note'><b>Official sources:</b> <a href='https://eips.ethereum.org/EIPS/eip-7702' target='_blank' rel='noopener'>EIP-7702</a>, <a href='https://eips.ethereum.org/EIPS/eip-8141' target='_blank' rel='noopener'>EIP-8141</a>, and <a href='https://eips.ethereum.org/EIPS/eip-8130' target='_blank' rel='noopener'>EIP-8130</a>. The explanatory distinction is evidence-backed analysis; it is not an official Ethereum taxonomy.</div>`;
+  ["analogy-title","appearance-title","meaningful-title","advantages-title","still-matters-title"].forEach(id=>foldSection(main.querySelector(`[aria-labelledby="${id}"]`)));
 }
 
 function vComparison(){
@@ -1368,6 +1748,8 @@ function vComparison(){
       <article class="claim-card"><h4>Chain-specific learning before L1</h4><p>Base can produce deployment evidence for 8130 while L1 clients prototype 8141. Comparable metrics could turn parallel motion into a better-informed protocol decision. ${cite([32175,32186,32410])}</p></article>
     </div>
     <div class="footer-note">Official sources: <a href="${a.url}" target="_blank" rel="noopener">EIP-8141</a> and <a href="${b.url}" target="_blank" rel="noopener">EIP-8130</a>. Drafts can change after the checked date.</div>`;
+  main.querySelectorAll(".deep-section").forEach(foldSection);
+  main.querySelector(".footer-note").before(main.querySelector(".bridge-callout"));
 }
 
 function vCurrentProposalDetail(id){
@@ -1415,19 +1797,22 @@ function historicalMatrixHtml(){
 
 function vMatrixCurrent(){
   main.innerHTML=`<h2 class="pagetitle">Current position matrix</h2>
-    <p class="pagelede">Latest known positions toward EIP-8141 and EIP-8130. A person discussing, linking or implementing part of a proposal is not automatically classified as supporting the whole proposal. The note and evidence are the unit of analysis—not the color.</p>
-    <div class="freshness"><span class="source-kind explicit">evidence rule</span><span>Latest explicit statements receive strongest prominence. Historical evolution stays in each profile. Official co-authorship is noted elsewhere but is not substituted for a recent in-dataset position.</span></div>
-    <div class="compare-wrap"><table class="matrix-current">
+    <p class="pagelede">Latest known positions toward EIP-8141 and EIP-8130. Select a position to read the reasoning and source messages. Unknown means insufficient evidence—not neutrality or opposition.</p>
+    <details class="summary-context"><summary>How to read this matrix</summary><p>A person discussing, linking or implementing part of a proposal is not automatically classified as supporting the whole proposal. The note and evidence are the unit of analysis—not the color.</p><p>Latest explicit statements receive strongest prominence. Historical evolution stays in each profile. Official co-authorship is noted elsewhere but is not substituted for a recent in-dataset position.</p></details>
+    ${directorySearch("positions","Find a stakeholder","Search by name…")}
+    <div class="compare-wrap" role="region" aria-label="Current stakeholder positions; scroll horizontally on small screens" tabindex="0"><table class="matrix-current">
       <thead><tr><th>Stakeholder</th><th>EIP-8141 · latest observed</th><th>EIP-8130 · latest observed</th></tr></thead>
-      <tbody>${CURRENT.positions.map(p=>`<tr><td><a href="#/stakeholders/${p.id}">${esc(p.name)}</a></td><td>${currentPositionCell(p.p8141)}</td><td>${currentPositionCell(p.p8130)}</td></tr>`).join("")}</tbody>
+      <tbody id="positions-items">${CURRENT.positions.map(p=>`<tr data-directory-item data-search-text="${esc(p.name)}"><td><a href="#/stakeholders/${p.id}">${esc(p.name)}</a></td><td>${currentPositionCell(p.p8141)}</td><td>${currentPositionCell(p.p8130)}</td></tr>`).join("")}</tbody>
     </table></div>
+    <p class="empty-state" id="positions-empty" hidden>No matching stakeholders. Try a different name or clear the search.</p>
     <div class="footer-note">Unknown is intentional. It means no explicit, reliable stance was found in the local source—not neutrality and not opposition.</div>
     <details class="historical-box"><summary>Historical multi-proposal matrix · secondary context</summary><div class="archive-inner">
       <p class="pagelede" style="margin-top:0">This preserved matrix covers earlier proposal axes. It explains how participants arrived here, but it does not override the two current columns above.</p>
       ${historicalMatrixHtml()}
     </div></details>`;
+  bindDirectorySearch("positions");
   const pop=document.getElementById("cellpop");
-  main.addEventListener("click",e=>{
+  main.querySelector(".historical-box").addEventListener("click",e=>{
     const c=e.target.closest("[data-hsid]");
     if(!c){if(!e.target.closest("#cellpop"))pop.style.display="none";return;}
     const s=D.stakeholders.find(x=>x.id===c.dataset.hsid),m=s&&s.matrix[c.dataset.hax];
@@ -1450,7 +1835,8 @@ function vConsensusCurrent(){
   const historical=D.consensus;
   const oldItem=(c,cls)=>`<div class="citem ${cls}">${inlineCites(esc(c.claim))}<div class="who">${c.voiced_by&&c.voiced_by.length?"Voiced by: "+esc(c.voiced_by.join(", ")):""} ${cite(c.ids)}</div></div>`;
   main.innerHTML=`<h2 class="pagetitle">Consensus in the current design space</h2>
-    <p class="pagelede">Agreement is separated by what it applies to. Broad agreement on an outcome does not imply agreement on EIP-8141, EIP-8130 or the amount of protocol enshrinement.</p>
+    <p class="pagelede">Agreement on a goal is not agreement on an implementation. Expand a finding for its scope and evidence.</p>
+    <details class="summary-context"><summary>How agreement is classified</summary><p>Agreement is separated by what it applies to. Broad agreement on an outcome does not imply agreement on EIP-8141, EIP-8130 or the amount of protocol enshrinement.</p></details>
     ${consensusGroup("Shared goals","Implementation-independent outcomes",C.goals,"goal")}
     ${consensusGroup("Shared constraints","Properties neither path may ignore",C.constraints,"constraint")}
     ${consensusGroup("Emerging implementation convergence","Direction with meaningful caveats",C.emerging,"emerging")}
@@ -1470,8 +1856,9 @@ function renderCurrentQuestions(){
   const target=document.getElementById("question-list");
   if(!target)return;
   target.innerHTML=items.map(q=>`<details class="question-now" id="question-${q.id}">
-    <summary><div><div class="qtitle">${esc(q.title)}</div><div class="qmeta"><span class="badge warn">${esc(q.status)}</span><span class="badge dim">${esc(q.category)}</span>${q.proposals.map(p=>`<span class="badge ${p==="8141"?"acc":"gold"}">EIP-${p}</span>`).join("")}</div></div></summary>
+    <summary><span><span class="qtitle">${esc(q.title)}</span><span class="qmeta"><span>${esc(q.category)}</span>${q.proposals.map(p=>`<span class="badge ${p==="8141"?"acc":"gold"}">EIP-${p}</span>`).join("")}</span></span></summary>
     <div class="qbody">
+      <p class="status-note">${esc(q.status)}</p>
       <div class="qcols"><div class="qside"><b>Argument / path A</b>${esc(q.a)}</div><div class="qside"><b>Argument / path B</b>${esc(q.b)}</div></div>
       <dl><dt>Raised by</dt><dd>${esc(q.raised)} ${cite(q.ids)}</dd><dt>Current state</dt><dd>${esc(q.state)}</dd><dt>What would move it</dt><dd>${esc(q.settle)}</dd></dl>
     </div>
@@ -1486,7 +1873,7 @@ function vQuestions(){
       <button class="filter-chip" data-qfilter="all" aria-pressed="${qNowFilter==="all"}">Both proposals</button>
       <button class="filter-chip" data-qfilter="8141" aria-pressed="${qNowFilter==="8141"}">EIP-8141</button>
       <button class="filter-chip" data-qfilter="8130" aria-pressed="${qNowFilter==="8130"}">EIP-8130</button>
-      <span class="badge dim" id="qcount"></span>
+      <span class="result-count" id="qcount" role="status" aria-live="polite"></span>
     </div>
     <div class="question-list" id="question-list"></div>
     <details class="historical-box"><summary>Earlier unresolved questions · historical archive</summary><div class="archive-inner">
@@ -1506,7 +1893,7 @@ function vStakeholdersCurrent(id){
     vStakeholderDetail(id);
     const pos=CURRENT.positions.find(p=>p.id===id);
     const latest=main.querySelector(".latestbox");
-    const profile=pos?`<section class="current-profile"><div class="eyebrow">CURRENT TWO-PROPOSAL VIEW · evidence through ${CURRENT.evidenceCutoff}</div><h3>EIP-8141 / EIP-8130</h3><div class="pgrid"><div>${currentPositionCell(pos.p8141)}</div><div>${currentPositionCell(pos.p8130)}</div></div></section>`:
+    const profile=pos?`<section class="current-profile"><div class="eyebrow">CURRENT TWO-PROPOSAL VIEW · evidence through ${CURRENT.evidenceCutoff}</div><h3>Latest proposal-specific positions</h3><div class="pgrid"><div><h4>EIP-8141</h4>${currentPositionCell(pos.p8141)}</div><div><h4>EIP-8130</h4>${currentPositionCell(pos.p8130)}</div></div></section>`:
       `<section class="current-profile"><div class="eyebrow">CURRENT TWO-PROPOSAL VIEW</div><h3>Insufficient evidence</h3><p style="color:var(--ink2);font-size:13px">No reliable explicit position toward EIP-8141 or EIP-8130 was identified for this participant. The historical profile below is preserved without projecting it onto the current choice.</p></section>`;
     if(latest){
       latest.insertAdjacentHTML("beforebegin",profile+`<div class="archive-banner"><strong>Longitudinal context.</strong> The remaining profile preserves older axes and dated evolution. It is secondary to the verified current view above.</div>`);
@@ -1515,6 +1902,7 @@ function vStakeholdersCurrent(id){
     }else{
       main.insertAdjacentHTML("afterbegin",profile);
     }
+    foldProfileHistory();
     return;
   }
   const render=()=>{
@@ -1522,16 +1910,13 @@ function vStakeholdersCurrent(id){
     let list=sNowScope==="current"?CURRENT.positions.map(p=>({s:D.stakeholders.find(x=>x.id===p.id),p})).filter(x=>x.s):
       D.stakeholders.filter(s=>s.archetype.indexOf("automated news digest")<0).map(s=>({s,p:currentById.get(s.id)||null}));
     if(sNowQuery){
-      const q=sNowQuery.toLowerCase();
-      list=list.filter(({s,p})=>(s.name+" "+s.org+" "+s.archetype+" "+(p?`${p.p8141.label} ${p.p8130.label}`:"")).toLowerCase().includes(q));
+      list=list.filter(({s,p})=>matchesQuery(s.name+" "+s.org+" "+s.archetype+" "+(p?`${p.p8141.label} ${p.p8130.label}`:""),sNowQuery));
     }
     list.sort((a,b)=>(b.p?1:0)-(a.p?1:0)||a.s.tier-b.s.tier||a.s.name.localeCompare(b.s.name));
-    document.getElementById("sgrid").innerHTML=list.map(({s,p})=>`<a class="card scard" href="#/stakeholders/${s.id}" style="text-decoration:none;color:inherit">
-      <div><span class="badge ${p?"acc":"dim"}">${p?"Current evidence":"Historical profile"}</span></div>
-      <div class="nm">${esc(s.name)}</div><div class="org">${esc(s.org.split(";")[0].split(".")[0])}</div>
-      ${p?`<div style="display:grid;gap:6px;margin-top:8px"><div><span class="tag">8141</span>${positionPill(p.p8141)}</div><div><span class="tag">8130</span>${positionPill(p.p8130)}</div></div>`:`<div class="arch">${esc(s.archetype)}</div>`}
-      <div class="foot"><span class="badge dim">${esc(s.active.from)} → ${esc(s.active.to)}</span></div>
-    </a>`).join("")||`<p style="color:var(--ink3)">No matches.</p>`;
+    document.getElementById("sgrid").innerHTML=list.map(({s,p})=>`<a class="stakeholder-row" href="#/stakeholders/${s.id}">
+      <div class="person"><div class="nm">${esc(s.name)}</div><div class="org">${esc(s.org.split(";")[0].split(".")[0])}</div><div class="record-meta">${p?"Current evidence":"Historical profile"} · ${esc(s.active.from)} → ${esc(s.active.to)}</div></div>
+      ${p?`<div><span class="proposal-label">EIP-8141</span>${positionPill(p.p8141)}</div><div><span class="proposal-label">EIP-8130</span>${positionPill(p.p8130)}</div>`:`<div class="arch">${esc(s.archetype)}</div>`}
+    </a>`).join("")||`<p class="empty-state">No matching stakeholders. Try a different name or clear the search.</p>`;
     document.getElementById("scount").textContent=list.length+" shown";
   };
   main.innerHTML=`<h2 class="pagetitle">Stakeholders in the current debate</h2>
@@ -1539,8 +1924,8 @@ function vStakeholdersCurrent(id){
     <div class="toolbar">
       <input type="search" id="sqnow" aria-label="Search stakeholders" placeholder="Search name, organization or position…" value="${esc(sNowQuery)}">
       <select id="sscopenow" aria-label="Choose stakeholder scope"><option value="current">Current decision-space participants</option><option value="all">All historical profiles</option></select>
-      <span class="badge dim" id="scount"></span>
-    </div><div class="grid g3" id="sgrid"></div>`;
+      <span class="result-count" id="scount" role="status" aria-live="polite"></span>
+    </div><div class="stakeholder-list" id="sgrid"></div>`;
   document.getElementById("sqnow").addEventListener("input",e=>{sNowQuery=e.target.value;render();});
   const scope=document.getElementById("sscopenow");scope.value=sNowScope;scope.addEventListener("change",e=>{sNowScope=e.target.value;render();});
   render();
@@ -1556,10 +1941,10 @@ function vProposalsCurrent(id){
     <p class="pagelede">The active design space is led by two Draft Core EIPs. Existing infrastructure and migration mechanisms remain relevant; older and superseded proposals are preserved in the archive below.</p>
     <div class="proposal-duo">${proposalCard(a,"eip-8141")}${proposalCard(b,"eip-8130")}</div>
     <div class="section-intro"><h3>Current supporting stack</h3><p>These mechanisms shape deployment, compatibility and the practical meaning of either native path.</p></div>
-    <div class="proposal-stack">${supporting.map(p=>`<a class="card" href="#/proposals/${p.id}" style="text-decoration:none;color:inherit"><div class="nm" style="font-family:var(--serif);font-size:17px;font-weight:700">${esc(p.name)}</div><div style="font-size:12.5px;color:var(--ink2);margin-top:5px">${esc(p.what)}</div></a>`).join("")}</div>
+    <div class="proposal-directory">${supporting.map(proposalArchiveRow).join("")}</div>
     <details class="historical-box"><summary>Historical proposal archive · ${archive.length} entries</summary><div class="archive-inner">
       <div class="freshness"><span class="source-kind interpretation">data correction</span><span>The original EIP-8130 record bundled it with Tempo and EIPs 8202/8221/8223/8224. That bundled record is superseded by the standalone analysis above and is not rendered here.</span></div>
-      <div class="grid g2">${archive.map(p=>{const m=MOM[p.status.momentum]||["?","dim"];return `<a class="card pcard" href="#/proposals/${p.id}" style="text-decoration:none;color:inherit"><div style="display:flex;justify-content:space-between;gap:10px"><span class="nm">${esc(p.name)}</span><span class="badge ${m[1]}">${m[0]}</span></div><div class="what">${esc(p.what)}</div><div style="font-size:11.5px;color:var(--ink3)">Status recorded ${esc(p.status.as_of)}</div></a>`;}).join("")}</div>
+      <div class="proposal-directory">${archive.map(proposalArchiveRow).join("")}</div>
     </div></details>`;
 }
 
@@ -1622,9 +2007,12 @@ function vHistoricalProposals(id){
   if(id)return vCurrentProposalDetail(id);
   const archived=D.proposals.filter(p=>!CURRENT.proposals[p.id]);
   main.innerHTML=`<div class='archive-banner'><strong>Proposal archive.</strong> Dated histories and last-recorded momentum are shown directly here. Some remain active supporting infrastructure; others are superseded. <a href='#/proposals'>Return to current proposals</a>.</div>
-    <h2 class='pagetitle'>Historical proposal archive</h2><p class='pagelede'>${archived.length} longitudinal proposal and mechanism records. The two active EIPs use the corrected, standalone analyses below rather than the older bundled or draft-stale summaries.</p>
-    <div class='freshness'><span class='source-kind interpretation'>verified boundary</span><span>The original EIP-8130 bundle and the old EIP-8141 post-assertion description are preserved only in the reference dataset. Read <a href='#/proposals/eip-8141'>current EIP-8141</a> and <a href='#/proposals/eip-8130'>current EIP-8130</a> for their verified scope.</span></div>
-    ${Object.keys(FAM).map(f=>{const ps=archived.filter(p=>p.family===f);return ps.length?`<div class='famhead'>${esc(FAM[f])}</div><div class='grid g2'>${ps.map(p=>{const m=MOM[p.status.momentum]||['?','dim'];return `<a class='card pcard' href='#/proposals/${p.id}' style='text-decoration:none;color:inherit'><div style='display:flex;justify-content:space-between;gap:10px;align-items:baseline'><span class='nm'>${esc(p.name)}</span><span class='badge ${m[1]}'>${m[0]}</span></div><div class='what'>${esc(p.what)}</div><div style='font-size:11.5px;color:var(--ink3)'>First seen ${esc(p.first.date)} · status recorded ${esc(p.status.as_of)}</div></a>`;}).join('')}</div>`:'';}).join('')}`;
+    <h2 class='pagetitle'>Historical proposal archive</h2><p class='pagelede'>${archived.length} longitudinal proposal and mechanism records. Select a proposal for its summary, dates and full history.</p>
+    <details class='summary-context'><summary>Scope and corrections</summary><p>The two active EIPs use the corrected, standalone analyses rather than the older bundled or draft-stale summaries. The original EIP-8130 bundle and the old EIP-8141 post-assertion description are preserved only in the reference dataset. Read <a href='#/proposals/eip-8141'>current EIP-8141</a> and <a href='#/proposals/eip-8130'>current EIP-8130</a> for their verified scope.</p></details>
+    ${directorySearch("archive","Find a proposal or mechanism","Search name, topic or description…")}
+    <div id="archive-items">${Object.keys(FAM).map(f=>{const ps=archived.filter(p=>p.family===f);return ps.length?`<section class="directory-group" data-directory-group><h3 class="famhead">${esc(FAM[f])}</h3>${ps.map(proposalArchiveRow).join("")}</section>`:"";}).join("")}</div>
+    <p class="empty-state" id="archive-empty" hidden>No matching proposals. Try another term or clear the search.</p>`;
+  bindDirectorySearch("archive");
 }
 function vHistoricalDebates(){
   vDebate();

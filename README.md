@@ -28,11 +28,23 @@ These two dates are deliberately separate: a later specification is not evidence
 
 The original chronicle is also retained as a separate, **unrevised historical reference**. Its earlier classifications and summaries should not override the current edition.
 
+## Reading-first interface
+
+The presentation follows [Emil Kowalski's Design Engineering](https://github.com/emilkowalski/skills/blob/d23d7f88a2e21c9e4b1418c7abe420f5c1052ba7/skills/emil-design-eng/SKILL.md) and [Apple Design](https://github.com/emilkowalski/skills/blob/d23d7f88a2e21c9e4b1418c7abe420f5c1052ba7/skills/apple-design/SKILL.md) guidance: restraint, clear type hierarchy, the common path first, and detail one level deeper. The existing standalone structure and font families are retained; no animation library or other dependency was added.
+
+| Before | After | Why |
+| --- | --- | --- |
+| Repeated full cards and explanations | Short overview, linear directories and native reading disclosures | Scan the decision space before opening the full analysis |
+| Full reasoning in every matrix cell | Latest stance, date and confidence first; expandable reasoning and sources | Compare positions without losing their evidential basis |
+| Full navigation above mobile content | A compact Menu control; direct historical links remain in desktop navigation | Reach content quickly while keeping the archive discoverable |
+
+The proposal archive and matrix have local search. Profiles, the 7702 explainer and comparison deep dives keep their original detail in expandable sections. Appearance can follow the system or use the light/dark theme; navigation has no decorative animation, and reduced-motion preferences disable press effects. The original chronicle and all analytical datasets remain unchanged by this UI iteration.
+
 ## Evidence and corrections
 
 Every current position separates explicit statements, interpretation and insufficient evidence. Discussing a proposal, sharing a link, building a tool or appearing on an author list is not automatically classified as whole-proposal support. Silence is not agreement.
 
-Telegram citation chips link to the source message and show its sender and date on hover. The group is private, so those links require membership. The raw export and intermediate analysis are deliberately not included in this repository.
+Telegram citation chips link to the source message and show its sender and date on hover or keyboard focus. Their accessible labels also name the sender, date and destination. The group is private, so those links require membership. The raw export and intermediate analysis are deliberately not included in this repository.
 
 Notable corrections in this edition:
 
@@ -54,6 +66,7 @@ index.html                  current coordination map: HTML, CSS, JavaScript and 
 aa_mafia_chronicle.html      unchanged original deployed chronicle
 netlify.toml                existing static publishing settings and security headers
 tests/site.test.mjs         dependency-free regression checks
+tests/BROWSER_CHECKS.md     repeatable UI verification checklist and local results
 ```
 
 The site retains its original standalone architecture: no build step, dependency install or runtime backend. Google Fonts is the only external content dependency; the report itself is embedded. The homepage metadata and JavaScript-disabled explanation are retained.
@@ -77,9 +90,9 @@ node --test tests/site.test.mjs
 git diff --check
 ```
 
-The tests check JavaScript syntax, all eleven embedded datasets, 21 route renderers, source metadata, the 7702 and historical sidebar destinations, dark-mode link contrast, publication metadata and preservation of the original chronicle. They do not independently prove an analytical claim: claims still require source review.
+The tests check JavaScript syntax, all eleven embedded datasets, 21 route renderers, source metadata, the 7702 and historical sidebar destinations, dark-mode link contrast, publication metadata and preservation of the original chronicle. Presentation regressions cover search normalization, disclosure metadata, mobile menu markup and narrow-screen column sizing. A data fingerprint guards the UI-only iteration against accidental changes to the analysis. Update that fingerprint deliberately only after a future evidence review. Tests do not independently prove an analytical claim: claims still require source review.
 
-Also check the changed pages in a real browser, including the current matrix, a citation tooltip, the 7702 explanation and historical navigation at desktop and mobile widths.
+Also run the [browser checklist](tests/BROWSER_CHECKS.md), including the current matrix, the 7702 explanation and historical navigation at desktop and mobile widths. These runtime checks complement the dependency-free tests; static assertions alone do not prove layout or interaction behavior.
 
 ## Updating the report
 

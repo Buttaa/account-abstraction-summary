@@ -126,3 +126,87 @@ test('the original deployed chronicle is preserved without content changes', () 
   // index.html from the original main commit, 493e4e1, with normalized line endings.
   assert.equal(hash, '263f6d9ab55aa485d2b8e847ae0a0e9a1d2eae096b8f10d18ac5d0771275012b');
 });
+
+test('the UI iteration preserves all analytical data and citation metadata', () => {
+  const current = currentData();
+  const supplement = application.match(/Object\.assign\(D\.citations,(\{[\s\S]*?\n\})\);/);
+  const citations = runInNewContext(`(${supplement[1]})`, Object.create(null), { timeout: 1000 });
+  const hash = createHash('sha256').update(JSON.stringify({ datasets, current, citations })).digest('hex');
+  // Baseline: content commit 019c270, before the presentation-only iteration.
+  assert.equal(hash, '9a0c43b5dfc820f82da46a46ebe22844d034aff36fd946445eb44e5edf8eb1ba');
+});
+
+function standaloneFunction(name, context = {}) {
+  const source = application.match(new RegExp(`function ${name}\\([^]*?\\n\\}`))?.[0];
+  assert.ok(source, `${name} exists`);
+  return runInNewContext(`(${source})`, context, { timeout: 1000 });
+}
+
+test('directory search is case-insensitive, trims whitespace and handles an empty query', () => {
+  const matches = standaloneFunction('matchesQuery');
+  assert.equal(matches('EIP-7702 — EOA upgrade', '  eip-7702  '), true);
+  assert.equal(matches('Vitalik Buterin', 'BUTERIN'), true);
+  assert.equal(matches('EIP-8130', '8141'), false);
+  assert.equal(matches('Any stakeholder', '   '), true);
+});
+
+test('positions keep stance, latest date and confidence visible, with evidence on demand', () => {
+  const render = standaloneFunction('currentPositionCell', {
+    esc: value => String(value),
+    positionPill: p => `<span>${p.label}</span>`,
+    sourceKind: p => `<span>${p.basis}</span>`,
+    cite: ids => `<span>source ${ids.join(',')}</span>`,
+  });
+  for (const person of currentData().positions) {
+    for (const key of ['p8141', 'p8130']) {
+      const position = person[key];
+      const output = render(position);
+      assert.ok(/<details\b[^>]*class="position-cell"/.test(output));
+      assert.ok(!/<details\b[^>]*\bopen\b/.test(output), 'closed by default');
+      const summary = output.match(/<summary>([^]*?)<\/summary>/)?.[1] || '';
+      assert.ok(summary.includes(position.label));
+      assert.ok(summary.includes(position.basis), 'confidence is not hidden');
+      if (position.date !== '—') assert.ok(summary.includes(position.date));
+      assert.ok(output.includes(position.note), 'reasoning is preserved');
+      for (const id of position.ids) assert.ok(output.includes(String(id)));
+    }
+  }
+});
+
+test('small screens have a collapsed navigation menu with an accessible control', () => {
+  const button = html.match(/<button\b[^>]*id="menu-toggle"[^>]*>/)?.[0] || '';
+  assert.ok(button.includes('aria-expanded="false"'));
+  assert.ok(button.includes('aria-controls="sidebar"'));
+  assert.ok(application.includes('function setMenuOpen('));
+  assert.ok(application.includes('"Escape"'), 'keyboard users can dismiss the menu');
+  assert.ok(/\.sidebar:not\(\.is-open\)\s*\{\s*display:none/.test(html), 'navigation is initially collapsed on small screens');
+});
+
+test('native reading disclosures and local search remain dependency-free', () => {
+  assert.ok(application.includes('function foldSection('));
+  assert.ok(application.includes('function bindDirectorySearch('));
+  assert.ok(application.includes('data-directory-item'));
+  assert.ok(html.includes('prefers-reduced-motion:reduce'));
+  assert.ok(!/transition:\s*all\b/.test(html), 'no indiscriminate layout animation');
+  assert.ok(html.includes('aria-current'), 'current page is exposed to assistive technology');
+});
+
+test('small-screen stakeholder columns can shrink below long stance labels', () => {
+  assert.ok(/\.stakeholder-list\{[^}]*grid-template-columns:minmax\(0,1fr\)/.test(html));
+  assert.ok(/\.stakeholder-row\{[^}]*grid-template-columns:repeat\(2,minmax\(0,1fr\)\)/.test(html));
+});
+
+test('compact archive records retain descriptions, dated status and full-history links', () => {
+  const render = standaloneFunction('proposalArchiveRow', { esc: value => String(value), MOM: {} });
+  const proposals = datasets.proposals.filter(p => !currentData().proposals[p.id]);
+  assert.equal(proposals.length, 20);
+  for (const proposal of proposals) {
+    const output = render(proposal);
+    assert.ok(output.includes('<details class="directory-row"'));
+    assert.ok(output.includes(proposal.name));
+    assert.ok(output.includes(proposal.what));
+    assert.ok(output.includes(proposal.first.date));
+    assert.ok(output.includes(proposal.status.as_of));
+    assert.ok(output.includes(`href="#/proposals/${proposal.id}"`));
+  }
+});
