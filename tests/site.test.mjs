@@ -26,12 +26,12 @@ test('homepage JavaScript compiles and all eleven embedded datasets parse', () =
   ]);
 });
 
-test('the default route is current state and all 21 routes have renderers', () => {
+test('the default route is current state and all 22 routes have renderers', () => {
   assert.ok(/location\.hash\|\|"#\/current"/.test(application), 'empty URLs open current state');
   const routes = application.match(/const routes = \{([^\n]+)\};/);
   assert.ok(routes, 'route table is present');
   const entries = [...routes[1].matchAll(/(?:"([^"]+)"|(\w+)):(\w+)/g)];
-  assert.equal(entries.length, 21);
+  assert.equal(entries.length, 22);
   for (const [, quoted, bare, renderer] of entries) {
     assert.ok(new RegExp(`function ${renderer}\\(`).test(application), `${quoted || bare} has a renderer`);
   }
@@ -245,4 +245,44 @@ test('the current matrix has 25 profiled participants and dated, sourced protoco
   }
   assert.ok(/function protocolUpdatesHtml\(/.test(application), 'protocol updates are rendered apart from chat evidence');
   for (const key of ['eip-8141', 'eip-8130']) assert.ok(current.proposals[key].authors.length > 10, `${key} lists its official authors`);
+});
+
+test('search normalizes accents and case, ranks titles first and highlights safely', () => {
+  const searchNorm = standaloneFunction('searchNorm');
+  assert.equal(searchNorm('Łukasz Rozmej — EIP-8141'), 'lukasz rozmej — eip-8141');
+  const searchTerms = standaloneFunction('searchTerms', { searchNorm });
+  assert.deepEqual([...searchTerms('  Frame   TX ')], ['frame', 'tx']);
+  const rankSearch = standaloneFunction('rankSearch', { searchNorm, searchTerms, SEARCH_TYPE_WEIGHT: { Page: 10, Stakeholder: 8, 'Key moment': 0 } });
+  const mk = (type, title, text) => { const hay = searchNorm(`${title} ${text}`); return { type, title, text, href: '#', meta: '', hay, hay2: hay.replace(/-/g, '') }; };
+  const items = [
+    mk('Key moment', 'A moment about mempool rules', 'mempool mempool'),
+    mk('Page', 'Position matrix', 'positions on 8141'),
+    mk('Stakeholder', 'Vitalik Buterin', 'author of EIP-8141'),
+  ];
+  assert.deepEqual([...rankSearch(items, 'matrix')].map(i => i.title), ['Position matrix']);
+  assert.deepEqual([...rankSearch(items, 'MEMPOOL')].map(i => i.title), ['A moment about mempool rules']);
+  assert.deepEqual([...rankSearch(items, '8141')].map(i => i.title), ['Position matrix', 'Vitalik Buterin'], 'pages outrank profiles at equal relevance');
+  assert.deepEqual([...rankSearch(items, 'eip8141')].map(i => i.title), ['Vitalik Buterin'], 'dashes in EIP numbers are optional');
+  assert.equal(rankSearch(items, 'vitalik matrix').length, 0, 'every term must match');
+  assert.equal(rankSearch(items, '   ').length, 0);
+  const escape = value => String(value).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const highlight = standaloneFunction('highlight', { searchNorm, esc: escape });
+  assert.equal(highlight('Frames <b>and</b> keystores', ['frame'], 170), '<mark>Frame</mark>s &lt;b&gt;and&lt;/b&gt; keystores');
+  const long = 'x '.repeat(200) + 'needle in the haystack ' + 'y '.repeat(200);
+  const windowed = highlight(long, ['needle'], 120);
+  assert.ok(windowed.startsWith('…') && windowed.endsWith('…'), 'long text is windowed around the first hit');
+  assert.ok(windowed.includes('<mark>needle</mark>') && windowed.length < 200);
+});
+
+test('the shell has a search field, a small-screen search control and a search route with anchored targets', () => {
+  const sidebar = html.match(/<nav\b[^>]*id="sidebar"[\s\S]*?<\/nav>/)[0];
+  assert.match(sidebar, /<input id="site-search" type="search"/);
+  assert.match(sidebar, /<label class="visually-hidden" for="site-search">/);
+  assert.match(html, /<a class="btn" id="search-toggle" href="#\/search">/);
+  assert.ok(/function vSearch\(/.test(application) && /function searchIndex\(/.test(application));
+  for (const marker of ["id='hq-${i}'", 'id="tp-${', 'id="era-${esc(e.id)}"', 'id="month-${esc(m.key)}"', 'id="axis-${i}"', 'id="haxis-${i}"', "id='hc-${cls}-${i}'", "id='pattern-${i}'", 'id="protocol-updates"', 'id="question-${q.id}"']) {
+    assert.ok(application.includes(marker), `search results can target ${marker}`);
+  }
+  assert.match(application, /const ANCHOR_ROUTES=new Set\(/);
+  assert.match(html, /\.route-kicker\{/);
 });

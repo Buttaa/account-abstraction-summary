@@ -26,6 +26,7 @@ Both 8141 and 8130 are Draft Core EIPs. Hours after the chat export ends, the co
 | Stakeholders, proposals and debate map | Current-first summaries with the longitudinal record still available |
 | Historical context | Direct pages for the overview, timeline, turning points, profiles, proposals, debates, matrix, consensus and earlier questions |
 | Method & caveats | Evidence clocks, classification rules, corrections and known limits |
+| Search | One search across pages, people, proposals, questions, findings, turning points and timeline periods; every hit links to the section where it lives |
 
 ## Evidence and corrections
 
@@ -53,7 +54,9 @@ Earlier corrections stand: EIP-8130 is analyzed apart from Tempo and EIPs 8202, 
 
 The presentation follows [Emil Kowalski's Design Engineering](https://github.com/emilkowalski/skills/blob/d23d7f88a2e21c9e4b1418c7abe420f5c1052ba7/skills/emil-design-eng/SKILL.md) and [Apple Design](https://github.com/emilkowalski/skills/blob/d23d7f88a2e21c9e4b1418c7abe420f5c1052ba7/skills/apple-design/SKILL.md) guidance: restraint, a clear type hierarchy, the common path first, and detail one level deeper. The site is a single standalone file with no build step and no dependency other than Google Fonts.
 
-The proposal archive and the matrix have local search. Profiles, the 7702 explainer and the comparison deep dives keep their full detail in expandable sections. Appearance can follow the system or use the light or dark theme. Navigation has no decorative animation, and reduced-motion preferences disable press effects.
+A site-wide search sits at the top of the navigation; press `/` to focus it, and on phones the header has a Search button. It indexes every page, profile, proposal, question, finding, turning point and timeline period, updates as you type, and links each hit to the section where it lives. The proposal archive and the matrix keep their local filters. Profiles, the 7702 explainer and the comparison deep dives keep their full detail in expandable sections.
+
+Each list page names its navigation group above the title. The matrix has striped rows and a header that stays visible while scrolling. Facts checked after the chat cutoff sit in one labeled block on the pages that use them. Appearance can follow the system or use the light or dark theme; a print stylesheet drops the navigation. Navigation has no decorative animation, and reduced-motion preferences disable press effects.
 
 ## Repository layout
 
@@ -83,7 +86,7 @@ node --test tests/site.test.mjs
 git diff --check
 ```
 
-The tests check JavaScript syntax, all eleven embedded datasets, the 21 route renderers, source metadata for every cited message, the 7702 and historical sidebar destinations, dark-mode link contrast, publication metadata and the dated protocol updates. Presentation checks cover search normalization, disclosure metadata, mobile menu markup and narrow-screen column sizing. A data fingerprint guards the analysis against accidental edits; update it deliberately, and only together with a source review. Tests do not prove an analytical claim on their own.
+The tests check JavaScript syntax, all eleven embedded datasets, the 22 route renderers, source metadata for every cited message, the 7702 and historical sidebar destinations, dark-mode link contrast, publication metadata and the dated protocol updates. Presentation checks cover the search field and route, search normalization, ranking and highlighting, disclosure metadata, mobile menu markup and narrow-screen column sizing. A data fingerprint guards the analysis against accidental edits; update it deliberately, and only together with a source review. Tests do not prove an analytical claim on their own.
 
 Also run the [browser checklist](tests/BROWSER_CHECKS.md) at desktop and mobile widths. Static assertions alone do not prove layout or interaction behavior.
 

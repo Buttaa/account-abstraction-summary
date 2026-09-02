@@ -753,6 +753,60 @@ a.claim-card:after{content:"→";position:absolute;top:1rem;right:0;color:var(--
 }
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{transition:none!important;animation:none!important}.btn:active,.filter-chip:active,.cell:hover{transform:none}}
 @media(prefers-contrast:more){:root{--line:var(--ink3);--line2:var(--ink2)}a{text-decoration:underline}.btn,.filter-chip{border-width:2px}}
+
+/* ---------- search ---------- */
+.visually-hidden{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap;border:0}
+.sidesearch{position:relative;margin:0 .625rem 1rem}
+.sidesearch input{width:100%;min-width:0;min-height:38px;padding:.5rem 2.25rem .5rem .75rem;border:1px solid var(--line2);border-radius:6px;background:var(--panel);color:var(--ink);font:400 .8125rem/1.4 var(--sans)}
+.sidesearch input::placeholder{color:var(--ink3)}
+.sidesearch input::-webkit-search-cancel-button{-webkit-appearance:none;appearance:none}
+.sidesearch kbd{position:absolute;right:.5rem;top:50%;transform:translateY(-50%);font:600 .625rem/1 var(--mono);color:var(--ink3);border:1px solid var(--line2);border-radius:4px;padding:.25rem .375rem;background:var(--bg2);pointer-events:none}
+.sidesearch input:focus~kbd,.sidesearch input:not(:placeholder-shown)~kbd{display:none}
+.mobile-actions{display:flex;gap:.5rem;align-items:center}
+.mobile-header a.btn:after{content:none}
+.search-page{display:flex;flex-wrap:wrap;gap:1rem;align-items:end;margin:0 0 1.5rem}
+.search-page .search-field{flex:1;max-width:520px}
+.search-hints{color:var(--ink2);font-size:.875rem;line-height:1.7;max-width:70ch}
+.search-hints h3{font-family:var(--sans);font-size:.75rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ink3);margin:1rem 0 .375rem}
+.search-hints ul{list-style:none;display:grid;gap:.25rem}
+.search-group{margin:1.75rem 0}
+.search-group h3{font-family:var(--sans);font-size:.75rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ink3);margin:0 0 .25rem;line-height:1.6}
+.search-group h3 .count{font-weight:400;margin-left:.375rem;font-variant-numeric:tabular-nums}
+.search-hit{display:grid;gap:.25rem;padding:.875rem 0;border-top:1px solid var(--line);text-decoration:none;color:var(--ink)!important}
+.search-hit .hit-title{font-size:.9375rem;font-weight:600;line-height:1.5;color:var(--accent-ink)}
+.search-hit .hit-snippet{font-size:.8125rem;line-height:1.6;color:var(--ink2);max-width:80ch}
+.search-hit .hit-meta{font-size:.6875rem;color:var(--ink3);font-variant-numeric:tabular-nums}
+.search-hit mark{background:var(--gold-soft);color:inherit;border-radius:2px;padding:0 .0625rem}
+.hit-more{margin-top:.25rem}
+button.text-link{background:none;border:0;cursor:pointer;font:inherit;font-size:.8125rem;font-weight:600}
+.is-target{outline:2px solid var(--accent);outline-offset:8px;border-radius:4px}
+@media(hover:hover) and (pointer:fine){.search-hit:hover .hit-title{text-decoration:underline;text-underline-offset:3px}}
+
+/* ---------- orientation and scanning ---------- */
+.route-kicker{font-family:var(--sans);font-size:.6875rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ink3);margin:0 0 .625rem}
+.matrix-current th{position:sticky;top:0;z-index:2;background:var(--panel2)}
+.matrix-current th:first-child{z-index:3}
+.matrix-current tbody tr:nth-child(even) td{background:var(--panel2)}
+.matrix-current tbody tr:nth-child(even) td:first-child{background:var(--panel2)}
+.stakeholder-row .org{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+
+/* ---------- facts checked after the chat cutoff ---------- */
+.updates{margin:1.25rem 0 1.75rem;border:1px solid var(--line);border-left:2px solid var(--accent);border-radius:0 8px 8px 0;background:var(--panel);padding:.875rem 1.125rem .5rem}
+.updates h4{font-family:var(--sans);font-size:.6875rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ink3);margin:0 0 .25rem}
+.update{display:grid;gap:.375rem;padding:.75rem 0;border-top:1px solid var(--line)}
+.update:first-of-type{border-top:0}
+.update .source-kind{width:fit-content}
+.update p{font-size:.8125rem;line-height:1.65;color:var(--ink2);margin:0;max-width:80ch}
+.update-sources{color:var(--ink3)}
+
+/* ---------- print ---------- */
+@media print{
+  .sidebar,.mobile-header,.skiplink,#tip,#cellpop,.actions,.section-actions,.directory-toolbar,.toolbar,.question-toolbar,.sidesearch{display:none!important}
+  .app{display:block}
+  .main{max-width:none;padding:0}
+  a{color:inherit;text-decoration:none}
+  .chip{border:0}
+}
 </style>
 </head>
 <body>
@@ -767,7 +821,10 @@ a.claim-card:after{content:"→";position:absolute;top:1rem;right:0;color:var(--
 <a class="skiplink" href="#main">Skip to page content</a>
 <header class="mobile-header">
   <a class="mobile-brand" href="#/current">AA Coordination Map</a>
-  <button class="btn" id="menu-toggle" type="button" aria-expanded="false" aria-controls="sidebar">Menu</button>
+  <div class="mobile-actions">
+    <a class="btn" id="search-toggle" href="#/search">Search</a>
+    <button class="btn" id="menu-toggle" type="button" aria-expanded="false" aria-controls="sidebar">Menu</button>
+  </div>
 </header>
 <!-- Navigation icon set. One 16px grid, 1.5 stroke, currentColor: the icons inherit
      link color and theme, and archive rows reuse their current-page counterpart. -->
@@ -794,6 +851,11 @@ a.claim-card:after{content:"→";position:absolute;top:1rem;right:0;color:var(--
       <h1>AA Coordination Map</h1>
       <div class="sub">The EIP-8141 / EIP-8130 decision, grounded in 27,336 Telegram messages</div>
     </div>
+    <form class="sidesearch" role="search" onsubmit="return false">
+      <label class="visually-hidden" for="site-search">Search the map</label>
+      <input id="site-search" type="search" placeholder="Search the map" autocomplete="off" spellcheck="false" aria-keyshortcuts="/">
+      <kbd aria-hidden="true">/</kbd>
+    </form>
     <div class="navsec">Current decision space</div>
     <a class="navlink" href="#/current"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-now"/></svg>Current state</a>
     <a class="navlink" href="#/comparison"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-compare"/></svg>8141 vs 8130</a>
@@ -1303,25 +1365,46 @@ document.querySelector(".skiplink").addEventListener("click",e=>{
 document.getElementById("theme-select").addEventListener("change",e=>{
   document.documentElement.dataset.theme=e.target.value;
 });
-const routes = {overview:vHistoricalOverview,timeline:vTimelineCurrent,"turning-points":vTurningCurrent,"history-timeline":vHistoricalTimeline,"history-turning-points":vHistoricalTurningPoints,"history-stakeholders":vHistoricalStakeholders,"history-proposals":vHistoricalProposals,"history-debates":vHistoricalDebates,"history-matrix":vHistoricalMatrix,"history-consensus":vHistoricalConsensus,"history-questions":vHistoricalQuestions,stakeholders:vStakeholdersCurrent,proposals:vProposalsCurrent,"debate-map":vDebateCurrent,matrix:vMatrixCurrent,consensus:vConsensusCurrent,questions:vQuestions,comparison:vComparison,7702:v7702Explainer,current:vCurrentNow,about:vAboutCurrent};
+const routes = {overview:vHistoricalOverview,timeline:vTimelineCurrent,"turning-points":vTurningCurrent,"history-timeline":vHistoricalTimeline,"history-turning-points":vHistoricalTurningPoints,"history-stakeholders":vHistoricalStakeholders,"history-proposals":vHistoricalProposals,"history-debates":vHistoricalDebates,"history-matrix":vHistoricalMatrix,"history-consensus":vHistoricalConsensus,"history-questions":vHistoricalQuestions,stakeholders:vStakeholdersCurrent,proposals:vProposalsCurrent,"debate-map":vDebateCurrent,matrix:vMatrixCurrent,consensus:vConsensusCurrent,questions:vQuestions,comparison:vComparison,7702:v7702Explainer,current:vCurrentNow,about:vAboutCurrent,search:vSearch};
 let firstRoute=true;
+let keepFocus=false;
+// Pages whose sections carry ids that search results and shared links can target.
+const ANCHOR_ROUTES=new Set(["current","comparison","questions","history-questions","consensus","history-consensus","turning-points","history-turning-points","timeline","history-timeline","debate-map","history-debates"]);
+const ROUTE_GROUPS={current:"Current decision space",comparison:"Current decision space",7702:"Current decision space",matrix:"Current decision space",consensus:"Current decision space",questions:"Current decision space",stakeholders:"People & proposals",proposals:"People & proposals","debate-map":"People & proposals",overview:"Historical context","history-timeline":"Historical context","history-turning-points":"Historical context","history-stakeholders":"Historical context","history-proposals":"Historical context","history-debates":"Historical context","history-matrix":"Historical context","history-consensus":"Historical context","history-questions":"Historical context",timeline:"Historical context","turning-points":"Historical context",about:"Method"};
 function router(){
-  const h = (location.hash||"#/current").replace(/^#\//,"");
-  const [page,id] = h.split("/");
+  const h=(location.hash||"#/current").replace(/^#\//,"");
+  const [page,rawId]=h.split("/");
+  let id=null; try{id=rawId?decodeURIComponent(rawId):null;}catch(e){id=rawId||null;}
   const resolvedPage=routes[page]?page:"current";
   document.querySelectorAll(".navlink").forEach(a=>{
     const active=a.getAttribute("href")==="#/"+resolvedPage;
     a.classList.toggle("active",active);
     if(active)a.setAttribute("aria-current","page");else a.removeAttribute("aria-current");
   });
-  setMenuOpen(false);
-  (routes[page]||vCurrentNow)(id?decodeURIComponent(id):null);
+  if(!keepFocus)setMenuOpen(false);
+  (routes[page]||vCurrentNow)(id);
+  // Orientation: name the navigation group above every list-style page title.
+  const pagetitle=main.querySelector("h2.pagetitle");
+  if(pagetitle&&ROUTE_GROUPS[resolvedPage]&&!main.querySelector(".route-kicker"))pagetitle.insertAdjacentHTML("beforebegin",`<p class="route-kicker">${esc(ROUTE_GROUPS[resolvedPage])}</p>`);
   makeTablesAccessible();
   document.title=(main.querySelector("h2")?.textContent||"Current state")+" — AA Coordination Map";
   window.scrollTo(0,0);
-  if(!firstRoute)main.focus({preventScroll:true});
-  firstRoute=false;
+  const target=id&&ANCHOR_ROUTES.has(resolvedPage)?document.getElementById(id):null;
+  if(target){
+    for(let el=target;el&&el!==main;el=el.parentElement){if(el.tagName==="DETAILS")el.open=true;}
+    target.classList.add("is-target");
+    if(!target.hasAttribute("tabindex"))target.setAttribute("tabindex","-1");
+    if(target.scrollIntoView)target.scrollIntoView({block:"start"});
+    if(!keepFocus)target.focus({preventScroll:true});
+  }else if(resolvedPage==="search"&&!keepFocus){
+    const field=document.getElementById("page-search");
+    if(field)field.focus({preventScroll:true});
+  }else if(!firstRoute&&!keepFocus){
+    main.focus({preventScroll:true});
+  }
+  firstRoute=false;keepFocus=false;
   const pop=document.getElementById("cellpop"); if(pop) pop.style.display="none";
+  syncSearchInputs(resolvedPage==="search"?(id||""):"");
 }
 addEventListener("hashchange",router);
 
@@ -1390,7 +1473,7 @@ function vTimeline(){
   <p class="pagelede">The conversation divides into ${D.eras.length} eras, derived from the discussion itself rather than the calendar. Each period card summarizes what happened and lists the moments that mattered, with citations.</p>`;
   D.eras.forEach((e,i)=>{
     const col=ERA_COLORS[i%ERA_COLORS.length];
-    html += `<div class="erahead"><span class="n">ERA ${i+1} · ${esc(e.from)} → ${esc(e.to)}</span></div>
+    html += `<div class="erahead" id="era-${esc(e.id)}"><span class="n">ERA ${i+1} · ${esc(e.from)} → ${esc(e.to)}</span></div>
     <div class="erahead" style="margin-top:0"><h3 style="color:${col}">${esc(e.name)}</h3><span class="badge dim">${esc(e.mood||"")}</span></div>
     <div class="eraq">“${esc(e.main_question)}”</div>
     <div class="eranarr">${inlineCites(esc(e.narrative))}</div>
@@ -1398,7 +1481,7 @@ function vTimeline(){
     const months = D.months.filter(m=>monthEra(m.key)===e);
     months.forEach(m=>{
       const actv = D.activity.filter(a=>m.calendar.includes(a.month)).reduce((s,a)=>s+a.messages,0);
-      html += `<div class="mcard" style="border-left-color:${col}55">
+      html += `<div class="mcard" id="month-${esc(m.key)}" style="border-left-color:${col}55">
         <h4>${esc(m.label)}<span class="msgs">${nfmt(actv)} msgs</span></h4>
         <div style="margin:2px 0 4px">${(m.proposals||[]).slice(0,7).map(p=>`<span class="tag">${esc(p)}</span>`).join("")}</div>
         <div class="summ">${esc(m.summary)}</div>
@@ -1417,8 +1500,8 @@ function vTimeline(){
 function vTurning(){
   let html = `<h2 class="pagetitle">Turning points</h2>
   <p class="pagelede">Moments after which the conversation was materially different, in chronological order. Each entry contrasts the discussion before and after.</p><div class="tpline">`;
-  D.turning_points.forEach(tp=>{
-    html += `<div class="tp"><div class="d">${esc(tp.date)}</div><h4>${esc(tp.name)}</h4>
+  D.turning_points.forEach((tp,i)=>{
+    html += `<div class="tp" id="tp-${i}"><div class="d">${esc(tp.date)}</div><h4>${esc(tp.name)}</h4>
     <div class="what">${inlineCites(esc(tp.what))} ${cite(tp.ids)}</div>
     <div class="what" style="margin-top:6px"><b style="color:var(--ink)">Why it mattered:</b> ${inlineCites(esc(tp.why))}</div>
     <div class="beforeafter">
@@ -1445,7 +1528,7 @@ function vStakeholders(id){
     document.getElementById("sgrid").innerHTML = list.map(s=>`
       <a class="stakeholder-row" href="#/stakeholders/${s.id}">
         <div class="person"><div class="nm">${esc(s.name)}</div>
-        <div class="org">${esc(s.org.split(";")[0].split(".")[0])}</div>
+        <div class="org">${esc(shortOrg(s.org))}</div>
         <div class="record-meta">${TIER[s.tier]} · ${esc(s.active.from)} → ${esc(s.active.to)} · ${Object.keys(s.matrix||{}).length} stances</div></div>
         <div class="arch">${esc(s.archetype)}</div>
       </a>`).join("") || `<p class="empty-state">No matching stakeholders. Try a different search or tier.</p>`;
@@ -1588,7 +1671,7 @@ const DEBATE_AXES = [
 function vDebate(){
   main.innerHTML = `<h2 class="pagetitle">Debate map</h2>
   <p class="pagelede">The recurring fault lines beneath four years of argument. Each axis names its poles, its people, and where it stood when the dataset ends. People are placed by documented statements (see their profiles); many hold positions on both sides of different axes.</p>
-  ${DEBATE_AXES.map(ax=>`<div class="card axis">
+  ${DEBATE_AXES.map((ax,i)=>`<div class="card axis" id="haxis-${i}">
     <div class="axhead"><h4>${esc(ax.name)}</h4></div>
     <div class="axgrid">
       <div class="axside a"><div class="lbl">${esc(ax.a.lbl)}</div>${esc(ax.a.txt)}<div class="who"><b>Voices:</b> ${esc(ax.a.who)}</div></div>
@@ -1723,6 +1806,23 @@ let qNowFilter="all";
 let sNowScope="current";
 let sNowQuery="";
 
+// The org field is a dense analytical note. Directories show its latest, shortest clause.
+function shortOrg(org){
+  let t=String(org||"").replace(/\s*\[[^\]]*\]/g,"");
+  for(let i=0;i<4;i++)t=t.replace(/\s*\([^()]*\)/g,"");
+  const meta=/^(canonical chat name|display name|posts under|treated as|identity|identities|no company|affiliation|joined |one \d{4}|per |by \d{4}|the \d{4}|his |her |their |\d{4})/i;
+  const clauses=seg=>seg.split(/\s[—–]\s|;|:\s/).map(c=>c.trim()).filter(Boolean);
+  let out="";
+  for(const sentence of t.split(/(?<=[.!?])\s+/)){
+    const arrows=sentence.split(/\s(?:→|->)\s/);
+    out=clauses(arrows[arrows.length-1]).filter(c=>!meta.test(c))[0]||"";
+    if(out)break;
+  }
+  if(!out)out=clauses(t)[0]||"";
+  out=out.replace(/[.\s]+$/,"");
+  if(out.length>72)out=out.slice(0,70).replace(/\s\S*$/,"")+"…";
+  return out;
+}
 function matchesQuery(text,query){
   return text.normalize("NFKC").toLowerCase().includes(query.normalize("NFKC").trim().toLowerCase());
 }
@@ -1811,13 +1911,13 @@ function proposalCard(p,key){
     <div class="actions"><a class="btn" href="#/proposals/${key}">Explore ${esc(p.short)}</a><a class="btn" href="${p.url}" target="_blank" rel="noopener">Official draft</a></div>
   </article>`;
 }
-function currentClaim(c,cls){
-  return `<details class="consensus-item ${cls}"><summary><h4>${esc(c.title)}</h4></summary><div class="claim-body"><p>${esc(c.text)}</p><div class="evidence-line">Source messages ${cite(c.ids)}</div></div></details>`;
+function currentClaim(c,cls,id){
+  return `<details class="consensus-item ${cls}"${id?` id="${esc(id)}"`:""}><summary><h4>${esc(c.title)}</h4></summary><div class="claim-body"><p>${esc(c.text)}</p><div class="evidence-line">Source messages ${cite(c.ids)}</div></div></details>`;
 }
 // Facts checked after the chat export ended. They are dated and sourced separately so that
 // a later protocol decision is never presented as something participants had already discussed.
 function protocolUpdatesHtml(){
-  return CURRENT.protocolUpdates.map(u=>`<div class="freshness"><span class="source-kind explicit">${esc(u.kind)} · ${esc(u.date)}</span><span>${esc(u.text)} Sources: ${u.sources.map(([label,href])=>`<a href="${esc(href)}" target="_blank" rel="noopener">${esc(label)}</a>`).join(", ")}.</span></div>`).join("");
+  return `<section class="updates" id="protocol-updates" aria-label="Facts checked after the chat cutoff"><h4>Since the chat export ended</h4>${CURRENT.protocolUpdates.map(u=>`<div class="update"><span class="source-kind explicit">${esc(u.kind)} · ${esc(u.date)}</span><p>${esc(u.text)} <span class="update-sources">Sources: ${u.sources.map(([label,href])=>`<a href="${esc(href)}" target="_blank" rel="noopener">${esc(label)}</a>`).join(", ")}.</span></p></div>`).join("")}</section>`;
 }
 
 function vCurrentNow(){
@@ -2129,8 +2229,8 @@ function vMatrixCurrent(){
   });
 }
 
-function consensusGroup(title,definition,items,cls){
-  return `<section class="consensus-group"><div class="group-head"><h3>${esc(title)}</h3><span class="definition">${esc(definition)}</span></div><div class="consensus-now">${items.map(c=>currentClaim(c,cls)).join("")}</div></section>`;
+function consensusGroup(title,definition,items,cls,key){
+  return `<section class="consensus-group"><div class="group-head"><h3>${esc(title)}</h3><span class="definition">${esc(definition)}</span></div><div class="consensus-now">${items.map((c,i)=>currentClaim(c,cls,key?`cons-${key}-${i}`:"")).join("")}</div></section>`;
 }
 function vConsensusCurrent(){
   const C=CURRENT.consensus;
@@ -2139,10 +2239,10 @@ function vConsensusCurrent(){
   main.innerHTML=`<h2 class="pagetitle">Consensus in the current design space</h2>
     <p class="pagelede">Agreement on a goal is not agreement on an implementation. Expand a finding for its scope and evidence.</p>
     <details class="summary-context"><summary>How agreement is classified</summary><p>Findings are grouped by what they apply to. Broad agreement on an outcome does not imply agreement on EIP-8141, EIP-8130 or how much the protocol should enshrine.</p></details>
-    ${consensusGroup("Shared goals","Outcomes that do not depend on the implementation",C.goals,"goal")}
-    ${consensusGroup("Shared constraints","Properties neither path may ignore",C.constraints,"constraint")}
-    ${consensusGroup("Emerging implementation convergence","A direction, with caveats",C.emerging,"emerging")}
-    ${consensusGroup("Proposal-specific observations","Evidence of motion, not community-wide agreement",C.specific,"specific")}
+    ${consensusGroup("Shared goals","Outcomes that do not depend on the implementation",C.goals,"goal","goals")}
+    ${consensusGroup("Shared constraints","Properties neither path may ignore",C.constraints,"constraint","constraints")}
+    ${consensusGroup("Emerging implementation convergence","A direction, with caveats",C.emerging,"emerging","emerging")}
+    ${consensusGroup("Proposal-specific observations","Evidence of motion, not community-wide agreement",C.specific,"specific","specific")}
     <div class="csintro" style="border-left-color:var(--gold);background:var(--gold-soft)"><b>Not consensus:</b> the chat does not establish that EIP-8141 has won the L1 decision, that EIP-8130 has broad wallet adoption, or that a layered combination is agreed. Those remain open questions. The SFI decision of 27 August is recorded separately as a protocol update.</div>
     <div class="actions section-actions"><a class="btn" href="#/questions">See unresolved questions</a><a class="btn" href="#/matrix">Compare positions</a></div>
     <details class="historical-box"><summary>Historical consensus findings · preserved for context</summary><div class="archive-inner">
@@ -2216,7 +2316,7 @@ function vStakeholdersCurrent(id){
     }
     list.sort((a,b)=>(b.p?1:0)-(a.p?1:0)||a.s.tier-b.s.tier||a.s.name.localeCompare(b.s.name));
     document.getElementById("sgrid").innerHTML=list.map(({s,p})=>`<a class="stakeholder-row" href="#/stakeholders/${s.id}">
-      <div class="person"><div class="nm">${esc(s.name)}</div><div class="org">${esc(s.org.split(";")[0].split(".")[0])}</div><div class="record-meta">${p?"Current evidence":"Historical profile"} · ${esc(s.active.from)} → ${esc(s.active.to)}</div></div>
+      <div class="person"><div class="nm">${esc(s.name)}</div><div class="org">${esc(shortOrg(s.org))}</div><div class="record-meta">${p?"Current evidence":"Historical profile"} · ${esc(s.active.from)} → ${esc(s.active.to)}</div></div>
       ${p?`<div><span class="proposal-label">EIP-8141</span>${positionPill(p.p8141)}</div><div><span class="proposal-label">EIP-8130</span>${positionPill(p.p8130)}</div>`:`<div class="arch">${esc(s.archetype)}</div>`}
     </a>`).join("")||`<p class="empty-state">No matching stakeholders. Try a different name or clear the search.</p>`;
     document.getElementById("scount").textContent=list.length+" shown";
@@ -2253,11 +2353,11 @@ function vProposalsCurrent(id){
 function eraBlock(e,i){
   const col=ERA_COLORS[i%ERA_COLORS.length];
   const months=D.months.filter(m=>monthEra(m.key)===e);
-  return `<div class="erahead"><span class="n">ERA ${i+1} · ${esc(e.from)} → ${esc(e.to)}</span></div>
+  return `<div class="erahead" id="era-${esc(e.id)}"><span class="n">ERA ${i+1} · ${esc(e.from)} → ${esc(e.to)}</span></div>
     <div class="erahead" style="margin-top:0"><h3 style="color:${col}">${esc(e.name)}</h3><span class="badge dim">${esc(e.mood||"")}</span></div>
     <div class="eraq">“${esc(e.main_question)}”</div><div class="eranarr">${inlineCites(esc(e.narrative))}</div>
     ${e.dominant_proposals&&e.dominant_proposals.length?`<div style="margin:-8px 0 18px">${e.dominant_proposals.map(p=>`<span class="tag">${esc(p)}</span>`).join("")}</div>`:""}
-    ${months.map(m=>{const actv=D.activity.filter(a=>m.calendar.includes(a.month)).reduce((s,a)=>s+a.messages,0);return `<div class="mcard" style="border-left-color:${col}55"><h4>${esc(m.label)}<span class="msgs">${nfmt(actv)} msgs</span></h4><div style="margin:2px 0 4px">${(m.proposals||[]).slice(0,7).map(p=>`<span class="tag">${esc(p)}</span>`).join("")}</div><div class="summ">${esc(m.summary)}</div><details class="pill-details"><summary>Key moments (${m.moments.length})</summary><div class="inner"><div class="moments">${m.moments.map(x=>`<div class="moment"><span class="d">${esc(x.date||"")}</span><span class="t">${esc(x.text)} ${cite(x.ids)}</span></div>`).join("")}</div></div></details></div>`;}).join("")}`;
+    ${months.map(m=>{const actv=D.activity.filter(a=>m.calendar.includes(a.month)).reduce((s,a)=>s+a.messages,0);return `<div class="mcard" id="month-${esc(m.key)}" style="border-left-color:${col}55"><h4>${esc(m.label)}<span class="msgs">${nfmt(actv)} msgs</span></h4><div style="margin:2px 0 4px">${(m.proposals||[]).slice(0,7).map(p=>`<span class="tag">${esc(p)}</span>`).join("")}</div><div class="summ">${esc(m.summary)}</div><details class="pill-details"><summary>Key moments (${m.moments.length})</summary><div class="inner"><div class="moments">${m.moments.map(x=>`<div class="moment"><span class="d">${esc(x.date||"")}</span><span class="t">${esc(x.text)} ${cite(x.ids)}</span></div>`).join("")}</div></div></details></div>`;}).join("")}`;
 }
 function vTimelineCurrent(){
   const latest=D.eras[D.eras.length-1];
@@ -2268,7 +2368,7 @@ function vTimelineCurrent(){
 }
 
 function turningItem(tp){
-  return `<div class="tp"><div class="d">${esc(tp.date)}</div><h4>${esc(tp.name)}</h4><div class="what">${inlineCites(esc(tp.what))} ${cite(tp.ids)}</div><div class="what" style="margin-top:6px"><b style="color:var(--ink)">Why it mattered:</b> ${inlineCites(esc(tp.why))}</div><div class="beforeafter"><div class="ba"><div class="l">Before</div>${inlineCites(esc(tp.before))}</div><div class="ba"><div class="l">After</div>${inlineCites(esc(tp.after))}</div></div></div>`;
+  return `<div class="tp" id="tp-${D.turning_points.indexOf(tp)}"><div class="d">${esc(tp.date)}</div><h4>${esc(tp.name)}</h4><div class="what">${inlineCites(esc(tp.what))} ${cite(tp.ids)}</div><div class="what" style="margin-top:6px"><b style="color:var(--ink)">Why it mattered:</b> ${inlineCites(esc(tp.why))}</div><div class="beforeafter"><div class="ba"><div class="l">Before</div>${inlineCites(esc(tp.before))}</div><div class="ba"><div class="l">After</div>${inlineCites(esc(tp.after))}</div></div></div>`;
 }
 function vTurningCurrent(){
   const current=D.turning_points.filter(tp=>String(tp.date).startsWith("2026"));
@@ -2286,7 +2386,7 @@ const CURRENT_AXES=[
 ];
 function vDebateCurrent(){
   main.innerHTML=`<h2 class="pagetitle">Current debate map</h2><p class="pagelede">The live fault lines beneath the EIP-8141 / EIP-8130 choice. People can agree on one axis and disagree on another, so the map describes arguments rather than sorting people into camps.</p>
-    ${CURRENT_AXES.map(ax=>`<div class="card axis"><div class="axhead"><h4>${esc(ax.name)}</h4></div><div class="axgrid"><div class="axside a"><div class="lbl">8141-side emphasis</div>${esc(ax.a)}</div><div class="axmid">⇋</div><div class="axside b"><div class="lbl">8130-side emphasis</div>${esc(ax.b)}</div></div><div class="axnote"><b>Where it stands:</b> ${esc(ax.where)} ${cite(ax.ids)}</div></div>`).join("")}
+    ${CURRENT_AXES.map((ax,i)=>`<div class="card axis" id="axis-${i}"><div class="axhead"><h4>${esc(ax.name)}</h4></div><div class="axgrid"><div class="axside a"><div class="lbl">8141-side emphasis</div>${esc(ax.a)}</div><div class="axmid">⇋</div><div class="axside b"><div class="lbl">8130-side emphasis</div>${esc(ax.b)}</div></div><div class="axnote"><b>Where it stands:</b> ${esc(ax.where)} ${cite(ax.ids)}</div></div>`).join("")}
     <details class="historical-box"><summary>Recurring historical fault lines</summary><div class="archive-inner"><p class="pagelede" style="margin-top:0">These axes still explain long-standing preferences, but they no longer get equal billing with the current choice.</p>${DEBATE_AXES.map(ax=>`<div class="card axis"><div class="axhead"><h4>${esc(ax.name)}</h4></div><div class="axgrid"><div class="axside a"><div class="lbl">${esc(ax.a.lbl)}</div>${esc(ax.a.txt)}<div class="who"><b>Voices:</b> ${esc(ax.a.who)}</div></div><div class="axmid">⇋</div><div class="axside b"><div class="lbl">${esc(ax.b.lbl)}</div>${esc(ax.b.txt)}<div class="who"><b>Voices:</b> ${esc(ax.b.who)}</div></div></div><div class="axnote"><b>Historical note:</b> ${esc(ax.note)}</div></div>`).join("")}</div></details>`;
 }
 
@@ -2326,26 +2426,213 @@ function vHistoricalMatrix(){
 }
 function vHistoricalConsensus(){
   const C=D.consensus;
-  const item=(c,cls)=>`<div class='citem ${cls}'>${inlineCites(esc(c.claim))}<div class='who'>${c.voiced_by&&c.voiced_by.length?'Voiced by: '+esc(c.voiced_by.join(', ')):''} ${cite(c.ids)}</div></div>`;
+  const item=(c,cls,i)=>`<div class='citem ${cls}' id='hc-${cls}-${i}'>${inlineCites(esc(c.claim))}<div class='who'>${c.voiced_by&&c.voiced_by.length?'Voiced by: '+esc(c.voiced_by.join(', ')):''} ${cite(c.ids)}</div></div>`;
   main.innerHTML=`<div class='archive-banner'><strong>Historical consensus archive.</strong> These findings explain earlier phases of the discussion. <a href='#/consensus'>Review current consensus</a>.</div>
     <h2 class='pagetitle'>Historical consensus findings</h2><p class='pagelede'>The original longitudinal grades are preserved as context. They do not imply agreement on EIP-8141 or EIP-8130.</p>
-    <div class='consec'><h4><span class='badge ok'>Historically strong</span></h4>${C.strong.map(c=>item(c,'strong')).join('')}</div>
-    <div class='consec'><h4><span class='badge warn'>Historically emerging</span></h4>${C.emerging.map(c=>item(c,'emerging')).join('')}</div>
-    <div class='consec'><h4><span class='badge dim'>Historically weak / apparent</span></h4>${C.weak.map(c=>item(c,'weak')).join('')}</div>
+    <div class='consec'><h4><span class='badge ok'>Historically strong</span></h4>${C.strong.map((c,i)=>item(c,'strong',i)).join('')}</div>
+    <div class='consec'><h4><span class='badge warn'>Historically emerging</span></h4>${C.emerging.map((c,i)=>item(c,'emerging',i)).join('')}</div>
+    <div class='consec'><h4><span class='badge dim'>Historically weak / apparent</span></h4>${C.weak.map((c,i)=>item(c,'weak',i)).join('')}</div>
     <h3 class='sect'>How this community argues: recurring patterns</h3>
     <p class='pagelede'>Eight habits that recur across four years of discussion, each with the moments that show it.</p>
-    <div class='grid g2'>${D.patterns.map(p=>`<div class='card'><div style='font-family:var(--serif);font-weight:700;font-size:15.5px;margin-bottom:6px'>${esc(p.name)}</div><div style='font-size:13px;color:var(--ink2)'>${inlineCites(esc(p.text))}</div>${p.examples_ids&&p.examples_ids.length?`<div class='evidence-line'>Examples ${cite(p.examples_ids)}</div>`:''}</div>`).join('')}</div>`;
+    <div class='grid g2'>${D.patterns.map((p,i)=>`<div class='card' id='pattern-${i}'><div style='font-family:var(--serif);font-weight:700;font-size:15.5px;margin-bottom:6px'>${esc(p.name)}</div><div style='font-size:13px;color:var(--ink2)'>${inlineCites(esc(p.text))}</div>${p.examples_ids&&p.examples_ids.length?`<div class='evidence-line'>Examples ${cite(p.examples_ids)}</div>`:''}</div>`).join('')}</div>`;
 }
 function vHistoricalQuestions(){
   main.innerHTML=`<div class='archive-banner'><strong>Earlier open-question archive.</strong> <a href='#/questions'>Review the questions blocking today’s EIP-8141 / EIP-8130 decision</a>.</div>
     <h2 class='pagetitle'>Earlier unresolved questions</h2><p class='pagelede'>Longitudinal questions from previous phases of the discussion. Some remain relevant; others document a decision point that has moved on.</p>
-    ${D.open_questions.map(q=>`<details class='pill-details oq'><summary>${esc(q.question)}</summary><div class='inner'><div class='sides'><div class='side'><div class='l'>Position A</div>${inlineCites(esc(q.side_a.position))}<div style='margin-top:5px;font-size:11.5px;color:var(--ink3)'>${esc((q.side_a.who||[]).join(', '))}</div></div><div class='side'><div class='l'>Position B</div>${inlineCites(esc(q.side_b.position))}<div style='margin-top:5px;font-size:11.5px;color:var(--ink3)'>${esc((q.side_b.who||[]).join(', '))}</div></div></div><div class='fld'><b>The argument:</b> ${inlineCites(esc(q.arguments))}</div><div class='fld'><b>Why it was stuck:</b> ${inlineCites(esc(q.blockers))}</div><div class='fld'><b>What could settle it:</b> ${inlineCites(esc(q.resolution_path))}</div></div></details>`).join('')}`;
+    ${D.open_questions.map((q,i)=>`<details class='pill-details oq' id='hq-${i}'><summary>${esc(q.question)}</summary><div class='inner'><div class='sides'><div class='side'><div class='l'>Position A</div>${inlineCites(esc(q.side_a.position))}<div style='margin-top:5px;font-size:11.5px;color:var(--ink3)'>${esc((q.side_a.who||[]).join(', '))}</div></div><div class='side'><div class='l'>Position B</div>${inlineCites(esc(q.side_b.position))}<div style='margin-top:5px;font-size:11.5px;color:var(--ink3)'>${esc((q.side_b.who||[]).join(', '))}</div></div></div><div class='fld'><b>The argument:</b> ${inlineCites(esc(q.arguments))}</div><div class='fld'><b>Why it was stuck:</b> ${inlineCites(esc(q.blockers))}</div><div class='fld'><b>What could settle it:</b> ${inlineCites(esc(q.resolution_path))}</div></div></details>`).join('')}`;
 }
 
 function vHistoricalOverview(){
   vOverview();
   main.insertAdjacentHTML("afterbegin",`<div class="archive-banner"><strong>Historical overview.</strong> This page explains how the community arrived at today's EIP-8141 / EIP-8130 decision. Start with <a href="#/current">Current state</a> for the active coordination map.</div>`);
 }
+
+/* ---------- search ---------- */
+/* One index over everything the site renders, built on first use from the embedded data.
+   Nothing leaves the page: no network, no storage. */
+const SEARCH_PAGES=[
+  ["current","Current state","The native AA decision: the two proposals, what changed since the chat cutoff, where agreement ends and what could unlock a shared path"],
+  ["comparison","8141 vs 8130","Design boundaries, mechanisms, benefits, tradeoffs, ERC-4337 relationships and convergence hypotheses"],
+  ["7702","Why 7702 was not full AA","What delegation solved, what the original key still controls, and what EIP-8141 and EIP-8130 add"],
+  ["matrix","Position matrix","The latest position of 25 participants on EIP-8141 and EIP-8130, with dates, reasoning and sources"],
+  ["consensus","Consensus","Shared goals, shared constraints, emerging convergence and proposal-specific motion"],
+  ["questions","Open questions","Ten unresolved questions with competing arguments and the evidence that could settle them"],
+  ["stakeholders","Stakeholders","Participants in the current debate and every longitudinal profile"],
+  ["proposals","Proposals","EIP-8141, EIP-8130, the supporting stack and the proposal archive"],
+  ["debate-map","Debate map","The fault lines beneath the EIP-8141 / EIP-8130 choice and the recurring historical axes"],
+  ["overview","Historical overview","How Ethereum argued its way from ERC-4337 to native account abstraction, December 2022 to August 2026"],
+  ["history-timeline","Full timeline","Eight eras and 36 analyzed periods with their key moments"],
+  ["history-turning-points","All turning points","Fourteen moments after which the conversation was different"],
+  ["history-stakeholders","Stakeholder archive","68 longitudinal profiles with position timelines, stances and quotations"],
+  ["history-proposals","Proposal archive","Proposals and mechanisms tracked from first appearance to latest status"],
+  ["history-debates","Debate archive","Eight recurring fault lines across four years of argument"],
+  ["history-matrix","Position matrix archive","Stances across ten historical proposal axes"],
+  ["history-consensus","Consensus archive","Historical consensus grades and the recurring patterns of argument"],
+  ["history-questions","Earlier open questions","Thirteen longitudinal questions from earlier phases"],
+  ["about","Method & caveats","Evidence clocks, classification rules, corrections and known limits"]
+];
+const SEARCH_TYPE_WEIGHT={"Page":10,"Stakeholder":8,"Proposal":8,"Open question":5,"Consensus":3,"Turning point":3,"Era":3,"Debate axis":2,"Protocol update":2,"Earlier question":2,"Period":2,"Pattern":1,"Recent signal":1,"Key moment":0};
+const SEARCH_GROUP_LIMIT=8;
+let SEARCH_INDEX=null,searchTimer=null;
+const searchExpanded=new Set();
+function searchNorm(s){
+  return String(s==null?"":s).normalize("NFKD").replace(/[\u0300-\u036f]/g,"").toLowerCase()
+    .replace(/\u0142/g,"l").replace(/\u00f8/g,"o").replace(/\u00e6/g,"ae").replace(/\u00df/g,"ss").replace(/\u0111/g,"d");
+}
+function searchTerms(query){
+  return searchNorm(query).split(/\s+/).filter(Boolean);
+}
+function shortTitle(text,max){const t=String(text||"");return t.length>max?t.slice(0,max-2).replace(/\s\S*$/,"")+"…":t;}
+function searchIndex(){
+  if(SEARCH_INDEX)return SEARCH_INDEX;
+  const items=[];
+  const add=(type,title,text,href,meta)=>{
+    const t=String(title||""),x=String(text||""),m=String(meta||"");
+    const hay=searchNorm(t+" "+x+" "+m);
+    items.push({type,title:t,text:x,href,meta:m,hay,hay2:hay.replace(/-/g,"")});
+  };
+  SEARCH_PAGES.forEach(([route,title,text])=>add("Page",title,text,"#/"+route,""));
+  const current=new Map(CURRENT.positions.map(p=>[p.id,p]));
+  D.stakeholders.filter(s=>s.archetype.indexOf("automated")<0).forEach(s=>{
+    const p=current.get(s.id);
+    const text=[s.archetype,s.org,(s.interests||[]).join(", "),s.latest&&s.latest.text,p?`EIP-8141: ${p.p8141.label}. ${p.p8141.note} EIP-8130: ${p.p8130.label}. ${p.p8130.note}`:""].filter(Boolean).join(" · ");
+    add("Stakeholder",s.name,text,"#/stakeholders/"+s.id,(p?"current debate":"historical profile")+" · "+TIER[s.tier]);
+  });
+  Object.entries(CURRENT.proposals).forEach(([key,p])=>add("Proposal",`${p.short} · ${p.title}`,[p.thesis,p.problem,...p.mechanism,...p.benefits,...p.tradeoffs,...p.unresolved,p.previous,p.relation4337,p.latest,"Authors: "+p.authors].join(" "),"#/proposals/"+key,p.status));
+  D.proposals.filter(p=>!CURRENT.proposals[p.id]).forEach(p=>add("Proposal",p.name,[p.what,p.status.text,p.relations,p.first.context,p.initial_reception].filter(Boolean).join(" "),"#/proposals/"+p.id,"archive · "+(MOM[p.status.momentum]||["?"])[0]));
+  CURRENT.questions.forEach(q=>add("Open question",q.title,[q.status,q.category,q.a,q.b,q.state,q.settle,"Raised by "+q.raised].join(" "),"#/questions/question-"+q.id,q.category+" · "+q.status));
+  D.open_questions.forEach((q,i)=>add("Earlier question",q.question,[q.side_a.position,q.side_b.position,q.arguments,q.blockers,q.resolution_path].join(" "),"#/history-questions/hq-"+i,"archive"));
+  [["goals","Shared goal"],["constraints","Shared constraint"],["emerging","Emerging convergence"],["specific","Proposal-specific"]].forEach(([g,label])=>CURRENT.consensus[g].forEach((c,i)=>add("Consensus",c.title,c.text,"#/consensus/cons-"+g+"-"+i,label)));
+  ["strong","emerging","weak"].forEach(g=>D.consensus[g].forEach((c,i)=>add("Consensus",shortTitle(c.claim.split(/(?<=[.!?])\s/)[0],110),c.claim,"#/history-consensus/hc-"+g+"-"+i,"historical · "+g)));
+  D.turning_points.forEach((t,i)=>add("Turning point",t.name,[t.what,t.why,t.before,t.after].join(" "),"#/history-turning-points/tp-"+i,t.date));
+  D.eras.forEach(e=>add("Era",`Era ${e.n}: ${e.name}`,[e.main_question,e.narrative,(e.dominant_proposals||[]).join(", ")].join(" "),"#/history-timeline/era-"+e.id,`${e.from} → ${e.to}`));
+  D.months.forEach(m=>{
+    add("Period",m.label,[m.summary,(m.proposals||[]).join(", "),(m.arrivals||[]).join(", ")].join(" "),"#/history-timeline/month-"+m.key,m.key);
+    (m.moments||[]).forEach(mo=>add("Key moment",shortTitle(mo.text,96),mo.text,"#/history-timeline/month-"+m.key,mo.date||m.label));
+  });
+  CURRENT_AXES.forEach((a,i)=>add("Debate axis",a.name,[a.a,a.b,a.where].join(" "),"#/debate-map/axis-"+i,"current"));
+  DEBATE_AXES.forEach((a,i)=>add("Debate axis",a.name,[a.a.lbl,a.a.txt,a.a.who,a.b.lbl,a.b.txt,a.b.who,a.note,a.evolved].join(" "),"#/history-debates/haxis-"+i,"historical"));
+  D.patterns.forEach((p,i)=>add("Pattern",p.name,p.text,"#/history-consensus/pattern-"+i,"how the group argues"));
+  CURRENT.signals.forEach(s=>add("Recent signal",shortTitle(s.text,96),s.text,"#/current/signals-now",s.date));
+  CURRENT.protocolUpdates.forEach(u=>add("Protocol update",u.kind+" · "+u.date,u.text,"#/current/protocol-updates",u.date));
+  return SEARCH_INDEX=items;
+}
+function rankSearch(items,query){
+  const terms=searchTerms(query);
+  if(!terms.length)return [];
+  const ranked=[];
+  for(const item of items){
+    const title=searchNorm(item.title);
+    let score=SEARCH_TYPE_WEIGHT[item.type]||0,ok=true;
+    for(const term of terms){
+      const bare=term.replace(/-/g,"");
+      if(!item.hay.includes(term)&&!(bare&&item.hay2.includes(bare))){ok=false;break;}
+      if(title===term)score+=40;else if(title.startsWith(term))score+=16;else if(title.includes(term))score+=8;
+      score+=Math.min(6,item.hay.split(term).length-1);
+    }
+    if(ok)ranked.push({item,score});
+  }
+  return ranked.sort((a,b)=>b.score-a.score||a.item.title.localeCompare(b.item.title)).map(r=>r.item);
+}
+/* Escapes the text, wraps every term occurrence in <mark> and windows long text around the first hit. */
+function highlight(text,terms,max){
+  const chars=[...String(text||"")];
+  const norm=chars.map(c=>{if(c.length>1)return "\uFFFD";const n=searchNorm(c);return n.length===1?n:c.toLowerCase();}).join("");
+  const ranges=[];
+  for(const term of (terms||[])){let i=0;while(term&&(i=norm.indexOf(term,i))>=0){ranges.push([i,i+term.length]);i+=term.length;}}
+  ranges.sort((a,b)=>a[0]-b[0]);
+  const limit=max||170;
+  let start=0,end=chars.length;
+  if(chars.length>limit){
+    start=ranges.length?Math.max(0,ranges[0][0]-50):0;
+    end=Math.min(chars.length,start+limit);
+    start=Math.max(0,end-limit);
+    if(start>0){const sp=norm.indexOf(" ",start);if(sp>=0&&sp<start+16)start=sp+1;}
+    if(end<chars.length){const sp=norm.lastIndexOf(" ",end);if(sp>end-16)end=sp;}
+  }
+  let out="",pos=start;
+  for(const [a,b] of ranges){
+    if(b<=start||a>=end||a<pos)continue;
+    const a2=Math.max(a,start),b2=Math.min(b,end);
+    out+=esc(chars.slice(pos,a2).join(""))+"<mark>"+esc(chars.slice(a2,b2).join(""))+"</mark>";
+    pos=b2;
+  }
+  out+=esc(chars.slice(pos,end).join(""));
+  return (start>0?"…":"")+out+(end<chars.length?"…":"");
+}
+function renderSearchResults(query){
+  const box=document.getElementById("search-results"),count=document.getElementById("search-count"),field=document.getElementById("page-search");
+  if(!box)return;
+  if(field&&document.activeElement!==field&&field.value!==query)field.value=query;
+  const terms=searchTerms(query);
+  const results=terms.length?rankSearch(searchIndex(),query):[];
+  if(!terms.length){
+    count.textContent="Results update as you type.";
+    box.innerHTML=`<div class="search-hints"><h3>What you can find</h3><ul>
+      <li>People: <a href="#/search/Vitalik">Vitalik</a>, <a href="#/search/Ivo">Ivo</a>, <a href="#/search/Pedro">Pedro</a>, <a href="#/search/Chris">Chris</a></li>
+      <li>Proposals: <a href="#/search/8141">8141</a>, <a href="#/search/8130">8130</a>, <a href="#/search/7702">7702</a>, <a href="#/search/4337">4337</a>, <a href="#/search/7579">7579</a></li>
+      <li>Topics: <a href="#/search/mempool">mempool</a>, <a href="#/search/passkeys">passkeys</a>, <a href="#/search/keystore">keystore</a>, <a href="#/search/sponsorship">sponsorship</a>, <a href="#/search/CrimeEnjoyor">CrimeEnjoyor</a>, <a href="#/search/post-quantum">post-quantum</a></li>
+      <li>Events: <a href="#/search/Pectra">Pectra</a>, <a href="#/search/Hegot%C3%A1">Hegotá</a>, <a href="#/search/Devcon">Devcon</a></li></ul></div>`;
+    return;
+  }
+  count.textContent=`${results.length} result${results.length===1?"":"s"} for “${query.trim()}”`;
+  if(!results.length){
+    box.innerHTML=`<p class="empty-state">No matches for “${esc(query.trim())}”. Try a name (Vitalik, Ivo), a proposal number (8141, 7702, 4337) or a topic (mempool, passkeys, keystore, sponsorship).</p>`;
+    return;
+  }
+  const groups=new Map();
+  results.forEach(r=>{if(!groups.has(r.type))groups.set(r.type,[]);groups.get(r.type).push(r);});
+  box.innerHTML=[...groups].map(([type,items])=>{
+    const open=searchExpanded.has(type)||items.length<=SEARCH_GROUP_LIMIT;
+    const shown=open?items:items.slice(0,SEARCH_GROUP_LIMIT);
+    return `<section class="search-group" aria-label="${esc(type)} results"><h3>${esc(type)} <span class="count">${items.length}</span></h3>${shown.map(hit=>`<a class="search-hit" href="${esc(hit.href)}"><span class="hit-title">${highlight(hit.title,terms,140)}</span><span class="hit-snippet">${highlight(hit.text,terms,190)}</span>${hit.meta?`<span class="hit-meta">${esc(hit.meta)}</span>`:""}</a>`).join("")}${open?"":`<button class="text-link hit-more" type="button" data-expand="${esc(type)}">Show all ${items.length} ${esc(type.toLowerCase())} results</button>`}</section>`;
+  }).join("");
+  box.querySelectorAll("[data-expand]").forEach(b=>b.addEventListener("click",()=>{searchExpanded.add(b.dataset.expand);renderSearchResults(query);}));
+}
+function vSearch(q){
+  const query=q||"";
+  searchExpanded.clear();
+  main.innerHTML=`<h2 class="pagetitle">Search</h2>
+    <p class="pagelede">One search across pages, people, proposals, questions, findings, turning points and timeline periods. Each result links to the place where the match lives.</p>
+    <div class="search-page"><div class="search-field"><label for="page-search">Search the map</label><input id="page-search" type="search" value="${esc(query)}" placeholder="Try 8141, Vitalik, mempool or passkeys" autocomplete="off" spellcheck="false"></div><p class="result-count" id="search-count" role="status" aria-live="polite"></p></div>
+    <div id="search-results"></div>`;
+  const field=document.getElementById("page-search");
+  field.addEventListener("input",()=>{clearTimeout(searchTimer);searchTimer=setTimeout(()=>{const v=field.value;history.replaceState(null,"","#/search"+(v.trim()?"/"+encodeURIComponent(v):""));renderSearchResults(v);syncSearchInputs(v);},120);});
+  field.addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();const first=main.querySelector(".search-hit");if(first)first.focus();}});
+  renderSearchResults(query);
+}
+// The compact header is the reliable signal for the small-screen layout; a hidden ancestor does not change a control's own computed display.
+function isMobileLayout(){
+  return getComputedStyle(document.querySelector(".mobile-header")).display!=="none";
+}
+function syncSearchInputs(value){
+  const side=document.getElementById("site-search");
+  if(side&&document.activeElement!==side&&side.value!==value)side.value=value;
+}
+function goSearch(value){
+  const target="#/search"+(value.trim()?"/"+encodeURIComponent(value):"");
+  if(location.hash.startsWith("#/search")){history.replaceState(null,"",target);renderSearchResults(value);return;}
+  // On small screens the sidebar field lives inside the menu, so hand the query to the page's own field.
+  keepFocus=!isMobileLayout();
+  location.hash=target;
+}
+(function bindSiteSearch(){
+  const side=document.getElementById("site-search");
+  if(!side)return;
+  side.addEventListener("input",()=>{clearTimeout(searchTimer);searchTimer=setTimeout(()=>goSearch(side.value),120);});
+  side.addEventListener("keydown",e=>{
+    if(e.key==="Enter"){e.preventDefault();clearTimeout(searchTimer);goSearch(side.value);const first=main.querySelector(".search-hit");if(first&&location.hash.startsWith("#/search"))first.focus();}
+    if(e.key==="Escape"){side.value="";side.blur();}
+  });
+  document.addEventListener("keydown",e=>{
+    if(e.key!=="/"||e.ctrlKey||e.metaKey||e.altKey)return;
+    const t=e.target;
+    if(t&&(t.tagName==="INPUT"||t.tagName==="TEXTAREA"||t.tagName==="SELECT"||t.isContentEditable))return;
+    e.preventDefault();
+    if(isMobileLayout())location.hash="#/search";
+    else side.focus();
+  });
+})();
 
 function vAboutCurrent(){
   main.innerHTML=`<h2 class="pagetitle">Method, evidence and caveats</h2><div class="about">
