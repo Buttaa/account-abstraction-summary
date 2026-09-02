@@ -56,7 +56,7 @@ The presentation follows [Emil Kowalski's Design Engineering](https://github.com
 
 A site-wide search sits at the top of the navigation; press `/` to focus it, and on phones the header has a Search button. It indexes every page, profile, proposal, question, finding, turning point and timeline period, updates as you type, and links each hit to the section where it lives. The proposal archive and the matrix keep their local filters. Profiles, the 7702 explainer and the comparison deep dives keep their full detail in expandable sections.
 
-Each list page names its navigation group above the title. The matrix has striped rows and a header that stays visible while scrolling. Facts checked after the chat cutoff sit in one labeled block on the pages that use them. Appearance can follow the system or use the light or dark theme; a print stylesheet drops the navigation. Navigation has no decorative animation, and reduced-motion preferences disable press effects.
+Each list page names its navigation group above the title. The matrix has striped rows; above 1100px its header stays visible while the page scrolls, and at narrower widths the stakeholder column stays pinned while the table scrolls sideways. Facts checked after the chat cutoff sit in one labeled block on the pages that use them. Appearance can follow the system or use the light or dark theme; a print stylesheet drops the navigation. Navigation has no decorative animation, and reduced-motion preferences disable press effects.
 
 ## Repository layout
 
