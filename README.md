@@ -9,15 +9,15 @@ An evidence-linked map of Ethereum's account abstraction debate, centered on **E
 The site keeps two evidence clocks apart:
 
 - **Chat evidence ends 27 August 2026.** Source: the AA Mafia Telegram export, 30,847 records including 27,336 user messages from 1,094 accounts. Every stakeholder position, consensus finding and open question cites messages from this export.
-- **Protocol facts were checked on 2 September 2026** against the official [EIP-7702](https://eips.ethereum.org/EIPS/eip-7702), [EIP-8141](https://eips.ethereum.org/EIPS/eip-8141), [EIP-8130](https://eips.ethereum.org/EIPS/eip-8130), [EIP-7906](https://eips.ethereum.org/EIPS/eip-7906) and [EIP-7701](https://eips.ethereum.org/EIPS/eip-7701) pages, the revision history of the EIP repository, and public reports of the All Core Devs Execution call of 27 August 2026.
+- **Protocol facts were checked on 2 September 2026** against the official [EIP-7702](https://eips.ethereum.org/EIPS/eip-7702), [EIP-8141](https://eips.ethereum.org/EIPS/eip-8141), [EIP-8130](https://eips.ethereum.org/EIPS/eip-8130), [EIP-7906](https://eips.ethereum.org/EIPS/eip-7906) and [EIP-7701](https://eips.ethereum.org/EIPS/eip-7701) pages and the revision history of the EIP repository.
 
-Both 8141 and 8130 are Draft Core EIPs. Hours after the chat export ends, the core-dev call moved EIP-8141 from Considered for Inclusion to Scheduled for Inclusion for the Hegotá upgrade. The site records that as a dated protocol update, separate from the chat evidence, because no participant had discussed it yet. No winner of the design debate is implied.
+Both 8141 and 8130 are Draft Core EIPs. The site is a dated snapshot of one discussion venue and the specifications as they stood at the review date. It reports fork status only as far as the chat records it, and implies no winner of the design debate.
 
 ## Inside the site
 
 | Section | Purpose |
 | --- | --- |
-| Current state | The decision boundary, the two proposals, protocol updates since the cutoff, recent changes and possible next steps |
+| Current state | The decision boundary, the two proposals, recent changes and possible next steps |
 | 8141 vs 8130 | Mechanisms, assumptions, benefits, tradeoffs, ERC-4337 relationships and convergence hypotheses |
 | Why 7702 was not full AA | A plain-language explanation of what delegation solved, what the original key still controls, and what the new drafts add |
 | Position matrix | The latest observed position of 25 participants on both proposals, with dates, reasoning, confidence and citations |
@@ -83,13 +83,13 @@ node --test tests/site.test.mjs
 git diff --check
 ```
 
-The tests check JavaScript syntax, all eleven embedded datasets, the 21 route renderers, source metadata for every cited message, the 7702 and historical sidebar destinations, dark-mode link contrast, publication metadata and the dated protocol updates. Presentation checks cover search normalization, disclosure metadata, mobile menu markup and narrow-screen column sizing. A data fingerprint guards the analysis against accidental edits; update it deliberately, and only together with a source review. Tests do not prove an analytical claim on their own.
+The tests check JavaScript syntax, all eleven embedded datasets, the 21 route renderers, source metadata for every cited message, the 7702 and historical sidebar destinations, dark-mode link contrast, and publication metadata. Presentation checks cover search normalization, disclosure metadata, mobile menu markup and narrow-screen column sizing. A data fingerprint guards the analysis against accidental edits; update it deliberately, and only together with a source review. Tests do not prove an analytical claim on their own.
 
 Also run the [browser checklist](tests/BROWSER_CHECKS.md) at desktop and mobile widths. Static assertions alone do not prove layout or interaction behavior.
 
 ## Updating the report
 
-There is no generator in this repository. Edit `index.html` directly. The JSON data blocks hold the longitudinal record; the `CURRENT` object and the current-view renderers hold the analytical layer. Add verified sender and date metadata whenever you introduce a citation. Keep current and historical classifications separate, and advance either evidence date only after a corresponding source review. Record facts that postdate the chat cutoff in `CURRENT.protocolUpdates` with a date and sources, never inside the chat-evidence layer.
+There is no generator in this repository. Edit `index.html` directly. The JSON data blocks hold the longitudinal record; the `CURRENT` object and the current-view renderers hold the analytical layer. Add verified sender and date metadata whenever you introduce a citation. Keep current and historical classifications separate, and advance either evidence date only after a corresponding source review. Keep facts that postdate the chat cutoff out of the analytical layer.
 
 ## Delivery
 

@@ -10,7 +10,6 @@ Serve the repository locally and open `index.html`. These browser checks complem
 4. Activate “Skip to page content” while on a non-default route. It must not change the route. Confirm the current navigation link has `aria-current="page"`.
 5. In the proposal archive, search for `  EIP-7702  `: one of twenty records should remain. Expand it and follow the full-history link. A nonsense query should show a clear empty state; clearing search restores all records.
 6. In the matrix, search for `  Vitalik `: one of twenty-five stakeholders should remain. Latest stance, date and evidence confidence remain visible before expansion. Expand a cell to read the reasoning and source links. Unknown is not relabeled as neutral.
-12. On the current state page, the comparison page, both proposal pages and the method page, the dated protocol updates appear as labeled blocks with working source links. They must read as facts checked after the chat cutoff, never as chat evidence.
 7. Search current and historical stakeholder directories; exercise archive scope, tier and sort controls. Follow a profile and expand its timeline, evolution, stances and quotations. Confirm current EIP labels remain distinct from the historical record.
 8. Filter open questions by each proposal and restore Both proposals. Expand a question and confirm both arguments, status, participants, sources and next evidence are present. Open a consensus finding and a comparison deep dive.
 9. Expand the 7702 mental model, expectations, current-proposal comparison, advantages and continuing-relevance sections. All original text and citations must remain available. Its solved/unsolved distinction stays visible on the main reading path.
@@ -19,9 +18,9 @@ Serve the repository locally and open `index.html`. These browser checks complem
 
 ## Verification, 2 September 2026 (content pass)
 
-- `node --test tests/site.test.mjs`: 16 passed, including two new checks (every cited message resolves to a sender and date except three membership events; the matrix has 25 profiled rows and the protocol updates are dated and sourced).
+- `node --test tests/site.test.mjs`: 16 passed, including two new checks (every cited message resolves to a sender and date except three membership events; the matrix has 25 profiled rows).
 - A headless jsdom render exercised all 21 routes, all 68 profile pages, all 22 proposal pages and the 25 current stakeholder views: no script errors, no empty pages, no `undefined` or `[object Object]` text, 25 matrix rows, and every matrix chip carrying sender metadata.
-- The real-browser checks above were not rerun in this pass because no browser was available to the agent. Layout, disclosures, search and both themes should be spot-checked in a browser before merge, with attention to the new protocol-update blocks and the three added matrix rows.
+- The real-browser checks above were not rerun in this pass because no browser was available to the agent. Layout, disclosures, search and both themes should be spot-checked in a browser before merge, with attention to the three added matrix rows.
 
 ## Local verification, 30 August 2026
 

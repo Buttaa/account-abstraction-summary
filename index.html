@@ -872,10 +872,6 @@ const CURRENT = {
   evidenceCutoff:"2026-08-27",
   specChecked:"2026-09-02",
   headline:"Ethereum has broad momentum toward native account abstraction but no agreed implementation path. EIP-8141 and EIP-8130 draw the line between protocol and application in different places.",
-  protocolUpdates:[
-    {date:"2026-08-27",kind:"protocol status",text:"Hours after this chat export ends, the All Core Devs Execution call moved EIP-8141 from Considered for Inclusion to Scheduled for Inclusion (SFI) for the Hegotá upgrade, which is planned for 2027 after Glamsterdam. Whether it becomes the upgrade's headliner was left to the Hegotá scoping deadline. ETH Daily reported EIP-8130 as still under consideration. None of this appears in the chat evidence.",sources:[["Christine Kim, ACDE #244 notes","https://christinedkim.substack.com/p/acde-244"],["ETH Daily","https://ethdaily.io/account-abstraction-scheduled-for-hegota"],["Crypto Briefing","https://cryptobriefing.com/ethereum-eip-8141-hegota-upgrade/"]]},
-    {date:"2026-09-02",kind:"draft revisions",text:"The EIP-8141 draft was revised repeatedly through July and August 2026, including the adoption of EIP-8037's two-dimensional gas accounting on 13 August, and last changed on 1 September. EIP-8130 was last revised on 27 August, after adoption profiles and a bound on authentication gas were added on 19 August. Both remain Draft Core EIPs, and the mechanics on this site were re-checked against these versions.",sources:[["EIP-8141 revision history","https://github.com/ethereum/EIPs/commits/master/EIPS/eip-8141.md"],["EIP-8130 revision history","https://github.com/ethereum/EIPs/commits/master/EIPS/eip-8130.md"]]}
-  ],
   proposals:{
     "eip-8141":{
       short:"EIP-8141",title:"Frame Transaction",status:"Draft · Core",created:"2026-01-29",url:"https://eips.ethereum.org/EIPS/eip-8141",
@@ -897,7 +893,7 @@ const CURRENT = {
       unresolved:["Which public-mempool policy is safe and useful enough for launch?","How much account code or verifier canonicalization will be needed in practice?","Can client teams implement and benchmark the design within the Hegotá scope?","Which shared wallet interfaces are needed so that flexibility does not turn into fragmentation?"],
       previous:"Builds on the goals of ERC-4337 and RIP-7560 and on the EOA transition started by EIP-7702, but moves framing, signature hashing and fee semantics into the protocol. EIP-7701 (Native Account Abstraction) is now marked Withdrawn and superseded by EIP-8141.",
       relation4337:"Aims to cover most of ERC-4337's user-facing job with a native transaction path. ERC-4337 remains a coexistence and migration route, especially before L1 adoption and on chains that do not activate 8141.",
-      latest:"By the cutoff, EIP-8141 had been Considered for Inclusion in Hegotá since 26 March. Two clients had implementations: Nethermind announced prototyping in July, and a screenshot shared on 9 August reported an initial implementation, a testnet and support for headliner status; ethrex ran a public Hegotá devnet. Developer tooling and a reference wallet existed. Fork inclusion was still open when the export ends; the SFI decision came hours later (see the protocol update).",
+      latest:"By the cutoff, EIP-8141 had been Considered for Inclusion in Hegotá since 26 March. Two clients had implementations: Nethermind announced prototyping in July, and a screenshot shared on 9 August reported an initial implementation, a testnet and support for headliner status; ethrex ran a public Hegotá devnet. Developer tooling and a reference wallet existed. Fork inclusion was still open when the export ends.",
       latestIds:[31243,32050,32175,32228,32564,32565]
     },
     "eip-8130":{
@@ -933,7 +929,7 @@ const CURRENT = {
     ["EOAs and smart accounts","Default code covers codeless EOAs; coded accounts customize verification.","Default delegation covers codeless EOAs; existing contracts import their configuration; new accounts use CREATE2."],
     ["ERC-4337 relationship","A native alternative for many 4337 flows; 4337 stays usable during coexistence and migration.","Explicit coexistence; 4337 transactions and existing smart accounts continue to work."],
     ["Main risk named in debate","DoS and mempool complexity, implementation breadth, tension with statelessness and FOCIL, and fragmented conventions.","Over-enshrinement, permanent maintenance, canonical-policy risk and insufficient wallet adoption."],
-    ["Evidence of motion at the cutoff","CFI for Hegotá, two client implementations, a public devnet, tooling and a reference wallet; the SFI decision followed hours after the cutoff.","Base vibenet live; Base testnet and mainnet and OP Stack rollouts announced but not yet observed."]
+    ["Evidence of motion at the cutoff","CFI for Hegotá, two client implementations, a public devnet, tooling and a reference wallet.","Base vibenet live; Base testnet and mainnet and OP Stack rollouts announced but not yet observed."]
   ],
   positions:[
     {id:"vitalik-buterin",name:"Vitalik Buterin",p8141:{tone:"support",label:"Strongly supports",date:"2026-04-11",basis:"explicit",note:"First-listed author of the draft. Explains its design, proposes the restrictive-then-expansive mempool strategy and wants developers never to deal with bundlers, paymasters or mempools.",ids:[30694,30862,31598,31621]},p8130:{tone:"unknown",label:"Insufficient evidence",date:"—",basis:"unknown",note:"No message from Vitalik mentions EIP-8130.",ids:[]}},
@@ -1814,11 +1810,6 @@ function proposalCard(p,key){
 function currentClaim(c,cls){
   return `<details class="consensus-item ${cls}"><summary><h4>${esc(c.title)}</h4></summary><div class="claim-body"><p>${esc(c.text)}</p><div class="evidence-line">Source messages ${cite(c.ids)}</div></div></details>`;
 }
-// Facts checked after the chat export ended. They are dated and sourced separately so that
-// a later protocol decision is never presented as something participants had already discussed.
-function protocolUpdatesHtml(){
-  return CURRENT.protocolUpdates.map(u=>`<div class="freshness"><span class="source-kind explicit">${esc(u.kind)} · ${esc(u.date)}</span><span>${esc(u.text)} Sources: ${u.sources.map(([label,href])=>`<a href="${esc(href)}" target="_blank" rel="noopener">${esc(label)}</a>`).join(", ")}.</span></div>`).join("");
-}
 
 function vCurrentNow(){
   const p8141=CURRENT.proposals["eip-8141"],p8130=CURRENT.proposals["eip-8130"];
@@ -1828,17 +1819,15 @@ function vCurrentNow(){
       <div class="eyebrow">Current state · evidence through ${CURRENT.evidenceCutoff}</div>
       <h2 id="current-title">The native AA decision</h2>
       <p class="dek">Both proposals want the same outcomes. They disagree about how much coordination the protocol itself should do.</p>
-      <details class="summary-context"><summary>Read the current assessment</summary><p><b>The question is no longer whether to pursue native AA. It is where to put the boundary.</b> ${esc(CURRENT.headline)}</p><p>${known} of ${CURRENT.positions.length*2} position cells rest on evidence; the rest are marked unknown. <b>Stakeholder evidence:</b> the AA Mafia Telegram export through ${CURRENT.evidenceCutoff}. <b>Proposal mechanics and fork status:</b> official EIP pages and core-dev call reports checked ${CURRENT.specChecked}. Announced rollouts are labeled as plans, not deployments.</p></details>
+      <details class="summary-context"><summary>Read the current assessment</summary><p><b>The question is no longer whether to pursue native AA. It is where to put the boundary.</b> ${esc(CURRENT.headline)}</p><p>${known} of ${CURRENT.positions.length*2} position cells rest on evidence; the rest are marked unknown. <b>Stakeholder evidence:</b> the AA Mafia Telegram export through ${CURRENT.evidenceCutoff}. <b>Proposal mechanics:</b> the official EIP drafts checked ${CURRENT.specChecked}. Announced rollouts are labeled as plans, not deployments.</p></details>
       <div class="statusline">
         <span class="badge acc">EIP-8141 · Draft</span>
         <span class="badge gold">EIP-8130 · Draft</span>
         <span class="badge">No shared path chosen in the chat</span>
-        <span class="badge">8141 scheduled for Hegotá on 27 Aug, after the cutoff</span>
       </div>
     </section>
 
-    <p class="evidence-clock">Chat evidence ends ${CURRENT.evidenceCutoff} · EIP drafts and fork status checked ${CURRENT.specChecked}. <a href="#/about">About the sources</a></p>
-    ${protocolUpdatesHtml()}
+    <p class="evidence-clock">Chat evidence ends ${CURRENT.evidenceCutoff} · EIP drafts checked ${CURRENT.specChecked}. <a href="#/about">About the sources</a></p>
 
     <aside class="bridge-callout" aria-label="EIP-7702 context">
       <div><div class="eyebrow">The bridge into today's debate</div><h3>EIP-7702 gave EOAs smart-account features but left the original key in charge.</h3><p>That is why batching and sponsorship arrived before native account abstraction was complete. Both current drafts move the protocol boundary further.</p></div>
@@ -1856,7 +1845,7 @@ function vCurrentNow(){
     </section>
 
     <section aria-labelledby="proposals-now">
-      <div class="section-intro"><h3 id="proposals-now">Two active proposals</h3><p>Both are Draft Core EIPs. By the chat cutoff neither had been chosen as Ethereum's shared path; EIP-8141 was scheduled for Hegotá hours later.</p></div>
+      <div class="section-intro"><h3 id="proposals-now">Two active proposals</h3><p>Both are Draft Core EIPs. By the chat cutoff neither had been chosen as Ethereum's shared path.</p></div>
       <div class="proposal-duo">${proposalCard(p8141,"eip-8141")}${proposalCard(p8130,"eip-8130")}</div>
       <details class="summary-context"><summary>Overlap, differences and implications</summary><div class="claim-grid">
         <article class="claim-card"><h4>Where they overlap</h4><p>Custom authentication, batching, sponsorship, EOA compatibility and coexistence with existing accounts.</p></article>
@@ -1978,7 +1967,7 @@ function v7702Explainer(){
           <tr><td>Key and signature change</td><td>Delegate-level keys can change; the original secp256k1 root cannot be fully retired by 7702 alone.</td><td>Account verification can use other signature schemes and rotate authority; moving existing 7702 accounts off their root remains a migration question.</td><td>Accounts can add, rotate and retire configured authenticators without changing the account address.</td></tr>
           <tr><td>Fees and sponsorship</td><td>Possible through a relayer, delegated implementation or ERC-4337 stack.</td><td>Payer approval and gas handling are part of the frame transaction design.</td><td>A payer field and payer authorization are part of the transaction, with a sponsor scope in the configuration.</td></tr>
           <tr><td>Main advantage</td><td>Immediate in-place upgrade for the enormous installed base of EOAs.</td><td>Maximum flexibility: the account can define validation and payment logic.</td><td>Maximum coordination: wallets and apps share a portable authority vocabulary.</td></tr>
-          <tr><td>Status at review</td><td><b>Final.</b> Live infrastructure with meaningful adoption, though success metrics remain debated.</td><td><b>Draft Core EIP.</b> Two client implementations and tooling at the chat cutoff; scheduled for Hegotá on 27 August 2026, hours after the cutoff.</td><td><b>Draft Core EIP.</b> Chain-led implementation work on Base; no Ethereum-wide adoption at the chat cutoff.</td></tr>
+          <tr><td>Status at review</td><td><b>Final.</b> Live infrastructure with meaningful adoption, though success metrics remain debated.</td><td><b>Draft Core EIP.</b> Two client implementations and tooling at the chat cutoff.</td><td><b>Draft Core EIP.</b> Chain-led implementation work on Base; no Ethereum-wide adoption at the chat cutoff.</td></tr>
         </tbody>
       </table></div>
       <p class='status-note'>Mechanics checked against the official specifications on ${CURRENT.specChecked}. Chat evidence ends ${CURRENT.evidenceCutoff}. Draft proposals can change.</p>
@@ -2035,7 +2024,6 @@ function vComparison(){
     <p class="pagelede">A comparison of design boundaries and their consequences, not a feature checklist. Both documents are Draft Core EIPs; publication alone is not read as adoption or endorsement.</p>
     <aside class="bridge-callout" aria-label="EIP-7702 comparison context"><div><div class="eyebrow">Need the missing step first?</div><h3>See why EIP-7702 delivered AA-like features without completing native AA.</h3><p>The explainer separates what 7702 solved from the authority and transaction changes proposed now.</p></div><a class="btn" href="#/7702">Read the 7702 explainer</a></aside>
     <div class="freshness"><span class="source-kind explicit">scope correction</span><span><b>EIP-8130 is analyzed on its own</b>, apart from Tempo and EIPs 8202, 8221, 8223 and 8224. <b>Post-transaction assertions are not part of the current EIP-8141 core draft</b>; they belong to the companion EIP-7906.</span></div>
-    ${protocolUpdatesHtml()}
     <div class="compare-wrap"><table class="compare">
       <thead><tr><th>Design question</th><th>EIP-8141 · Frame Transaction</th><th>EIP-8130 · Account Configuration</th></tr></thead>
       <tbody>${CURRENT.comparison.map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join("")}</tbody>
@@ -2061,8 +2049,7 @@ function vCurrentProposalDetail(id){
   const concerns=CURRENT.positions.filter(x=>["concern","oppose"].includes(x[key].tone));
   main.innerHTML=`<a class="backlink" href="#/proposals">← Current proposals</a>
     <div class="detail-head"><h2>${esc(p.short)} · ${esc(p.title)}</h2><span class="badge acc">${esc(p.status)}</span>${officialBadge(p)}</div>
-    <div class="freshness"><span class="source-kind explicit">official mechanics</span><span>Specification and fork status checked ${CURRENT.specChecked}. Chat and stakeholder evidence end ${CURRENT.evidenceCutoff}.</span></div>
-    ${protocolUpdatesHtml()}
+    <div class="freshness"><span class="source-kind explicit">official mechanics</span><span>Specification checked ${CURRENT.specChecked}. Chat and stakeholder evidence end ${CURRENT.evidenceCutoff}.</span></div>
     <div class="latestbox"><div class="d">STATE OF THE DISCUSSION AT THE CHAT CUTOFF</div>${esc(p.latest)} ${cite(p.latestIds)}</div>
     <div class="deep-section">
       <h3>What it proposes</h3><p>${esc(p.problem)}</p><p class="evidence-line">Authors (official draft): ${esc(p.authors)}</p>
@@ -2143,7 +2130,7 @@ function vConsensusCurrent(){
     ${consensusGroup("Shared constraints","Properties neither path may ignore",C.constraints,"constraint")}
     ${consensusGroup("Emerging implementation convergence","A direction, with caveats",C.emerging,"emerging")}
     ${consensusGroup("Proposal-specific observations","Evidence of motion, not community-wide agreement",C.specific,"specific")}
-    <div class="csintro" style="border-left-color:var(--gold);background:var(--gold-soft)"><b>Not consensus:</b> the chat does not establish that EIP-8141 has won the L1 decision, that EIP-8130 has broad wallet adoption, or that a layered combination is agreed. Those remain open questions. The SFI decision of 27 August is recorded separately as a protocol update.</div>
+    <div class="csintro" style="border-left-color:var(--gold);background:var(--gold-soft)"><b>Not consensus:</b> the chat does not establish that EIP-8141 has won the L1 decision, that EIP-8130 has broad wallet adoption, or that a layered combination is agreed. Those remain open questions.</div>
     <div class="actions section-actions"><a class="btn" href="#/questions">See unresolved questions</a><a class="btn" href="#/matrix">Compare positions</a></div>
     <details class="historical-box"><summary>Historical consensus findings · preserved for context</summary><div class="archive-inner">
       <p class="pagelede" style="margin-top:0">These findings explain earlier phases. They sit below the current findings because several describe goals or superseded decision points rather than today's implementation choice.</p>
@@ -2350,16 +2337,15 @@ function vHistoricalOverview(){
 function vAboutCurrent(){
   main.innerHTML=`<h2 class="pagetitle">Method, evidence and caveats</h2><div class="about">
     <h4>Two evidence clocks</h4>
-    <p><b>Stakeholder and discussion evidence</b> comes from the AA Mafia Telegram export through ${CURRENT.evidenceCutoff}: 30,847 records, including 27,336 user messages from 1,094 accounts. <b>Proposal mechanics and fork status</b> were checked on ${CURRENT.specChecked} against the official EIP-7702, EIP-8141, EIP-8130, EIP-7906 and EIP-7701 pages, the revision history of the EIP repository and public reports of the 27 August core-dev call. Keeping the two dates apart prevents a later draft or decision from being presented as something participants had already discussed.</p>
-    ${protocolUpdatesHtml()}
+    <p><b>Stakeholder and discussion evidence</b> comes from the AA Mafia Telegram export through ${CURRENT.evidenceCutoff}: 30,847 records, including 27,336 user messages from 1,094 accounts. <b>Proposal mechanics</b> were checked on ${CURRENT.specChecked} against the official EIP-7702, EIP-8141, EIP-8130, EIP-7906 and EIP-7701 pages and the revision history of the EIP repository. Keeping the two dates apart prevents a later draft from being presented as something participants had already discussed.</p>
     <h4>How current positions were classified</h4>
     <ul><li>An explicit preference, support, concern or implementation commitment is labeled and dated.</li><li>Discussing a proposal, sharing a link, being listed as an author, building a tool or joining a call does not by itself count as support for the whole proposal.</li><li>The latest explicit statement controls the current view. Earlier views remain in the profile timeline.</li><li>Tentative interpretation is labeled as such. Where evidence is insufficient, the cell stays unknown rather than guessed.</li><li>A color never stands alone: every cell carries a text label, a reason and source chips.</li></ul>
     <h4>What was re-verified for this edition (${CURRENT.specChecked})</h4>
-    <ul><li>The mechanics, statuses, authors and creation dates of EIP-8141 and EIP-8130 against the live EIP pages, plus their relationship to ERC-4337, EIP-7702, EIP-7906 and the withdrawn EIP-7701.</li><li>Every message cited behind the ${CURRENT.positions.length} stakeholder rows, the consensus findings, the open questions and the 7702 explainer, read in full in the export. The photo behind message 32228 was viewed and is described as a screenshot wherever it is cited.</li><li>Fork status: the chat records CFI status from 26 March 2026. The SFI decision of 27 August 2026 happened after the export ends, so it appears only as a dated protocol update.</li><li>Sender and date metadata for every cited message. Three cited IDs (12045, 18919, 32020) are Telegram membership events without text and render without a sender.</li></ul>
+    <ul><li>The mechanics, statuses, authors and creation dates of EIP-8141 and EIP-8130 against the live EIP pages, plus their relationship to ERC-4337, EIP-7702, EIP-7906 and the withdrawn EIP-7701.</li><li>Every message cited behind the ${CURRENT.positions.length} stakeholder rows, the consensus findings, the open questions and the 7702 explainer, read in full in the export. The photo behind message 32228 was viewed and is described as a screenshot wherever it is cited.</li><li>Fork status as the chat records it: EIP-8141 was Considered for Inclusion for Hegotá on 26 March 2026. Later core-dev decisions fall outside this snapshot.</li><li>Sender and date metadata for every cited message. Three cited IDs (12045, 18919, 32020) are Telegram membership events without text and render without a sender.</li></ul>
     <h4>Corrections in this edition</h4>
     <ul><li>Pedro (WalletConnect) led EIP-8141 advocacy in spring 2026 and named EIP-8130 the most mature option on 20 August. An earlier version described the opposite trajectory and attributed his quote to Chris.</li><li>frangio shared the EIP-8141 draft in the group; he is not an author. Each proposal page now lists the draft's authors.</li><li>Chris (Base) is identified as Chris Hunter, the sole listed author of EIP-8130, based on the pull request he shared and the handle used in the chat.</li><li>Nethermind's August implementation and headliner support reached the chat as a screenshot of Ben Adams's post. The archive now says so instead of presenting it as a chat statement.</li><li>Ben Adams, Norswap and Filip were added to the position matrix. Their 2026 statements were explicit but had been left out.</li><li>The cells for Pedro, Joe Pegler, Georgios Konstantopoulos, tdubb and accountless were relabeled to match their cited messages more closely, and Toni Wahrstätter is noted as an EIP-8141 co-author.</li><li>Earlier corrections stand: EIP-8130 is analyzed apart from Tempo and EIPs 8202, 8221, 8223 and 8224; post-transaction assertions belong to the companion EIP-7906; Base's September rollout is an announced target.</li></ul>
     <h4>Known limitations</h4>
-    <ul><li>This chat is one coordination venue. Core-dev calls, GitHub, forums and conferences appear only where the export reflects them or where a dated protocol update records them.</li><li>Draft EIPs can change after ${CURRENT.specChecked}. This standalone file has no live data pipeline.</li><li>Some authors and implementers were quiet in the chat during 2026. Authorship is visible on the EIP page, but a missing chat stance stays missing in the matrix.</li><li>Telegram display names and organization labels can be anachronistic. Profiles keep their original caveats.</li><li>A well-supported unknown is preferable to a filled but speculative cell, so evidence quality is deliberately uneven across the matrix.</li></ul>
+    <ul><li>This chat is one coordination venue. Core-dev calls, GitHub, forums and conferences appear only where the export reflects them.</li><li>Draft EIPs can change after ${CURRENT.specChecked}. This standalone file has no live data pipeline.</li><li>Some authors and implementers were quiet in the chat during 2026. Authorship is visible on the EIP page, but a missing chat stance stays missing in the matrix.</li><li>Telegram display names and organization labels can be anachronistic. Profiles keep their original caveats.</li><li>A well-supported unknown is preferable to a filled but speculative cell, so evidence quality is deliberately uneven across the matrix.</li></ul>
     <h4>Reading citations</h4><p>Chips such as ${cite([32351,32544])} show the sender and date on hover or focus and open the message in Telegram for group members. Official proposal links open the Ethereum EIP pages.</p>
     <h4>Distribution</h4><p>This is a standalone report with embedded data and no live synchronization. The raw Telegram export and the intermediate analysis are not part of the repository.</p>
     <div class="footer-note">The current analysis is a coordination aid, not a protocol recommendation. It separates shared goals, implementation convergence, proposal-specific motion and unresolved disagreement.</div>
