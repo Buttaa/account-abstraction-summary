@@ -2331,7 +2331,10 @@ function vHistoricalConsensus(){
     <h2 class='pagetitle'>Historical consensus findings</h2><p class='pagelede'>The original longitudinal grades are preserved as context. They do not imply agreement on EIP-8141 or EIP-8130.</p>
     <div class='consec'><h4><span class='badge ok'>Historically strong</span></h4>${C.strong.map(c=>item(c,'strong')).join('')}</div>
     <div class='consec'><h4><span class='badge warn'>Historically emerging</span></h4>${C.emerging.map(c=>item(c,'emerging')).join('')}</div>
-    <div class='consec'><h4><span class='badge dim'>Historically weak / apparent</span></h4>${C.weak.map(c=>item(c,'weak')).join('')}</div>`;
+    <div class='consec'><h4><span class='badge dim'>Historically weak / apparent</span></h4>${C.weak.map(c=>item(c,'weak')).join('')}</div>
+    <h3 class='sect'>How this community argues: recurring patterns</h3>
+    <p class='pagelede'>Eight habits that recur across four years of discussion, each with the moments that show it.</p>
+    <div class='grid g2'>${D.patterns.map(p=>`<div class='card'><div style='font-family:var(--serif);font-weight:700;font-size:15.5px;margin-bottom:6px'>${esc(p.name)}</div><div style='font-size:13px;color:var(--ink2)'>${inlineCites(esc(p.text))}</div>${p.examples_ids&&p.examples_ids.length?`<div class='evidence-line'>Examples ${cite(p.examples_ids)}</div>`:''}</div>`).join('')}</div>`;
 }
 function vHistoricalQuestions(){
   main.innerHTML=`<div class='archive-banner'><strong>Earlier open-question archive.</strong> <a href='#/questions'>Review the questions blocking today’s EIP-8141 / EIP-8130 decision</a>.</div>
