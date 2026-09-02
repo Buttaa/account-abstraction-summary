@@ -26,12 +26,12 @@ test('homepage JavaScript compiles and all eleven embedded datasets parse', () =
   ]);
 });
 
-test('the default route is current state and all 21 routes have renderers', () => {
+test('the default route is current state and all 22 routes have renderers', () => {
   assert.ok(/location\.hash\|\|"#\/current"/.test(application), 'empty URLs open current state');
   const routes = application.match(/const routes = \{([^\n]+)\};/);
   assert.ok(routes, 'route table is present');
   const entries = [...routes[1].matchAll(/(?:"([^"]+)"|(\w+)):(\w+)/g)];
-  assert.equal(entries.length, 21);
+  assert.equal(entries.length, 22);
   for (const [, quoted, bare, renderer] of entries) {
     assert.ok(new RegExp(`function ${renderer}\\(`).test(application), `${quoted || bare} has a renderer`);
   }
@@ -40,7 +40,7 @@ test('the default route is current state and all 21 routes have renderers', () =
 test('8141 and 8130 are separate drafts with distinct evidence and specification dates', () => {
   const current = currentData();
   assert.equal(current.evidenceCutoff, '2026-08-27');
-  assert.equal(current.specChecked, '2026-08-28');
+  assert.equal(current.specChecked, '2026-09-02');
   for (const number of [8141, 8130]) {
     const proposal = current.proposals[`eip-${number}`];
     assert.equal(proposal.url, `https://eips.ethereum.org/EIPS/eip-${number}`);
@@ -119,13 +119,14 @@ test('publication metadata and a JavaScript-disabled explanation are retained', 
   assert.match(config, /publish = "\."/);
 });
 
-test('the UI iteration preserves all analytical data and citation metadata', () => {
+test('the analytical data and citation metadata match the reviewed baseline', () => {
   const current = currentData();
   const supplement = application.match(/Object\.assign\(D\.citations,(\{[\s\S]*?\n\})\);/);
   const citations = runInNewContext(`(${supplement[1]})`, Object.create(null), { timeout: 1000 });
   const hash = createHash('sha256').update(JSON.stringify({ datasets, current, citations })).digest('hex');
-  // Baseline: content commit 019c270, before the presentation-only iteration.
-  assert.equal(hash, '9a0c43b5dfc820f82da46a46ebe22844d034aff36fd946445eb44e5edf8eb1ba');
+  // Baseline: the verification edition of 2026-09-02 (corrected archive entries, a 25-row matrix
+  // and complete citation metadata). Update it only together with a source review.
+  assert.equal(hash, '565bd498c073131263b1f4270bd5b55a6bc58a9680c62abdcc5444b1df93b5aa');
 });
 
 function standaloneFunction(name, context = {}) {
@@ -201,4 +202,79 @@ test('compact archive records retain descriptions, dated status and full-history
     assert.ok(output.includes(proposal.status.as_of));
     assert.ok(output.includes(`href="#/proposals/${proposal.id}"`));
   }
+});
+
+test('every cited message resolves to a sender and date, except three membership events', () => {
+  const supplement = application.match(/Object\.assign\(D\.citations,(\{[\s\S]*?\n\})\);/);
+  const citations = { ...datasets.citations, ...runInNewContext(`(${supplement[1]})`, Object.create(null), { timeout: 1000 }) };
+  const ids = new Set();
+  const collect = (value, key = '') => {
+    if (Array.isArray(value)) {
+      if (/ids$/i.test(key)) value.forEach(id => { if (Number.isInteger(id)) ids.add(id); });
+      else value.forEach(item => collect(item));
+    } else if (value && typeof value === 'object') {
+      Object.entries(value).forEach(([name, child]) => collect(child, name));
+    } else if (typeof value === 'string') {
+      for (const [, group] of value.matchAll(/\[(\d{2,6}(?:\s*[,;–-]\s*\d{2,6})*)\]/g)) {
+        group.split(/[,;–-]/).map(x => Number(x.trim())).filter(x => x > 1 && x < 40000).forEach(x => ids.add(x));
+      }
+    }
+  };
+  for (const [name, data] of Object.entries(datasets)) if (name !== 'citations' && name !== 'activity') collect(data);
+  collect(currentData());
+  for (const [, list] of application.matchAll(/cite\(\[([\d,\s]+)\]\)/g)) list.split(',').forEach(id => ids.add(Number(id.trim())));
+  assert.ok(ids.size > 2000, 'the archive and the current layer cite thousands of messages');
+  const unresolved = [...ids].filter(id => !citations[id]).sort((a, b) => a - b);
+  // These three IDs are Telegram membership events without text; they stay cited but carry no sender.
+  assert.deepEqual(unresolved, [12045, 18919, 32020]);
+});
+
+test('the current matrix has 25 profiled participants, each with a longitudinal profile', () => {
+  const current = currentData();
+  assert.equal(current.positions.length, 25);
+  for (const person of current.positions) {
+    assert.ok(datasets.stakeholders.some(s => s.id === person.id), `${person.name} has a longitudinal profile`);
+  }
+  assert.equal(current.protocolUpdates, undefined, 'the analytical layer carries chat evidence only');
+  for (const key of ['eip-8141', 'eip-8130']) assert.ok(current.proposals[key].authors.length > 10, `${key} lists its official authors`);
+});
+
+test('search normalizes accents and case, ranks titles first and highlights safely', () => {
+  const searchNorm = standaloneFunction('searchNorm');
+  assert.equal(searchNorm('Łukasz Rozmej — EIP-8141'), 'lukasz rozmej — eip-8141');
+  const searchTerms = standaloneFunction('searchTerms', { searchNorm });
+  assert.deepEqual([...searchTerms('  Frame   TX ')], ['frame', 'tx']);
+  const rankSearch = standaloneFunction('rankSearch', { searchNorm, searchTerms, SEARCH_TYPE_WEIGHT: { Page: 10, Stakeholder: 8, 'Key moment': 0 } });
+  const mk = (type, title, text) => { const hay = searchNorm(`${title} ${text}`); return { type, title, text, href: '#', meta: '', hay, hay2: hay.replace(/-/g, '') }; };
+  const items = [
+    mk('Key moment', 'A moment about mempool rules', 'mempool mempool'),
+    mk('Page', 'Position matrix', 'positions on 8141'),
+    mk('Stakeholder', 'Vitalik Buterin', 'author of EIP-8141'),
+  ];
+  assert.deepEqual([...rankSearch(items, 'matrix')].map(i => i.title), ['Position matrix']);
+  assert.deepEqual([...rankSearch(items, 'MEMPOOL')].map(i => i.title), ['A moment about mempool rules']);
+  assert.deepEqual([...rankSearch(items, '8141')].map(i => i.title), ['Position matrix', 'Vitalik Buterin'], 'pages outrank profiles at equal relevance');
+  assert.deepEqual([...rankSearch(items, 'eip8141')].map(i => i.title), ['Vitalik Buterin'], 'dashes in EIP numbers are optional');
+  assert.equal(rankSearch(items, 'vitalik matrix').length, 0, 'every term must match');
+  assert.equal(rankSearch(items, '   ').length, 0);
+  const escape = value => String(value).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const highlight = standaloneFunction('highlight', { searchNorm, esc: escape });
+  assert.equal(highlight('Frames <b>and</b> keystores', ['frame'], 170), '<mark>Frame</mark>s &lt;b&gt;and&lt;/b&gt; keystores');
+  const long = 'x '.repeat(200) + 'needle in the haystack ' + 'y '.repeat(200);
+  const windowed = highlight(long, ['needle'], 120);
+  assert.ok(windowed.startsWith('…') && windowed.endsWith('…'), 'long text is windowed around the first hit');
+  assert.ok(windowed.includes('<mark>needle</mark>') && windowed.length < 200);
+});
+
+test('the shell has a search field, a small-screen search control and a search route with anchored targets', () => {
+  const sidebar = html.match(/<nav\b[^>]*id="sidebar"[\s\S]*?<\/nav>/)[0];
+  assert.match(sidebar, /<input id="site-search" type="search"/);
+  assert.match(sidebar, /<label class="visually-hidden" for="site-search">/);
+  assert.match(html, /<a class="btn" id="search-toggle" href="#\/search">/);
+  assert.ok(/function vSearch\(/.test(application) && /function searchIndex\(/.test(application));
+  for (const marker of ["id='hq-${i}'", 'id="tp-${', 'id="era-${esc(e.id)}"', 'id="month-${esc(m.key)}"', 'id="axis-${i}"', 'id="haxis-${i}"', "id='hc-${cls}-${i}'", "id='pattern-${i}'", 'id="question-${q.id}"']) {
+    assert.ok(application.includes(marker), `search results can target ${marker}`);
+  }
+  assert.match(application, /const ANCHOR_ROUTES=new Set\(/);
+  assert.match(html, /\.route-kicker\{/);
 });
