@@ -124,9 +124,9 @@ test('the analytical data and citation metadata match the reviewed baseline', ()
   const supplement = application.match(/Object\.assign\(D\.citations,(\{[\s\S]*?\n\})\);/);
   const citations = runInNewContext(`(${supplement[1]})`, Object.create(null), { timeout: 1000 });
   const hash = createHash('sha256').update(JSON.stringify({ datasets, current, citations })).digest('hex');
-  // Baseline: the verification edition of 2026-09-02 (corrected archive entries, a 25-row matrix,
-  // dated protocol updates and complete citation metadata). Update it only together with a source review.
-  assert.equal(hash, '455a73ed7ebb7764c03aa4155398cd56a55a1229f31ea13172d4c968b2acc63a');
+  // Baseline: the verification edition of 2026-09-02 (corrected archive entries, a 25-row matrix
+  // and complete citation metadata). Update it only together with a source review.
+  assert.equal(hash, '565bd498c073131263b1f4270bd5b55a6bc58a9680c62abdcc5444b1df93b5aa');
 });
 
 function standaloneFunction(name, context = {}) {
@@ -229,21 +229,13 @@ test('every cited message resolves to a sender and date, except three membership
   assert.deepEqual(unresolved, [12045, 18919, 32020]);
 });
 
-test('the current matrix has 25 profiled participants and dated, sourced protocol updates', () => {
+test('the current matrix has 25 profiled participants, each with a longitudinal profile', () => {
   const current = currentData();
   assert.equal(current.positions.length, 25);
   for (const person of current.positions) {
     assert.ok(datasets.stakeholders.some(s => s.id === person.id), `${person.name} has a longitudinal profile`);
   }
-  assert.ok(current.protocolUpdates.length >= 2, 'facts checked after the chat cutoff are recorded separately');
-  for (const update of current.protocolUpdates) {
-    assert.match(update.date, /^\d{4}-\d{2}-\d{2}$/);
-    assert.ok(update.date >= current.evidenceCutoff, 'protocol updates never predate the chat cutoff');
-    assert.ok(update.kind && update.text.length > 40);
-    assert.ok(update.sources.length >= 1);
-    for (const [label, href] of update.sources) assert.ok(label && /^https:\/\//.test(href), 'every update names a public source');
-  }
-  assert.ok(/function protocolUpdatesHtml\(/.test(application), 'protocol updates are rendered apart from chat evidence');
+  assert.equal(current.protocolUpdates, undefined, 'the analytical layer carries chat evidence only');
   for (const key of ['eip-8141', 'eip-8130']) assert.ok(current.proposals[key].authors.length > 10, `${key} lists its official authors`);
 });
 
@@ -280,7 +272,7 @@ test('the shell has a search field, a small-screen search control and a search r
   assert.match(sidebar, /<label class="visually-hidden" for="site-search">/);
   assert.match(html, /<a class="btn" id="search-toggle" href="#\/search">/);
   assert.ok(/function vSearch\(/.test(application) && /function searchIndex\(/.test(application));
-  for (const marker of ["id='hq-${i}'", 'id="tp-${', 'id="era-${esc(e.id)}"', 'id="month-${esc(m.key)}"', 'id="axis-${i}"', 'id="haxis-${i}"', "id='hc-${cls}-${i}'", "id='pattern-${i}'", 'id="protocol-updates"', 'id="question-${q.id}"']) {
+  for (const marker of ["id='hq-${i}'", 'id="tp-${', 'id="era-${esc(e.id)}"', 'id="month-${esc(m.key)}"', 'id="axis-${i}"', 'id="haxis-${i}"', "id='hc-${cls}-${i}'", "id='pattern-${i}'", 'id="question-${q.id}"']) {
     assert.ok(application.includes(marker), `search results can target ${marker}`);
   }
   assert.match(application, /const ANCHOR_ROUTES=new Set\(/);
