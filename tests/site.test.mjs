@@ -40,7 +40,7 @@ test('the default route is current state and all 21 routes have renderers', () =
 test('8141 and 8130 are separate drafts with distinct evidence and specification dates', () => {
   const current = currentData();
   assert.equal(current.evidenceCutoff, '2026-08-27');
-  assert.equal(current.specChecked, '2026-08-28');
+  assert.equal(current.specChecked, '2026-09-02');
   for (const number of [8141, 8130]) {
     const proposal = current.proposals[`eip-${number}`];
     assert.equal(proposal.url, `https://eips.ethereum.org/EIPS/eip-${number}`);
@@ -119,13 +119,14 @@ test('publication metadata and a JavaScript-disabled explanation are retained', 
   assert.match(config, /publish = "\."/);
 });
 
-test('the UI iteration preserves all analytical data and citation metadata', () => {
+test('the analytical data and citation metadata match the reviewed baseline', () => {
   const current = currentData();
   const supplement = application.match(/Object\.assign\(D\.citations,(\{[\s\S]*?\n\})\);/);
   const citations = runInNewContext(`(${supplement[1]})`, Object.create(null), { timeout: 1000 });
   const hash = createHash('sha256').update(JSON.stringify({ datasets, current, citations })).digest('hex');
-  // Baseline: content commit 019c270, before the presentation-only iteration.
-  assert.equal(hash, '9a0c43b5dfc820f82da46a46ebe22844d034aff36fd946445eb44e5edf8eb1ba');
+  // Baseline: the verification edition of 2026-09-02 (corrected archive entries, a 25-row matrix,
+  // dated protocol updates and complete citation metadata). Update it only together with a source review.
+  assert.equal(hash, '455a73ed7ebb7764c03aa4155398cd56a55a1229f31ea13172d4c968b2acc63a');
 });
 
 function standaloneFunction(name, context = {}) {
@@ -201,4 +202,47 @@ test('compact archive records retain descriptions, dated status and full-history
     assert.ok(output.includes(proposal.status.as_of));
     assert.ok(output.includes(`href="#/proposals/${proposal.id}"`));
   }
+});
+
+test('every cited message resolves to a sender and date, except three membership events', () => {
+  const supplement = application.match(/Object\.assign\(D\.citations,(\{[\s\S]*?\n\})\);/);
+  const citations = { ...datasets.citations, ...runInNewContext(`(${supplement[1]})`, Object.create(null), { timeout: 1000 }) };
+  const ids = new Set();
+  const collect = (value, key = '') => {
+    if (Array.isArray(value)) {
+      if (/ids$/i.test(key)) value.forEach(id => { if (Number.isInteger(id)) ids.add(id); });
+      else value.forEach(item => collect(item));
+    } else if (value && typeof value === 'object') {
+      Object.entries(value).forEach(([name, child]) => collect(child, name));
+    } else if (typeof value === 'string') {
+      for (const [, group] of value.matchAll(/\[(\d{2,6}(?:\s*[,;–-]\s*\d{2,6})*)\]/g)) {
+        group.split(/[,;–-]/).map(x => Number(x.trim())).filter(x => x > 1 && x < 40000).forEach(x => ids.add(x));
+      }
+    }
+  };
+  for (const [name, data] of Object.entries(datasets)) if (name !== 'citations' && name !== 'activity') collect(data);
+  collect(currentData());
+  for (const [, list] of application.matchAll(/cite\(\[([\d,\s]+)\]\)/g)) list.split(',').forEach(id => ids.add(Number(id.trim())));
+  assert.ok(ids.size > 2000, 'the archive and the current layer cite thousands of messages');
+  const unresolved = [...ids].filter(id => !citations[id]).sort((a, b) => a - b);
+  // These three IDs are Telegram membership events without text; they stay cited but carry no sender.
+  assert.deepEqual(unresolved, [12045, 18919, 32020]);
+});
+
+test('the current matrix has 25 profiled participants and dated, sourced protocol updates', () => {
+  const current = currentData();
+  assert.equal(current.positions.length, 25);
+  for (const person of current.positions) {
+    assert.ok(datasets.stakeholders.some(s => s.id === person.id), `${person.name} has a longitudinal profile`);
+  }
+  assert.ok(current.protocolUpdates.length >= 2, 'facts checked after the chat cutoff are recorded separately');
+  for (const update of current.protocolUpdates) {
+    assert.match(update.date, /^\d{4}-\d{2}-\d{2}$/);
+    assert.ok(update.date >= current.evidenceCutoff, 'protocol updates never predate the chat cutoff');
+    assert.ok(update.kind && update.text.length > 40);
+    assert.ok(update.sources.length >= 1);
+    for (const [label, href] of update.sources) assert.ok(label && /^https:\/\//.test(href), 'every update names a public source');
+  }
+  assert.ok(/function protocolUpdatesHtml\(/.test(application), 'protocol updates are rendered apart from chat evidence');
+  for (const key of ['eip-8141', 'eip-8130']) assert.ok(current.proposals[key].authors.length > 10, `${key} lists its official authors`);
 });
