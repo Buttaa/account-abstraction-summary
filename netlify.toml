@@ -1,11 +1,11 @@
-# Netlify configuration — AA Mafia Chronicle
+# Netlify configuration — Native AA Guide
 # The site is a single self-contained HTML file; there is nothing to compile.
 
 [build]
   # Nothing to build: index.html is already complete. Netlify just publishes this directory.
   publish = "."
 
-# The report routes entirely in the URL hash (#/timeline, #/stakeholders/ivo …), so no SPA
+# The guide routes entirely in the URL hash (#/frames, #/stakeholders/ivo …), so no SPA
 # rewrite is strictly required. This rule only makes a hand-typed path such as /stakeholders
 # serve the app instead of Netlify's 404 page.
 [[redirects]]

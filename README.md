@@ -1,36 +1,33 @@
-# AA Coordination Map
+# Native AA Guide
 
-An evidence-linked map of Ethereum's account abstraction debate, centered on **EIP-8141** and **EIP-8130**. It explains what is being decided, who has said what, where agreement ends, and which research or implementation work could unlock progress.
+An educational guide to native account abstraction on Ethereum, built on top of an evidence-linked research record. The guide explains what **frame transactions (EIP-8141)** and **keystore accounts (EIP-8130)** are, what they add beyond ERC-4337 and EIP-7702, where to deploy and test them, and what is being built on top. The research record preserves what is being decided, who has said what, where agreement ends, and which work could unlock progress.
 
 [Production site](https://aabstraction.netlify.app/)
 
-## What "current" means
-
-The site keeps two evidence clocks apart:
-
-- **Chat evidence ends 27 August 2026.** Source: the AA Mafia Telegram export, 30,847 records including 27,336 user messages from 1,094 accounts. Every stakeholder position, consensus finding and open question cites messages from this export.
-- **Protocol facts were checked on 2 September 2026** against the official [EIP-7702](https://eips.ethereum.org/EIPS/eip-7702), [EIP-8141](https://eips.ethereum.org/EIPS/eip-8141), [EIP-8130](https://eips.ethereum.org/EIPS/eip-8130), [EIP-7906](https://eips.ethereum.org/EIPS/eip-7906) and [EIP-7701](https://eips.ethereum.org/EIPS/eip-7701) pages and the revision history of the EIP repository.
-
-Both 8141 and 8130 are Draft Core EIPs. The site is a dated snapshot of one discussion venue and the specifications as they stood at the review date. It reports fork status only as far as the chat records it, and implies no winner of the design debate.
-
 ## Inside the site
 
-| Section | Purpose |
-| --- | --- |
-| Current state | The decision boundary, the two proposals, recent changes and possible next steps |
-| 8141 vs 8130 | Mechanisms, assumptions, benefits, tradeoffs, ERC-4337 relationships and convergence hypotheses |
-| Why 7702 was not full AA | A plain-language explanation of what delegation solved, what the original key still controls, and what the new drafts add |
-| Position matrix | The latest observed position of 25 participants on both proposals, with dates, reasoning, confidence and citations |
-| Consensus | Shared goals and constraints, emerging convergence and proposal-specific motion |
-| Open questions | Ten evidence-linked questions, the opposing arguments and the work that could settle them |
-| Stakeholders, proposals and debate map | Current-first summaries with the longitudinal record still available |
-| Historical context | Direct pages for the overview, timeline, turning points, profiles, proposals, debates, matrix, consensus and earlier questions |
-| Method & caveats | Evidence clocks, classification rules, corrections and known limits |
-| Search | One search across pages, people, proposals, questions, findings, turning points and timeline periods; every hit links to the section where it lives |
+| Group | Pages | Purpose |
+| --- | --- | --- |
+| Learn | Start here · What are frames? · Beyond 7702 and 4337 · Keystore accounts · Trade-offs · Where to test · What is being built | Plain-language answers first, mechanics one level deeper, every post-cutoff fact linked to a public source |
+| Discussion | Shared goals · Open questions · Proposals · Debate map | Shared goals and constraints, unresolved questions with the competing arguments, every tracked proposal, and the fault lines beneath the choice |
+| Research record | Decision map · Position matrix · Stakeholders | The decision boundary at the discussion cutoff, the latest observed position of 25 participants on both proposals with dates, reasoning, confidence and citations, and 68 longitudinal profiles |
+| Background | How we got here · Turning points · Historical overview · the full archives | How the community argued its way from ERC-4337 to native AA |
+| About | Sources & method | The evidence clocks, how to read the research record, classification rules, corrections and known limits |
+| Search | One search across guide pages and sections, resources, milestones, people, proposals, questions, findings, turning points and timeline periods; every hit links to the section where it lives |
+
+## Three evidence clocks
+
+The site keeps three kinds of fact apart, each with its own date:
+
+- **Protocol mechanics** come from the official EIP pages (EIP-7702, EIP-8141, EIP-8130, EIP-7906 and the withdrawn EIP-7701) and were checked on 2 September 2026. They live in the `CURRENT` object.
+- **Fork status, deployments and tooling** come from public sources: All Core Developers call notes, the EIP pages for the companion drafts (EIP-8250, EIP-8272, EIP-8369, EIP-7805, EIP-7851, EIP-8202), client and reference repositories, Base's documentation and announcement, and public RPC endpoints queried directly. They live in the `PROTOCOL` object with a link per claim and were checked on 8 September 2026. They never feed the research record.
+- **Discussion evidence ends 27 August 2026.** Source: the AA Mafia Telegram export, 30,847 records including 27,336 user messages from 1,094 accounts. Every stakeholder position, consensus finding and open question cites messages from this export.
+
+Both 8141 and 8130 are Draft Core EIPs. The research record is a dated snapshot of one discussion venue; the guide pages report fork status as public sources record it after the cutoff. Neither implies a winner of the design debate.
 
 ## Evidence and corrections
 
-Every current position separates explicit statements, strong inference, tentative interpretation and insufficient evidence. Discussing a proposal, sharing a link, building a tool or appearing on an author list does not by itself count as support for the whole proposal. Silence is not agreement.
+Every current position separates explicit statements, strong inference, tentative interpretation and insufficient evidence. Discussing a proposal, sharing a link, building a tool or appearing on an author list does not by itself count as support for the whole proposal. Silence is not agreement. Positions are the latest explicit statement before the cutoff; views can change afterwards, and a later public statement always supersedes what is recorded here.
 
 Telegram citation chips link to the source message and show its sender and date on hover or keyboard focus. The group is private, so the links require membership. The raw export and the intermediate analysis are deliberately not included in this repository.
 
@@ -48,20 +45,20 @@ Corrections made in the September 2026 verification pass:
 
 Earlier corrections stand: EIP-8130 is analyzed apart from Tempo and EIPs 8202, 8221, 8223 and 8224; post-transaction assertions belong to the companion EIP-7906, not to the EIP-8141 core draft; Base's September rollout is an announced target, not an observed deployment; EIP-7702 is described as an AA enabler and deployed bridge, not as a failed upgrade.
 
-**Limits:** this chat is one coordination venue, not the whole Ethereum community. Unknown stances remain unknown. Plans are not adoption evidence, common goals are not implementation agreement, and draft specifications can change after the review date.
+**Limits:** this chat is one coordination venue, not the whole Ethereum community. Unknown stances remain unknown. Plans are not adoption evidence, common goals are not implementation agreement, and draft specifications can change after the review date. Endpoints and repositories listed on the testing page can move or disappear; listing is not an endorsement and says nothing about audit status.
 
 ## Reading-first interface
 
 The presentation follows [Emil Kowalski's Design Engineering](https://github.com/emilkowalski/skills/blob/d23d7f88a2e21c9e4b1418c7abe420f5c1052ba7/skills/emil-design-eng/SKILL.md) and [Apple Design](https://github.com/emilkowalski/skills/blob/d23d7f88a2e21c9e4b1418c7abe420f5c1052ba7/skills/apple-design/SKILL.md) guidance: restraint, a clear type hierarchy, the common path first, and detail one level deeper. The site is a single standalone file with no build step and no dependency other than Google Fonts.
 
-A site-wide search sits at the top of the navigation; press `/` to focus it, and on phones the header has a Search button. It indexes every page, profile, proposal, question, finding, turning point and timeline period, updates as you type, and links each hit to the section where it lives. The proposal archive and the matrix keep their local filters. Profiles, the 7702 explainer and the comparison deep dives keep their full detail in expandable sections.
+Each guide page opens with a short answer, then the mechanics, then onward links. A site-wide search sits at the top of the navigation; press `/` to focus it, and on phones the header has a Search button. The proposal archive and the matrix keep their local filters. Profiles, the 7702 explainer, the guide pages and the comparison deep dives keep their full detail in expandable sections.
 
-Each list page names its navigation group above the title. The matrix has striped rows; above 1100px its header stays visible while the page scrolls, and at narrower widths the stakeholder column stays pinned while the table scrolls sideways. Facts checked after the chat cutoff sit in one labeled block on the pages that use them. Appearance can follow the system or use the light or dark theme; a print stylesheet drops the navigation. Navigation has no decorative animation, and reduced-motion preferences disable press effects.
+Each list page names its navigation group above the title. The matrix has striped rows; above 1100px its header stays visible while the page scrolls, and at narrower widths the stakeholder column stays pinned while the table scrolls sideways. Appearance can follow the system or use the light or dark theme; a print stylesheet drops the navigation. Navigation has no decorative animation, and reduced-motion preferences disable press effects.
 
 ## Repository layout
 
 ```text
-index.html                  the coordination map: HTML, CSS, JavaScript and embedded data
+index.html                  the guide and the research record: HTML, CSS, JavaScript and embedded data
 netlify.toml                static publishing settings and security headers
 tests/site.test.mjs         dependency-free regression checks
 tests/BROWSER_CHECKS.md     repeatable UI verification checklist and local results
@@ -86,13 +83,17 @@ node --test tests/site.test.mjs
 git diff --check
 ```
 
-The tests check JavaScript syntax, all eleven embedded datasets, the 22 route renderers, source metadata for every cited message, the 7702 and historical sidebar destinations, dark-mode link contrast, and publication metadata. Presentation checks cover the search field and route, search normalization, ranking and highlighting, disclosure metadata, mobile menu markup and narrow-screen column sizing. A data fingerprint guards the analysis against accidental edits; update it deliberately, and only together with a source review. Tests do not prove an analytical claim on their own.
+The tests check JavaScript syntax, all eleven embedded datasets, the 27 route renderers, source metadata for every cited message, the sourcing of every protocol milestone and resource, the guide pages' key content and deep links, the sidebar destinations, dark-mode link contrast, publication metadata, search normalization and ranking, disclosure metadata, mobile menu markup and narrow-screen column sizing. A data fingerprint guards the datasets, the `CURRENT` and `PROTOCOL` objects and the citation metadata against accidental edits; update it deliberately, and only together with a source review. Tests do not prove an analytical claim on their own.
 
 Also run the [browser checklist](tests/BROWSER_CHECKS.md) at desktop and mobile widths. Static assertions alone do not prove layout or interaction behavior.
 
-## Updating the report
+## Updating the site
 
-There is no generator in this repository. Edit `index.html` directly. The JSON data blocks hold the longitudinal record; the `CURRENT` object and the current-view renderers hold the analytical layer. Add verified sender and date metadata whenever you introduce a citation. Keep current and historical classifications separate, and advance either evidence date only after a corresponding source review. Keep facts that postdate the chat cutoff out of the analytical layer.
+There is no generator in this repository. Edit `index.html` directly.
+
+- Protocol mechanics live in `CURRENT.proposals`; advance `CURRENT.specChecked` only after re-reading the drafts.
+- Fork status, milestones, companion drafts and testing resources live in `PROTOCOL`; every entry needs a public `https` source, and `PROTOCOL.checked` should move with each verification pass. Re-query the RPC endpoints listed on the testing page when you update it.
+- The research record lives in the JSON data blocks and in `CURRENT.positions`, `CURRENT.consensus`, `CURRENT.questions` and `CURRENT.signals`. Add verified sender and date metadata whenever you introduce a citation, keep current and historical classifications separate, advance the evidence date only after a corresponding source review, and keep facts that postdate the chat cutoff in `PROTOCOL`, not in the record.
 
 ## Delivery
 
@@ -100,4 +101,4 @@ Submit changes through a pull request against `main`. The existing Netlify confi
 
 ---
 
-The original report was generated with Claude; this edition re-verifies the analysis against the export and the official specifications. Interpretations are a coordination aid, not a protocol recommendation.
+The original report was generated with Claude; this edition re-verifies the analysis against the export and the official specifications and adds the educational layer. Interpretations are a coordination aid, not a protocol recommendation.
