@@ -133,6 +133,24 @@ test('publication metadata and a JavaScript-disabled explanation are retained', 
   assert.match(config, /publish = "\."/);
 });
 
+test('the header and every page footer present the guide as an EthCoordinate initiative', () => {
+  const sidebar = html.match(/<nav class="sidebar"[\s\S]*?<\/nav>/)[0];
+  const compact = html.match(/<header class="mobile-header">[\s\S]*?<\/header>/)[0];
+  for (const region of [sidebar, compact]) {
+    assert.ok(region.includes('An EthCoordinate initiative'), 'the header names EthCoordinate');
+    assert.ok(region.includes('<use href="#i-mark"/>'), 'the header carries the brand mark');
+  }
+  assert.ok(/<a class="brand-by" href="https:\/\/ethcoordinate\.org" target="_blank" rel="noopener">An EthCoordinate initiative<\/a>/.test(sidebar), 'the sidebar attribution links to ethcoordinate.org');
+  assert.equal(html.match(/<symbol id="i-mark"/g).length, 1, 'the brand mark is defined once, in the icon sprite');
+  const footer = application.match(/function siteFoot\(\)\{[\s\S]*?\n\}/);
+  assert.ok(footer, 'a site footer template exists');
+  assert.ok(footer[0].includes('An initiative of <a href="https://ethcoordinate.org" target="_blank" rel="noopener">EthCoordinate'), 'the footer links EthCoordinate');
+  assert.ok(footer[0].includes('<use href="#i-mark"/>'), 'the footer repeats the mark');
+  assert.ok(application.includes('main.insertAdjacentHTML("beforeend",siteFoot());'), 'the router appends the footer to every page');
+  assert.ok(/<link rel="icon" href="data:image\/svg\+xml,[^"]*M16 75 L33 27 L50 75 L67 27 L84 75/.test(html), 'the favicon is the same AA mark');
+  assert.ok(html.includes('<meta property="og:site_name" content="Native AA Guide · An EthCoordinate initiative">'), 'sharing metadata names the initiative');
+});
+
 test('the analytical data and citation metadata match the reviewed baseline', () => {
   const current = currentData();
   const supplement = application.match(/Object\.assign\(D\.citations,(\{[\s\S]*?\n\})\);/);

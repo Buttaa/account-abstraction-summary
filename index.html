@@ -14,11 +14,12 @@
 <meta property="og:description" content="What frames and keystore accounts are, what native account abstraction adds beyond ERC-4337 and EIP-7702, where to deploy and test, what is being built on top, and the evidence-linked research record behind the debate.">
 <meta property="og:url" content="https://aabstraction.netlify.app/">
 <meta property="og:locale" content="en">
+<meta property="og:site_name" content="Native AA Guide · An EthCoordinate initiative">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Native AA Guide — Frames (EIP-8141) &amp; Keystore Accounts (EIP-8130)">
 <meta name="twitter:description" content="An educational guide to native account abstraction on Ethereum: frames, keystore accounts, and what they make possible.">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%234f46b8'/%3E%3Cg fill='none' stroke='%23fff' stroke-width='8' stroke-linecap='round'%3E%3Cpath d='M26 72 L50 28 L74 72'/%3E%3Cpath d='M36 56 H64'/%3E%3C/g%3E%3C/svg%3E">
-<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%234f46b8'/%3E%3Cg fill='none' stroke='%23fff' stroke-width='8' stroke-linecap='round'%3E%3Cpath d='M26 72 L50 28 L74 72'/%3E%3Cpath d='M36 56 H64'/%3E%3C/g%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%234f46b8'/%3E%3Cg fill='none' stroke='%23fff' stroke-width='9' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M16 75 L33 27 L50 75 L67 27 L84 75'/%3E%3Cpath d='M23 57.5 H77'/%3E%3C/g%3E%3C/svg%3E">
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%234f46b8'/%3E%3Cg fill='none' stroke='%23fff' stroke-width='9' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M16 75 L33 27 L50 75 L67 27 L84 75'/%3E%3Cpath d='M23 57.5 H77'/%3E%3C/g%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600;8..60,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -464,6 +465,10 @@ code{font-family:var(--mono);font-size:.92em}
 .brand{padding:.25rem .625rem 1rem}
 .brand h1{font-family:var(--sans);font-size:1.0625rem;line-height:1.3;letter-spacing:-.025em}
 .brand .sub{font-size:.6875rem;line-height:1.6;margin-top:.625rem}
+.brand h1 a{display:flex;align-items:center;gap:.5rem;color:var(--ink);text-decoration:none}
+.brand-mark{display:block;width:24px;height:24px;flex-shrink:0;color:var(--accent-ink)}
+.brand-by,a.brand-by:visited{display:inline-block;margin-top:.5rem;font-family:var(--mono);font-size:.5625rem;font-weight:500;line-height:1.4;letter-spacing:.1em;text-transform:uppercase;color:var(--ink2);text-decoration:none;white-space:nowrap}
+a.brand-by:hover,a.brand-by:focus-visible{color:var(--accent-ink)}
 .navsec{padding:1.125rem .625rem .375rem;font-size:.625rem;letter-spacing:.09em}
 a.navlink{min-height:34px;gap:.5625rem;padding:.375rem .625rem;font-size:.78125rem;border-radius:6px;line-height:1.5;transition:none}
 /* Icons carry the link color and stay quieter than the label until the row is active. */
@@ -652,6 +657,13 @@ h3.sect,.section-intro h3,.consensus-group h3{font-family:var(--sans);font-size:
 .scard,.pcard{transition:none}
 .scard:hover,.pcard:hover{transform:none;box-shadow:none}
 .footer-note{margin-top:2.5rem;font-size:.75rem;line-height:1.7}
+.site-foot{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.75rem 1.5rem;margin-top:3rem;padding-top:1.25rem;border-top:1px solid var(--line);font-size:.75rem;line-height:1.6;color:var(--ink3)}
+.footer-note+.site-foot{margin-top:2rem}
+a.site-foot-brand,a.site-foot-brand:visited{display:inline-flex;align-items:center;gap:.5rem;color:var(--ink);font-size:.8125rem;font-weight:600;letter-spacing:-.01em;text-decoration:none}
+.site-foot-brand .brand-mark{width:20px;height:20px}
+.site-foot-by{font-family:var(--mono);font-size:.625rem;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--ink2)}
+.site-foot-by a,.site-foot-by a:visited{color:inherit;text-decoration:underline;text-decoration-color:var(--line2);text-underline-offset:3px}
+.site-foot-by a:hover,.site-foot-by a:focus-visible{color:var(--accent-ink);text-decoration-color:currentColor}
 .csintro{font-size:.9375rem;line-height:1.7}
 
 /* ---------- section rhythm ---------- */
@@ -718,10 +730,14 @@ a.claim-card:after{content:"→";position:absolute;top:1rem;right:0;color:var(--
 }
 @media(max-width:1100px){.table-hint{display:block}}
 @media(max-width:900px){
-  .mobile-header{display:flex;position:sticky;top:0;z-index:10;align-items:center;justify-content:space-between;gap:1rem;padding:.625rem 1rem;border-bottom:1px solid var(--line);background:var(--bg)}
-  .mobile-brand{font-size:.875rem;font-weight:700;color:var(--ink)!important;text-decoration:none;letter-spacing:-.02em}
-  .mobile-header .btn{min-width:72px;min-height:44px;background:none}
-  .sidebar{width:100%;height:auto;position:relative;display:flex;flex-direction:column;flex-wrap:nowrap;padding:.75rem 1rem 1.5rem;max-height:calc(100dvh - 62px);overflow:auto;gap:0}
+  .mobile-header{display:flex;position:sticky;top:0;z-index:10;align-items:center;justify-content:space-between;gap:.75rem;padding:.625rem .75rem;border-bottom:1px solid var(--line);background:var(--bg)}
+  .mobile-brand{display:flex;align-items:center;gap:.375rem;min-width:0;color:var(--ink)!important;text-decoration:none}
+  .mobile-brand .brand-mark{width:20px;height:20px}
+  .mobile-brand .brand-text{display:flex;flex-direction:column;min-width:0}
+  .mobile-brand .brand-name{font-size:.875rem;font-weight:700;letter-spacing:-.02em;line-height:1.25}
+  .mobile-brand .brand-by{margin-top:.125rem;letter-spacing:.05em;white-space:normal}
+  .mobile-header .btn{min-width:64px;min-height:44px;padding:.5rem;background:none}
+  .sidebar{width:100%;height:auto;position:relative;display:flex;flex-direction:column;flex-wrap:nowrap;padding:.75rem 1rem 1.5rem;max-height:calc(100dvh - 66px);overflow:auto;gap:0}
   .sidebar:not(.is-open){display:none}
   .sidebar .brand{display:none}
   .sidebar .navsec{width:auto;padding:.75rem .625rem .25rem}
@@ -826,7 +842,8 @@ button.text-link{background:none;border:0;cursor:pointer;font:inherit;font-size:
 <body>
 <noscript>
   <div style="max-width:640px;margin:14vh auto;padding:0 24px;font:16px/1.6 var(--sans);color:var(--ink)">
-    <h1 style="font:700 26px/1.2 var(--serif);margin-bottom:12px">Native AA Guide</h1>
+    <h1 style="font:700 26px/1.2 var(--serif);margin-bottom:6px">Native AA Guide</h1>
+    <p style="font:500 11px/1.4 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);margin-bottom:16px">An EthCoordinate initiative</p>
     <p>This guide needs JavaScript to render its explainers, proposals, stakeholder positions and historical views.
     All data is embedded in this file. Nothing is downloaded and no sign-in is needed.</p>
   </div>
@@ -834,7 +851,7 @@ button.text-link{background:none;border:0;cursor:pointer;font:inherit;font-size:
 
 <a class="skiplink" href="#main">Skip to page content</a>
 <header class="mobile-header">
-  <a class="mobile-brand" href="#/current">Native AA Guide</a>
+  <a class="mobile-brand" href="#/current"><svg class="brand-mark" aria-hidden="true" focusable="false"><use href="#i-mark"/></svg><span class="brand-text"><span class="brand-name">Native AA Guide</span><span class="brand-by">An EthCoordinate initiative</span></span></a>
   <div class="mobile-actions">
     <a class="btn" id="search-toggle" href="#/search">Search</a>
     <button class="btn" id="menu-toggle" type="button" aria-expanded="false" aria-controls="sidebar">Menu</button>
@@ -861,12 +878,16 @@ button.text-link{background:none;border:0;cursor:pointer;font:inherit;font-size:
     <symbol id="i-tools" viewBox="0 0 16 16"><path d="M10 2.5l3.5 3.5-2.25 2.25L7.75 4.75zM7.75 4.75L2.5 10v3.5H6l5.25-5.25"/></symbol>
     <symbol id="i-build" viewBox="0 0 16 16"><path d="M2.5 13.5h11M4 13.5V6.5l4-3 4 3v7"/><path d="M6.5 13.5v-3h3v3"/></symbol>
     <symbol id="i-info" viewBox="0 0 16 16"><circle cx="8" cy="8" r="5.75"/><path d="M8 7.5v3.5"/><circle cx="8" cy="5.15" r=".7" fill="currentColor" stroke="none"/></symbol>
+    <!-- Brand mark: two A's on one crossbar, the guide's "AA". The favicon in <head> is the same
+         geometry on the accent tile. Strokes are set here so the mark also renders outside .navlink. -->
+    <symbol id="i-mark" viewBox="0 0 32 32"><path d="M5.1 24 10.6 8.6 16 24 21.4 8.6 26.9 24M7.4 18.4h17.2" fill="none" stroke="currentColor" stroke-width="2.9" stroke-linecap="round" stroke-linejoin="round"/></symbol>
   </defs>
 </svg>
 <div class="app">
   <nav class="sidebar" id="sidebar" aria-label="Primary navigation">
     <div class="brand">
-      <h1>Native AA Guide</h1>
+      <h1><a href="#/current"><svg class="brand-mark" aria-hidden="true" focusable="false"><use href="#i-mark"/></svg>Native AA Guide</a></h1>
+      <a class="brand-by" href="https://ethcoordinate.org" target="_blank" rel="noopener">An EthCoordinate initiative</a>
       <div class="sub">Frames, keystore accounts and what they make possible, with the research record behind the debate</div>
     </div>
     <form class="sidesearch" role="search" onsubmit="return false">
@@ -1393,6 +1414,11 @@ let keepFocus=false;
 // Pages whose sections carry ids that search results and shared links can target.
 const ANCHOR_ROUTES=new Set(["current","decision","frames","7702","keystore","build","ecosystem","comparison","questions","history-questions","consensus","history-consensus","turning-points","history-turning-points","timeline","history-timeline","debate-map","history-debates"]);
 const ROUTE_GROUPS={current:"Learn",frames:"Learn",7702:"Learn",keystore:"Learn",comparison:"Learn",build:"Learn",ecosystem:"Learn",consensus:"Discussion",questions:"Discussion",proposals:"Discussion","debate-map":"Discussion",decision:"Research record",matrix:"Research record",stakeholders:"Research record",overview:"Background","history-timeline":"Background","history-turning-points":"Background","history-stakeholders":"Background","history-proposals":"Background","history-debates":"Background","history-matrix":"Background","history-consensus":"Background","history-questions":"Background",timeline:"Background","turning-points":"Background",about:"About"};
+/* Site footer, appended to every page: the EthCoordinate attribution and the way home
+   survive printing, which drops the sidebar and the compact header. */
+function siteFoot(){
+  return `<footer class="site-foot"><a class="site-foot-brand" href="#/current"><svg class="brand-mark" aria-hidden="true" focusable="false"><use href="#i-mark"/></svg>Native AA Guide</a><span class="site-foot-by">An initiative of <a href="https://ethcoordinate.org" target="_blank" rel="noopener">EthCoordinate ↗</a></span></footer>`;
+}
 function router(){
   const h=(location.hash||"#/current").replace(/^#\//,"");
   const [page,rawId]=h.split("/");
@@ -1405,6 +1431,7 @@ function router(){
   });
   if(!keepFocus)setMenuOpen(false);
   (routes[page]||vHome)(id);
+  main.insertAdjacentHTML("beforeend",siteFoot());
   // Orientation: name the navigation group above every list-style page title.
   const pagetitle=main.querySelector("h2.pagetitle");
   if(pagetitle&&ROUTE_GROUPS[resolvedPage]&&!main.querySelector(".route-kicker"))pagetitle.insertAdjacentHTML("beforebegin",`<p class="route-kicker">${esc(ROUTE_GROUPS[resolvedPage])}</p>`);

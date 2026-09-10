@@ -25,6 +25,14 @@ Serve the repository locally and open `index.html`. These browser checks complem
 19. Each list page names its navigation group above the title, and stakeholder directory rows show a one-line affiliation without citation brackets.
 20. Test both Appearance themes. Badges, code blocks, stance labels and primary links must remain readable. Inspect native summary semantics, focus styles, accessible source-link labels and the reduced-motion stylesheet.
 21. Enter harmless markup-like search text, navigate away and return. It must remain plain search text, not create elements. Search makes no network requests and stores no data.
+22. Attribution: on desktop the sidebar shows the AA mark, “Native AA Guide” and “An EthCoordinate initiative”, and the latter opens ethcoordinate.org in a new tab. On phones the compact header shows the same lockup, on one line at 360px and wider. Every page ends with a footer that repeats the mark and links EthCoordinate, and the footer stays in place after filtering the matrix or either stakeholder list. In print preview the navigation is gone but the footer attribution remains. The browser tab shows the AA mark as the favicon.
+
+## Verification, 10 September 2026 (attribution)
+
+- `node --test tests/site.test.mjs`: 21 passed, including a new check that the sidebar, the compact header and the per-page footer name EthCoordinate, that the footer links ethcoordinate.org, that the router appends the footer to every route, and that the favicon carries the same mark.
+- Headless Chrome walked 30 routes (every page plus a search query): each rendered exactly one footer with no script errors; the footer stayed after toggling the archive matrix filter, searching the current matrix and both stakeholder lists, filtering the proposal archive and the questions; under print media the sidebar and compact header were hidden and the footer visible.
+- At 320px no route scrolled sideways; the compact header stayed at 66px with the name on one line (the caption wraps to two lines below 360px). The sidebar caption sits inside the brand column at 1440px.
+- Screenshots of the sidebar (light and dark), the compact header at 320, 360, 390 and 768px, the footer at 1440 and 390px and the favicon at 16 to 180px were inspected.
 
 ## Verification, 8 September 2026 (educational edition)
 

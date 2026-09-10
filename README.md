@@ -1,5 +1,7 @@
 # Native AA Guide
 
+**An [EthCoordinate](https://ethcoordinate.org) initiative.**
+
 An educational guide to native account abstraction on Ethereum, built on top of an evidence-linked research record. The guide explains what **frame transactions (EIP-8141)** and **keystore accounts (EIP-8130)** are, what they add beyond ERC-4337 and EIP-7702, where to deploy and test them, and what is being built on top. The research record preserves what is being decided, who has said what, where agreement ends, and which work could unlock progress.
 
 [Production site](https://aabstraction.netlify.app/)
@@ -52,6 +54,8 @@ Earlier corrections stand: EIP-8130 is analyzed apart from Tempo and EIPs 8202, 
 The presentation follows [Emil Kowalski's Design Engineering](https://github.com/emilkowalski/skills/blob/d23d7f88a2e21c9e4b1418c7abe420f5c1052ba7/skills/emil-design-eng/SKILL.md) and [Apple Design](https://github.com/emilkowalski/skills/blob/d23d7f88a2e21c9e4b1418c7abe420f5c1052ba7/skills/apple-design/SKILL.md) guidance: restraint, a clear type hierarchy, the common path first, and detail one level deeper. The site is a single standalone file with no build step and no dependency other than Google Fonts.
 
 Each guide page opens with a short answer, then the mechanics, then onward links. A site-wide search sits at the top of the navigation; press `/` to focus it, and on phones the header has a Search button. The proposal archive and the matrix keep their local filters. Profiles, the 7702 explainer, the guide pages and the comparison deep dives keep their full detail in expandable sections.
+
+The header carries the guide's mark, two A's on one crossbar, drawn once as an inline SVG symbol and reused as the favicon, and names the guide as an EthCoordinate initiative. Every page ends with a footer that repeats the mark and links EthCoordinate, so the attribution also survives printing, which drops the navigation.
 
 Each list page names its navigation group above the title. The matrix has striped rows; above 1100px its header stays visible while the page scrolls, and at narrower widths the stakeholder column stays pinned while the table scrolls sideways. Appearance can follow the system or use the light or dark theme; a print stylesheet drops the navigation. Navigation has no decorative animation, and reduced-motion preferences disable press effects.
 
